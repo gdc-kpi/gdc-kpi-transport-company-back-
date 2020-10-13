@@ -75,8 +75,9 @@ public class AuthController {
                 signUpRequest.getEmail(),
                 encoder.encode(signUpRequest.getPassword()),
                 signUpRequest.getRole(),
-                signUpRequest.isActivated(),
-                signUpRequest.getLink());
+                false,
+                //we have to create some function that generates link
+                "");
 
         userRepository.save(user);
 

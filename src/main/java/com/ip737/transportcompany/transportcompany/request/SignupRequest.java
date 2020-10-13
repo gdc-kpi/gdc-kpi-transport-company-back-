@@ -10,6 +10,4 @@ public class SignupRequest {
     private String email;
     private String role;
     private String password;
-    private boolean isActivated;
-    private String link;
 }
