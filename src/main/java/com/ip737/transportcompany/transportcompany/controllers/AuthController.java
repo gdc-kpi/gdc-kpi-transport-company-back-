@@ -51,7 +51,9 @@ public class AuthController {
                 userDetails.getId(),
                 userDetails.getUsername(),
                 userDetails.getEmail(),
-                userDetails.getRole()));
+                userDetails.getRole(),
+                userDetails.isActivated(),
+                userDetails.getLink()));
     }
 
     @PostMapping("/sign-up")
@@ -72,7 +74,9 @@ public class AuthController {
         User user = new User(signUpRequest.getUsername(),
                 signUpRequest.getEmail(),
                 encoder.encode(signUpRequest.getPassword()),
-                signUpRequest.getRole());
+                signUpRequest.getRole(),
+                signUpRequest.isActivated(),
+                signUpRequest.getLink());
 
         userRepository.save(user);
 

@@ -21,13 +21,17 @@ public class User {
     private String email;
     private String password;
     private String role;
+    private boolean isActivated;
+    private String link;
 
     public User(){}
 
-    public User(String username, String email, String password, String role) {
+    public User(String username, String email, String password, String role, boolean isActivated, String link) {
         this.username = username;
         this.email = email;
         this.password = password;
         this.role = role;
+        this.isActivated = isActivated;
+        this.link = link;
     }
 }
