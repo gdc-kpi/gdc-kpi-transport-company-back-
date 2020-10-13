@@ -63,6 +63,7 @@
 			<groupId>org.wso2.carbon.identity.inbound.auth.jwt</groupId>
 			<artifactId>identity-inbound-auth-jwtsso</artifactId>
 			<version>1.0.1</version>
+			<type>pom</type>
 		</dependency>
 
 		<dependency>
