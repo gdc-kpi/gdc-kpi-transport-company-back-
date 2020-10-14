@@ -5,8 +5,8 @@ import lombok.Setter;
 
 @Getter
 @Setter
-public class SignupRequest {
-    private String username;
+public class SignUpRequest {
+    private String fullName;
     private String email;
     private String role;
     private String password;

@@ -1,7 +1,7 @@
 package com.ip737.transportcompany.transportcompany.controllers;
 
 import com.ip737.transportcompany.transportcompany.request.LoginRequest;
-import com.ip737.transportcompany.transportcompany.request.SignupRequest;
+import com.ip737.transportcompany.transportcompany.request.SignUpRequest;
 import com.ip737.transportcompany.transportcompany.response.JwtResponse;
 import com.ip737.transportcompany.transportcompany.response.MessageResponse;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -36,7 +36,7 @@ public class AuthController {
     @Autowired
     JwtUtils jwtUtils;
 
-    @PostMapping("/sign-in")
+    @PostMapping("/log-in")
     public ResponseEntity<?> authenticateUser(@RequestBody LoginRequest loginRequest) {
 
         Authentication authentication = authenticationManager.authenticate(
@@ -57,12 +57,7 @@ public class AuthController {
     }
 
     @PostMapping("/sign-up")
-    public ResponseEntity<?> registerUser(@RequestBody SignupRequest signUpRequest) {
-        if (userRepository.existsByUsername(signUpRequest.getUsername())) {
-            return ResponseEntity
-                    .badRequest()
-                    .body(new MessageResponse("Error: Username is already taken!"));
-        }
+    public ResponseEntity<?> registerUser(@RequestBody SignUpRequest signUpRequest) {
         if (userRepository.existsByEmail(signUpRequest.getEmail())) {
             return ResponseEntity
                     .badRequest()
@@ -70,9 +65,9 @@ public class AuthController {
         }
 
         // Create new user's account
-        User user = new User(signUpRequest.getUsername(),
+        User user = new User(signUpRequest.getFullName(),
                 signUpRequest.getEmail(),
-                encoder.encode(signUpRequest.getPassword()),
+                signUpRequest.getPassword(),
                 signUpRequest.getRole(),
                 false,
                 //we have to create some function that generates link
