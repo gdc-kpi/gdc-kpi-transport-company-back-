@@ -1,4 +1,4 @@
-package com.ip737.transportcompany.transportcompany.models;
+package com.ip737.transportcompany.transportcompany.data.entities;
 
 import lombok.*;
 import org.hibernate.annotations.GenericGenerator;
@@ -11,6 +11,7 @@ import java.util.UUID;
 @Setter
 @EqualsAndHashCode
 @ToString
+@Builder
 @Table(name = "users")
 public class User {
     @Id
@@ -28,16 +29,4 @@ public class User {
     private String role;
     private boolean isActivated;
     private String link;
-
-    public User() {
-    }
-
-    public User(String fullname, String email, String password, String role, boolean isActivated, String link) {
-        this.fullname = fullname;
-        this.email = email;
-        this.password = password;
-        this.role = role;
-        this.isActivated = isActivated;
-        this.link = link;
-    }
 }

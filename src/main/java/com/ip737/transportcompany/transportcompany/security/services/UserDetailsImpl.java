@@ -2,7 +2,7 @@ package com.ip737.transportcompany.transportcompany.security.services;
 
 import java.util.Collection;
 
-import com.ip737.transportcompany.transportcompany.models.User;
+import com.ip737.transportcompany.transportcompany.data.entities.User;
 import lombok.*;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
