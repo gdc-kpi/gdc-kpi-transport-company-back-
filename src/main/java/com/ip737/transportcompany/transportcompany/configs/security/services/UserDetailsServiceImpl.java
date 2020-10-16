@@ -1,4 +1,4 @@
-package com.ip737.transportcompany.transportcompany.security.services;
+package com.ip737.transportcompany.transportcompany.configs.security.services;
 
 import com.ip737.transportcompany.transportcompany.data.dao.UserDao;
 import com.ip737.transportcompany.transportcompany.data.entities.User;
@@ -19,7 +19,7 @@ public class UserDetailsServiceImpl implements UserDetailsService {
     public UserDetails loadUserByUsername(String email) throws UsernameNotFoundException {
         User user = userDao.getByEmail(email);
         if (user == null) {
-            throw new UsernameNotFoundException("User Not Found with email: " + email);
+            throw new UsernameNotFoundException("User not found with email: " + email);
         }
         return UserDetailsImpl.build(user);
     }

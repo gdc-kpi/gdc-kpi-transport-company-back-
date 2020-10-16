@@ -1,6 +1,6 @@
 package com.ip737.transportcompany.transportcompany.data.dao.impl;
 
-import com.ip737.transportcompany.transportcompany.constants.SqlConstants;
+import com.ip737.transportcompany.transportcompany.configs.constants.SqlConstants;
 import com.ip737.transportcompany.transportcompany.data.dao.UserDao;
 import com.ip737.transportcompany.transportcompany.data.rowmappers.UserMapper;
 import com.ip737.transportcompany.transportcompany.data.entities.User;
@@ -60,13 +60,11 @@ public class UserDaoImpl implements UserDao {
     }
 
     @Override
-    public User save(User user, int roleId) {
+    public void save(User user, int roleId) {
         jdbcTemplate.update(SqlConstants.USER_SAVE_QUERY,
                 UUID.randomUUID(), user.getFullname(), user.getEmail(), roleId, user.getPassword(),
                 user.isActivated(), user.getLink()
         );
-
-        return getByEmail(user.getEmail());
     }
 
     @Override

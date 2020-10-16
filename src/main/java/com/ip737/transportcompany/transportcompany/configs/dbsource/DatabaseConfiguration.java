@@ -1,4 +1,4 @@
-package com.ip737.transportcompany.transportcompany;
+package com.ip737.transportcompany.transportcompany.configs.dbsource;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;

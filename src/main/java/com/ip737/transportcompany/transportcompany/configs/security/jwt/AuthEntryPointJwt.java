@@ -1,4 +1,4 @@
-package com.ip737.transportcompany.transportcompany.security.jwt;
+package com.ip737.transportcompany.transportcompany.configs.security.jwt;
 
 import java.io.IOException;
 

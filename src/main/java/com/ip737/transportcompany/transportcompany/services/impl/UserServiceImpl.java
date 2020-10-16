@@ -1,8 +1,9 @@
 package com.ip737.transportcompany.transportcompany.services.impl;
 
-import com.ip737.transportcompany.transportcompany.constants.Constants;
+import com.ip737.transportcompany.transportcompany.configs.constants.Constants;
 import com.ip737.transportcompany.transportcompany.data.dao.UserDao;
 import com.ip737.transportcompany.transportcompany.data.entities.User;
+import com.ip737.transportcompany.transportcompany.exceptions.ValidationException;
 import com.ip737.transportcompany.transportcompany.services.UserService;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -10,8 +11,6 @@ import org.springframework.context.annotation.PropertySource;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 
-import javax.xml.bind.ValidationException;
-import java.util.Date;
 import java.util.Random;
 
 @Slf4j
@@ -30,11 +29,11 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public User save(User newUser) throws ValidationException {
+    public void save(User newUser) {
         if (userDao.getByEmail(newUser.getEmail()) != null) {
             throw new ValidationException(Constants.EMAIl_TAKEN + newUser.getEmail());
         }
-        int roleId = (newUser.getRole() == Constants.ROLE_ADMIN) ? Constants.ROLE_ADMIN_ID : Constants.ROLE_DRIVER_ID;
+        int roleId = (newUser.getRole().equals(Constants.ROLE_ADMIN)) ? Constants.ROLE_ADMIN_ID : Constants.ROLE_DRIVER_ID;
         Random random = new Random();
         User user = User.builder()
                 .password(newUser.getPassword())
@@ -44,15 +43,13 @@ public class UserServiceImpl implements UserService {
                 .link(bCryptPasswordEncoder.encode(newUser.getFullname() + newUser.getEmail() + random))
                 .build();
 
-        User savedUser = userDao.save(user, roleId);
+        userDao.save(user, roleId);
 
 //        try {
 //            mailService.sendMailMessage(mailService.createBasicRegMail(savedUser), userRegTemplate);
 //        } catch (MessagingException e) {
 //            log.error(String.format(Constants.REG_MAIL_NOT_SENT, user.getUsername()), e);
 //        }
-
-        return savedUser;
     }
 
     @Override

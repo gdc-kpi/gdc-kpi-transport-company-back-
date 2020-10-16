@@ -6,7 +6,7 @@ public interface UserDao {
 
     User getByEmail(String email);
 
-    User save(User user, int roleId);
+    void save(User user, int roleId);
 
     void update(User user);
 

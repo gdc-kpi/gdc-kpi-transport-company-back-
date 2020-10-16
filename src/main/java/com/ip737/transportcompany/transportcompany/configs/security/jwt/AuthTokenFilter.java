@@ -1,4 +1,4 @@
-package com.ip737.transportcompany.transportcompany.security.jwt;
+package com.ip737.transportcompany.transportcompany.configs.security.jwt;
 
 import java.io.IOException;
 
@@ -17,7 +17,7 @@ import org.springframework.security.web.authentication.WebAuthenticationDetailsS
 import org.springframework.util.StringUtils;
 import org.springframework.web.filter.OncePerRequestFilter;
 
-import com.ip737.transportcompany.transportcompany.security.services.UserDetailsServiceImpl;
+import com.ip737.transportcompany.transportcompany.configs.security.services.UserDetailsServiceImpl;
 
 public class AuthTokenFilter extends OncePerRequestFilter {
     @Autowired

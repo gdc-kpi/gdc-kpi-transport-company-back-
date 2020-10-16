@@ -1,4 +1,4 @@
-package com.ip737.transportcompany.transportcompany.constants;
+package com.ip737.transportcompany.transportcompany.configs.constants;
 
 public class SqlConstants {
     public static final String USER_SAVE_QUERY =

@@ -1,4 +1,4 @@
-package com.ip737.transportcompany.transportcompany.security.services;
+package com.ip737.transportcompany.transportcompany.configs.security.services;
 
 import java.util.Collection;
 
@@ -18,7 +18,7 @@ public class UserDetailsImpl implements UserDetails {
     private static final long serialVersionUID = 1L;
 
     private String id;
-    private String username;
+    private String fullName;
     private String email;
     @JsonIgnore
     private String password;
@@ -26,10 +26,10 @@ public class UserDetailsImpl implements UserDetails {
     private boolean isActivated;
     private String link;
 
-    public UserDetailsImpl(String id, String username, String email, String password,
+    public UserDetailsImpl(String id, String fullName, String email, String password,
                            String role, boolean isActivated, String link) {
         this.id = id;
-        this.username = username;
+        this.fullName = fullName;
         this.email = email;
         this.password = password;
         this.role = role;
@@ -51,6 +51,11 @@ public class UserDetailsImpl implements UserDetails {
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
         return null;
+    }
+
+    @Override
+    public String getUsername() {
+        return this.fullName;
     }
 
     @Override

@@ -1,4 +1,4 @@
-package com.ip737.transportcompany.transportcompany.security.jwt;
+package com.ip737.transportcompany.transportcompany.configs.security.jwt;
 
 import java.util.Date;
 
@@ -8,7 +8,7 @@ import org.springframework.beans.factory.annotation.Value;
 import org.springframework.security.core.Authentication;
 import org.springframework.stereotype.Component;
 
-import com.ip737.transportcompany.transportcompany.security.services.UserDetailsImpl;
+import com.ip737.transportcompany.transportcompany.configs.security.services.UserDetailsImpl;
 import io.jsonwebtoken.*;
 
 @Component

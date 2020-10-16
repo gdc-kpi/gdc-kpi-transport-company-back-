@@ -1,12 +1,11 @@
 package com.ip737.transportcompany.transportcompany.services;
 
 import com.ip737.transportcompany.transportcompany.data.entities.User;
-
-import javax.xml.bind.ValidationException;
+import com.ip737.transportcompany.transportcompany.exceptions.ValidationException;
 
 public interface UserService {
 
-    User save(User user) throws ValidationException;
+    void save(User user);
 
     User getByActivationUrl(String activationUrl);
 

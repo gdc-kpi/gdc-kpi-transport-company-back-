@@ -1,4 +1,4 @@
-package com.ip737.transportcompany.transportcompany.security;
+package com.ip737.transportcompany.transportcompany.configs.security;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
@@ -13,9 +13,9 @@ import org.springframework.security.config.http.SessionCreationPolicy;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
 
-import com.ip737.transportcompany.transportcompany.security.services.UserDetailsServiceImpl;
-import com.ip737.transportcompany.transportcompany.security.jwt.AuthEntryPointJwt;
-import com.ip737.transportcompany.transportcompany.security.jwt.AuthTokenFilter;
+import com.ip737.transportcompany.transportcompany.configs.security.services.UserDetailsServiceImpl;
+import com.ip737.transportcompany.transportcompany.configs.security.jwt.AuthEntryPointJwt;
+import com.ip737.transportcompany.transportcompany.configs.security.jwt.AuthTokenFilter;
 
 @Configuration
 @EnableWebSecurity
