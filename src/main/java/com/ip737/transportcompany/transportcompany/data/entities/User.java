@@ -29,4 +29,5 @@ public class User {
     private String role;
     private boolean isActivated;
     private String link;
+    private String recoveryLink;
 }

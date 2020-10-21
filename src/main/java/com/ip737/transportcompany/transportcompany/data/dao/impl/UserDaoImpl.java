@@ -26,26 +26,24 @@ public class UserDaoImpl implements UserDao {
 
     @Override
     public User getByActivationUrl(String activationUrl) {
-//        try {
-//            return jdbcTemplate.queryForObject(SqlConstants.USERS_GET_BY_ACTIVATION_URL,
-//                    new Object[]{activationUrl},
-//                    new UserMapper());
-//        } catch (EmptyResultDataAccessException exception) {
-//            return null;
-//        }
-        return null;
+        try {
+            return jdbcTemplate.queryForObject(SqlConstants.USERS_GET_BY_ACTIVATION_URL,
+                    new Object[]{activationUrl},
+                    new UserMapper());
+        } catch (EmptyResultDataAccessException exception) {
+            return null;
+        }
     }
 
     @Override
     public User getByRecoverUrl(String recoverUrl) {
-//        try {
-//            return jdbcTemplate.queryForObject(SqlConstants.USERS_GET_BY_RECOVERY_URL,
-//                    new Object[]{recoverUrl},
-//                    new UserMapper());
-//        } catch (EmptyResultDataAccessException exception) {
-//            return null;
-//        }
-        return null;
+        try {
+            return jdbcTemplate.queryForObject(SqlConstants.USERS_GET_BY_RECOVERY_URL,
+                    new Object[]{recoverUrl},
+                    new UserMapper());
+        } catch (EmptyResultDataAccessException exception) {
+            return null;
+        }
     }
 
     @Override
@@ -69,10 +67,9 @@ public class UserDaoImpl implements UserDao {
 
     @Override
     public void update(User user) {
-//        jdbcTemplate.update(SqlConstants.USER_UPDATE_QUERY_BY_ID,
-//                user.getUsername(), user.getEmail(), user.getPassword(), user.isActivated(), user.isVerified(),
-//                user.getLastTimeOnline(), user.getImage(), user.getAboutMe(), user.getRecoveryUrl(),
-//                user.getRecoverySentTime(), user.getRole().ordinal() + 1, user.getId());
+        jdbcTemplate.update(SqlConstants.USER_UPDATE_QUERY_BY_ID,
+                user.getFullname(), user.getEmail(), user.getPassword(), user.isActivated(),
+                user.getLink(), user.getRecoveryLink(), user.getId());
 
     }
 

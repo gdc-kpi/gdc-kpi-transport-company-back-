@@ -25,20 +25,16 @@ import javax.websocket.server.PathParam;
 @RequestMapping("/api/auth")
 public class AuthController {
 
-//    @Value("${activation.redirect.url}")
-//    private String activationRedirectUrl;
-
-//    private final SettingsService settingsService;
+    @Value("transport-company.activation.redirect.url")
+    private String activationRedirectUrl;
 
     final private UserService userService;
     final private ActivationService activationService;
 
     @Autowired
-    public AuthController(UserService userService , ActivationService activationService/**,
-                                   SettingsService settingsService**/) {
+    public AuthController(UserService userService , ActivationService activationService) {
         this.userService = userService;
         this.activationService = activationService;
-//        this.settingsService = settingsService;
     }
 
     @PostMapping("/log-in")
@@ -73,9 +69,8 @@ public class AuthController {
         return new ResponseEntity<>(HttpStatus.OK);
     }
 
-//    @GetMapping("/activation")
-//    public RedirectView activate(@PathParam("key") String key) {
-//
-//        return new RedirectView(activationRedirectUrl /**+ activationService.verifyUser(key)**/);
-//    }
+    @GetMapping("/activation")
+    public RedirectView activate(@PathParam("key") String key) {
+        return new RedirectView(activationRedirectUrl + activationService.verifyUser(key));
+    }
 }
