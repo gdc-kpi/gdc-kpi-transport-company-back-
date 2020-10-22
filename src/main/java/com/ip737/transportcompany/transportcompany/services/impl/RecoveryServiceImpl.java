@@ -15,6 +15,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.web.bind.annotation.RequestBody;
 
 import javax.mail.MessagingException;
+import java.util.Random;
 
 @Slf4j
 @Service
@@ -28,13 +29,14 @@ public class RecoveryServiceImpl implements RecoveryService {
 
     final private UserService userService;
     final private EmailServiceImpl mailService;
-    final private BCryptPasswordEncoder passwordEncoder;
+    private final BCryptPasswordEncoder bCryptPasswordEncoder;
 
     @Autowired
-    public RecoveryServiceImpl(UserService userService, EmailServiceImpl mailService, BCryptPasswordEncoder passwordEncoder) {
+    public RecoveryServiceImpl(UserService userService, EmailServiceImpl mailService,
+                               BCryptPasswordEncoder bCryptPasswordEncoder) {
         this.userService = userService;
         this.mailService = mailService;
-        this.passwordEncoder = passwordEncoder;
+        this.bCryptPasswordEncoder = bCryptPasswordEncoder;
     }
 
     @Override
@@ -46,7 +48,8 @@ public class RecoveryServiceImpl implements RecoveryService {
             throw new ValidationException(Constants.USER_NOT_FOUND_WITH_EMAIL + userMail.getEmail());
         }
 
-        user.setRecoveryLink(passwordEncoder.encode(userMail.getEmail() + recoverSecret));
+        Random random = new Random();
+        user.setRecoveryLink(bCryptPasswordEncoder.encode(user.getFullname() + user.getEmail() + random));
         userService.update(user);
 
         try {
@@ -70,13 +73,13 @@ public class RecoveryServiceImpl implements RecoveryService {
 
     @Override
     public void changePassword(@RequestBody DtoForgotPassword passwordDto) {
-        User user = userService.getByRecoverUrl(passwordDto.getRecoverLink());
+        User user = userService.getByRecoverUrl(passwordDto.getRecoveryLink());
 
         if (user == null) {
-            throw new ValidationException(Constants.USER_NOT_FOUND_WITH_RECOVER_URL + passwordDto.getRecoverLink());
+            throw new ValidationException(Constants.USER_NOT_FOUND_WITH_RECOVER_URL + passwordDto.getRecoveryLink());
         }
 
-        user.setPassword(passwordEncoder.encode(passwordDto.getPassword()));
+        user.setPassword(passwordDto.getPassword());
         user.setRecoveryLink(null);
         userService.update(user);
     }
