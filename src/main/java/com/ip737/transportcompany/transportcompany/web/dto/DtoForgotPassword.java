@@ -13,7 +13,7 @@ import lombok.Setter;
 @AllArgsConstructor
 public class DtoForgotPassword {
 
-    private String recoverLink;
+    private String recoveryLink;
 
     private String password;
 }

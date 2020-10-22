@@ -46,7 +46,7 @@ public class RecoveryController {
         return new RedirectView(recoverRedirectUrl + recoveringService.confirmRecovery(key));
     }
 
-    @PatchMapping("/changePassword")
+    @PatchMapping("/change-password")
     public ResponseEntity<?> changePassword(@RequestBody DtoForgotPassword passwordDto) {
 
         RecoverDtoValidator.validate(passwordDto);

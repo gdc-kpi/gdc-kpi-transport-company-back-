@@ -3,7 +3,7 @@ package com.ip737.transportcompany.transportcompany.configs.constants;
 public class Constants {
     public static final String EMAIl_TAKEN = "Such email has been taken: ";
     public static final String USER_NOT_FOUND_WITH_EMAIL = "User with such email does not exist!";
-    public static final String NOT_ACTIVATED = "This user doen not activated!";
+    public static final String NOT_ACTIVATED = "This user does not activated!";
     public static final String USER_NOT_FOUND_WITH_ACTIVATION_URL = "User not found with activation URL: ";
     public static final String USER_NOT_FOUND_WITH_RECOVER_URL = "User not found with recovery URL: ";
     public static final String REG_MAIL_NOT_SENT = "Registration Mail not sent to user %s";
