@@ -6,7 +6,7 @@ public class SqlConstants {
                     "VALUES (?, ?, ?, ?, ?, ?, ?, ?) ;";
 
     public static final String SELECT_USER_QUERY =
-            "SELECT user_id, fullname, email, role, password, is_activated, link " +
+            "SELECT user_id, fullname, email, role, password, is_activated, link, recovery_link " +
                     "FROM users INNER JOIN roles ON users.role_id = roles.role_id\n";
 
     public static final String USER_GET_BY_EMAIL = SELECT_USER_QUERY +

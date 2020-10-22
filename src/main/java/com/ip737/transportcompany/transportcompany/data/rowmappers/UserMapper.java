@@ -20,6 +20,7 @@ public class UserMapper implements RowMapper<User> {
                 .password(resultSet.getString("password"))
                 .isActivated(resultSet.getBoolean("is_activated"))
                 .link(resultSet.getString("link"))
+                //.recoveryLink((resultSet.getString("recovery_link")))
                 .build();
 
         return user;

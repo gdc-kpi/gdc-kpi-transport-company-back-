@@ -3,7 +3,6 @@ package com.ip737.transportcompany.transportcompany.configs.security;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
-import org.springframework.mail.javamail.JavaMailSender;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
 import org.springframework.security.config.annotation.method.configuration.EnableGlobalMethodSecurity;
@@ -17,15 +16,12 @@ import org.springframework.security.web.authentication.UsernamePasswordAuthentic
 import com.ip737.transportcompany.transportcompany.configs.security.services.UserDetailsServiceImpl;
 import com.ip737.transportcompany.transportcompany.configs.security.jwt.AuthEntryPointJwt;
 import com.ip737.transportcompany.transportcompany.configs.security.jwt.AuthTokenFilter;
-import org.thymeleaf.spring4.SpringTemplateEngine;
 
 @Configuration
 @EnableWebSecurity
 @EnableGlobalMethodSecurity(
         prePostEnabled = true)
 public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
-//    @Autowired
-//    private BCryptPasswordEncoder bCryptPasswordEncoder;
 
     @Autowired
     UserDetailsServiceImpl userDetailsService;

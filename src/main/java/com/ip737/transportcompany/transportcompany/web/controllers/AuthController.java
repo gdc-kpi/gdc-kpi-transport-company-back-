@@ -1,5 +1,6 @@
 package com.ip737.transportcompany.transportcompany.web.controllers;
 
+import com.ip737.transportcompany.transportcompany.configs.constants.Constants;
 import com.ip737.transportcompany.transportcompany.data.entities.User;
 import com.ip737.transportcompany.transportcompany.exceptions.ValidationException;
 import com.ip737.transportcompany.transportcompany.request.LoginRequest;
@@ -44,15 +45,15 @@ public class AuthController {
         User currentUser = userService.getByEmail(user.getEmail());
 
         if (currentUser == null) {
-            throw new ValidationException("User not found with email: " + user.getEmail());
+            return new ResponseEntity<>(Constants.USER_NOT_FOUND_WITH_EMAIL, HttpStatus.FORBIDDEN);
         }
 
         if (!currentUser.isActivated()) {
-            return new ResponseEntity<>(HttpStatus.FORBIDDEN);
+            return new ResponseEntity<>(Constants.NOT_ACTIVATED, HttpStatus.FORBIDDEN);
         }
 
         if (!user.getPassword().equals(currentUser.getPassword())) {
-            return new ResponseEntity<>(HttpStatus.FORBIDDEN);
+            return new ResponseEntity<>(Constants.INCORRECT_PASSWORD, HttpStatus.FORBIDDEN);
         }
 
         UserLoginSuccessResponse successResponse = UserLoginSuccessResponse.builder()
