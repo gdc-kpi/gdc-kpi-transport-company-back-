@@ -61,7 +61,7 @@ public class UserDaoImpl implements UserDao {
     public void save(User user, int roleId) {
         jdbcTemplate.update(SqlConstants.USER_SAVE_QUERY,
                 UUID.randomUUID(), user.getFullname(), user.getEmail(), roleId, user.getPassword(),
-                user.isActivated(), user.getLink()
+                user.isActivated(), user.getLink(), user.getRecoveryLink()
         );
     }
 

@@ -20,6 +20,7 @@ public class SignUpRequest {
                 .fullname(this.fullname)
                 .isActivated(false)
                 .link("")
+                .recoveryLink("")
                 .build();
     }
 }

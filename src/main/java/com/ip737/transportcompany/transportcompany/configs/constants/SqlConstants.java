@@ -2,7 +2,7 @@ package com.ip737.transportcompany.transportcompany.configs.constants;
 
 public class SqlConstants {
     public static final String USER_SAVE_QUERY =
-            "INSERT INTO users (user_id, fullname, email, role_id, password, is_activated, link, activation_url) " +
+            "INSERT INTO users (user_id, fullname, email, role_id, password, is_activated, link, recovery_link) " +
                     "VALUES (?, ?, ?, ?, ?, ?, ?, ?) ;";
 
     public static final String SELECT_USER_QUERY =
@@ -20,5 +20,5 @@ public class SqlConstants {
 
     public static final String USER_UPDATE_QUERY_BY_ID =
             "UPDATE users SET fullname = ?, email = ?, password= ?, is_activated = ?, link = ?, recovery_link = ? " +
-            "WHERE user_id = ? ;";
+            "WHERE user_id = UUID(?) ;";
 }

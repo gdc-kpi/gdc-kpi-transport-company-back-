@@ -4,7 +4,7 @@ import com.ip737.transportcompany.transportcompany.web.dto.DtoForgotPassword;
 import com.ip737.transportcompany.transportcompany.web.dto.DtoMail;
 
 public interface RecoveryService {
-    void sendRecoveringUrl(DtoMail user);
+    void sendRecoveryLink(DtoMail user);
 
     String confirmRecovery(String recoverUrl);
 

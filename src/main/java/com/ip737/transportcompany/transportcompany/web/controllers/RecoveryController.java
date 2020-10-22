@@ -36,11 +36,8 @@ public class RecoveryController {
 
     @PostMapping("/send")
     public ResponseEntity<?> registerUser(@RequestBody DtoMail user) {
-
         RecoverDtoValidator.validate(user);
-
-        recoveringService.sendRecoveringUrl(user);
-
+        recoveringService.sendRecoveryLink(user);
         return new ResponseEntity<>(HttpStatus.OK);
     }
 

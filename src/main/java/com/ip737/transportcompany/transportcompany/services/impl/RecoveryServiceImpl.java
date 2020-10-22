@@ -38,7 +38,7 @@ public class RecoveryServiceImpl implements RecoveryService {
     }
 
     @Override
-    public void sendRecoveringUrl(DtoMail userMail) {
+    public void sendRecoveryLink(DtoMail userMail) {
 
         User user = userService.getByEmail(userMail.getEmail());
 
