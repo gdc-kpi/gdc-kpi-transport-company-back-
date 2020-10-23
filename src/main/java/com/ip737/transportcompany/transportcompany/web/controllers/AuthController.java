@@ -1,5 +1,6 @@
 package com.ip737.transportcompany.transportcompany.web.controllers;
 
+import com.ip737.transportcompany.transportcompany.configs.constants.Constants;
 import com.ip737.transportcompany.transportcompany.data.entities.User;
 import com.ip737.transportcompany.transportcompany.exceptions.ValidationException;
 import com.ip737.transportcompany.transportcompany.request.LoginRequest;
@@ -25,20 +26,16 @@ import javax.websocket.server.PathParam;
 @RequestMapping("/api/auth")
 public class AuthController {
 
-//    @Value("${activation.redirect.url}")
-//    private String activationRedirectUrl;
-
-//    private final SettingsService settingsService;
+    @Value("transport-company.activation.redirect.url")
+    private String activationRedirectUrl;
 
     final private UserService userService;
     final private ActivationService activationService;
 
     @Autowired
-    public AuthController(UserService userService , ActivationService activationService/**,
-                                   SettingsService settingsService**/) {
+    public AuthController(UserService userService , ActivationService activationService) {
         this.userService = userService;
         this.activationService = activationService;
-//        this.settingsService = settingsService;
     }
 
     @PostMapping("/log-in")
@@ -48,15 +45,15 @@ public class AuthController {
         User currentUser = userService.getByEmail(user.getEmail());
 
         if (currentUser == null) {
-            throw new ValidationException("User not found with email: " + user.getEmail());
+            return new ResponseEntity<>(Constants.USER_NOT_FOUND_WITH_EMAIL, HttpStatus.FORBIDDEN);
         }
 
         if (!currentUser.isActivated()) {
-            return new ResponseEntity<>(HttpStatus.FORBIDDEN);
+            return new ResponseEntity<>(Constants.NOT_ACTIVATED, HttpStatus.FORBIDDEN);
         }
 
         if (!user.getPassword().equals(currentUser.getPassword())) {
-            return new ResponseEntity<>(HttpStatus.FORBIDDEN);
+            return new ResponseEntity<>(Constants.INCORRECT_PASSWORD, HttpStatus.FORBIDDEN);
         }
 
         UserLoginSuccessResponse successResponse = UserLoginSuccessResponse.builder()
@@ -73,9 +70,8 @@ public class AuthController {
         return new ResponseEntity<>(HttpStatus.OK);
     }
 
-//    @GetMapping("/activation")
-//    public RedirectView activate(@PathParam("key") String key) {
-//
-//        return new RedirectView(activationRedirectUrl /**+ activationService.verifyUser(key)**/);
-//    }
+    @GetMapping("/activation")
+    public RedirectView activate(@PathParam("key") String key) {
+        return new RedirectView(activationRedirectUrl + activationService.verifyUser(key));
+    }
 }

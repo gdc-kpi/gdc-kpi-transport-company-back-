@@ -9,16 +9,18 @@ import com.ip737.transportcompany.transportcompany.services.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import java.util.Date;
-
 @Service
 public class ActivationServiceImpl implements ActivationService {
+    private static final String MESSAGE_ALREADY_ACTIVATED = "Already activated. Please, log in";
+    private static final String MESSAGE_ACTIVATED = "Successfully activated. Please, log in";
 
     final private JwtTokenProvider tokenProvider;
+    final private UserService userService;
 
     @Autowired
-    public ActivationServiceImpl(JwtTokenProvider tokenProvider) {
+    public ActivationServiceImpl(JwtTokenProvider tokenProvider, UserService userService) {
         this.tokenProvider = tokenProvider;
+        this.userService = userService;
     }
 
     @Override
@@ -31,5 +33,25 @@ public class ActivationServiceImpl implements ActivationService {
         }
         return tokenProvider.provideToken(user.getEmail());
     }
+
+    @Override
+    public String verifyUser(String activationUrl) {
+        User user = userService.getByActivationUrl(activationUrl);
+
+        if (user == null) {
+            throw new ValidationException(Constants.USER_NOT_FOUND_WITH_ACTIVATION_URL);
+        }
+
+        if (user.isActivated()) {
+            return MESSAGE_ALREADY_ACTIVATED;
+        }
+
+        user.setActivated(true);
+        user.setLink(null);
+        userService.update(user);
+
+        return MESSAGE_ACTIVATED;
+    }
+
 
 }
