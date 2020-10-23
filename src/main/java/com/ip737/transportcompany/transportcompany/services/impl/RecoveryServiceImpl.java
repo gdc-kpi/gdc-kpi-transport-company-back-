@@ -6,7 +6,6 @@ import com.ip737.transportcompany.transportcompany.exceptions.ValidationExceptio
 import com.ip737.transportcompany.transportcompany.services.RecoveryService;
 import com.ip737.transportcompany.transportcompany.services.UserService;
 import com.ip737.transportcompany.transportcompany.web.dto.DtoForgotPassword;
-import com.ip737.transportcompany.transportcompany.web.dto.DtoMail;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
@@ -40,16 +39,16 @@ public class RecoveryServiceImpl implements RecoveryService {
     }
 
     @Override
-    public void sendRecoveryLink(DtoMail userMail) {
+    public void sendRecoveryLink(String email) {
 
-        User user = userService.getByEmail(userMail.getEmail());
+        User user = userService.getByEmail(email);
 
         if (user == null) {
-            throw new ValidationException(Constants.USER_NOT_FOUND_WITH_EMAIL + userMail.getEmail());
+            throw new ValidationException(Constants.USER_NOT_FOUND_WITH_EMAIL + email);
         }
 
         Random random = new Random();
-        user.setRecoveryLink(bCryptPasswordEncoder.encode(user.getFullname() + user.getEmail() + random));
+        user.setRecoveryLink(bCryptPasswordEncoder.encode(user.getFullname() + user.getEmail() + random.nextLong()));
         userService.update(user);
 
         try {
@@ -61,14 +60,12 @@ public class RecoveryServiceImpl implements RecoveryService {
     }
 
     @Override
-    public String confirmRecovery(String recoverUrl) {
+    public void confirmRecovery(String recoverUrl) {
         User user = userService.getByRecoverUrl(recoverUrl);
 
         if (user == null) {
             throw new ValidationException(Constants.USER_NOT_FOUND_WITH_RECOVER_URL + recoverUrl);
         }
-
-        return recoverUrl;
     }
 
     @Override

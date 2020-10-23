@@ -1,6 +1,7 @@
 package com.ip737.transportcompany.transportcompany.exceptions.handler;
 
 import com.ip737.transportcompany.transportcompany.exceptions.AppException;
+import com.ip737.transportcompany.transportcompany.exceptions.IdentificationException;
 import com.ip737.transportcompany.transportcompany.exceptions.ValidationException;
 import com.ip737.transportcompany.transportcompany.exceptions.model.ErrorMessage;
 import lombok.extern.slf4j.Slf4j;
@@ -16,7 +17,7 @@ import javax.servlet.http.HttpServletRequest;
 @Slf4j
 public class CustomGlobalExceptionHandler extends ResponseEntityExceptionHandler {
 
-    @ExceptionHandler(value = {ValidationException.class})
+    @ExceptionHandler()
     public ResponseEntity<ErrorMessage> handleException(AppException exception,
                                                         HttpServletRequest request){
 
@@ -32,6 +33,6 @@ public class CustomGlobalExceptionHandler extends ResponseEntityExceptionHandler
                 .requestPath(request.getRequestURI())
                 .build();
 
-        return new ResponseEntity<>(errorMessage, HttpStatus.BAD_REQUEST);
+        return new ResponseEntity<>(errorMessage, httpStatus);
     }
 }
