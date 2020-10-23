@@ -2,7 +2,6 @@ package com.ip737.transportcompany.transportcompany.web.controllers;
 
 import com.ip737.transportcompany.transportcompany.services.RecoveryService;
 import com.ip737.transportcompany.transportcompany.web.dto.DtoForgotPassword;
-import com.ip737.transportcompany.transportcompany.web.dto.DtoMail;
 import com.ip737.transportcompany.transportcompany.web.validators.RecoverDtoValidator;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
@@ -15,7 +14,6 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
-import org.springframework.web.servlet.view.RedirectView;
 
 import javax.websocket.server.PathParam;
 
@@ -23,9 +21,6 @@ import javax.websocket.server.PathParam;
 @CrossOrigin
 @RequestMapping("/api/recovery")
 public class RecoveryController {
-
-    @Value("${recover.redirect.url}")
-    private String recoverRedirectUrl;
 
     final private RecoveryService recoveringService;
 
@@ -35,15 +30,16 @@ public class RecoveryController {
     }
 
     @PostMapping("/send")
-    public ResponseEntity<?> registerUser(@RequestBody DtoMail user) {
-        RecoverDtoValidator.validate(user);
-        recoveringService.sendRecoveryLink(user);
+    public ResponseEntity<?> sendRecoveryLink(@RequestBody String email) {
+        RecoverDtoValidator.validate(email);
+        recoveringService.sendRecoveryLink(email);
         return new ResponseEntity<>(HttpStatus.OK);
     }
 
     @GetMapping("/confirm")
-    public RedirectView activate(@PathParam("key") String key) {
-        return new RedirectView(recoverRedirectUrl + recoveringService.confirmRecovery(key));
+    public ResponseEntity<?> activate(@PathParam("key") String key) {
+        recoveringService.confirmRecovery(key);
+        return new ResponseEntity<>(HttpStatus.OK);
     }
 
     @PatchMapping("/change-password")
