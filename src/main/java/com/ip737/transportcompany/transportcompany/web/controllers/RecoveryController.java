@@ -1,12 +1,14 @@
 package com.ip737.transportcompany.transportcompany.web.controllers;
 
 import com.ip737.transportcompany.transportcompany.services.RecoveryService;
+import com.ip737.transportcompany.transportcompany.web.dto.DtoEmail;
 import com.ip737.transportcompany.transportcompany.web.dto.DtoForgotPassword;
 import com.ip737.transportcompany.transportcompany.web.validators.RecoverDtoValidator;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.util.MultiValueMap;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PatchMapping;
@@ -30,9 +32,9 @@ public class RecoveryController {
     }
 
     @PostMapping("/send")
-    public ResponseEntity<?> sendRecoveryLink(@RequestBody String email) {
-        RecoverDtoValidator.validate(email);
-        recoveringService.sendRecoveryLink(email);
+    public ResponseEntity<?> sendRecoveryLink(@RequestBody DtoEmail email) {
+        RecoverDtoValidator.validate(email.getEmail());
+        recoveringService.sendRecoveryLink(email.getEmail());
         return new ResponseEntity<>(HttpStatus.OK);
     }
 
