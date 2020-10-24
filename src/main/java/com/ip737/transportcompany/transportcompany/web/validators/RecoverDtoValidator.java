@@ -2,7 +2,6 @@ package com.ip737.transportcompany.transportcompany.web.validators;
 
 import com.ip737.transportcompany.transportcompany.exceptions.ValidationException;
 import com.ip737.transportcompany.transportcompany.web.dto.DtoForgotPassword;
-import com.ip737.transportcompany.transportcompany.web.dto.DtoMail;
 import org.springframework.util.StringUtils;
 
 import java.util.regex.Matcher;
@@ -21,17 +20,14 @@ public class RecoverDtoValidator {
 
     private static final String EMPTY_PROPERTY_EXCEPTION_MESSAGE = "Field parameter '%s' must be provided";
 
-    public static void validate(DtoMail user) throws ValidationException {
-        validateWithRegularExpression(user.getEmail(), REGEX_EMAIL, "email");
-        validateNotEmptyProperty(user.getEmail(), "email");
+    public static void validate(DtoForgotPassword dtoForgotPassword) throws ValidationException {
+        validateNotEmptyProperty(dtoForgotPassword.getPassword(), "password");
+        validateWithRegularExpression(dtoForgotPassword.getPassword(), "password", REGEX_PASSWORD);
     }
 
-    public static void validate(DtoForgotPassword user) throws ValidationException {
-        validateNotEmptyProperty(user.getPassword(), "password");
-    }
-
-    public static void validate(String password) throws ValidationException {
-        validateNotEmptyProperty(password, "password");
+    public static void validate(String email) throws ValidationException {
+        validateNotEmptyProperty(email, "email");
+        validateWithRegularExpression(email, "email", REGEX_EMAIL);
     }
 
     private static void validateNotEmptyProperty(Object value, String propertyName) {
