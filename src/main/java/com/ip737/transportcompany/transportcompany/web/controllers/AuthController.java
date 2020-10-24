@@ -69,7 +69,7 @@ public class AuthController {
         return new ResponseEntity<>(HttpStatus.OK);
     }
 
-    @GetMapping("/activate")
+    @PatchMapping("/activate")
     public ResponseEntity<?> activate(@PathParam("key") String key) {
         activationService.verifyUser(key);
         return new ResponseEntity<>(HttpStatus.OK);

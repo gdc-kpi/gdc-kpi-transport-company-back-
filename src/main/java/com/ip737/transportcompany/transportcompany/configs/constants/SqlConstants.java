@@ -13,7 +13,7 @@ public class SqlConstants {
             "WHERE email = ? ;";
 
     public static final String USERS_GET_BY_ACTIVATION_URL = SELECT_USER_QUERY +
-            "WHERE activation_url = ? ;";
+            "WHERE link = ? ;";
 
     public static final String USERS_GET_BY_RECOVERY_URL = SELECT_USER_QUERY +
             "WHERE recovery_link = ?";
