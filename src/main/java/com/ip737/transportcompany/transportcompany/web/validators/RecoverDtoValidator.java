@@ -22,12 +22,12 @@ public class RecoverDtoValidator {
 
     public static void validate(DtoForgotPassword dtoForgotPassword) throws ValidationException {
         validateNotEmptyProperty(dtoForgotPassword.getPassword(), "password");
-        validateWithRegularExpression(dtoForgotPassword.getPassword(), "password", REGEX_PASSWORD);
+        validateWithRegularExpression(dtoForgotPassword.getPassword(), REGEX_PASSWORD, "password");
     }
 
     public static void validate(String email) throws ValidationException {
         validateNotEmptyProperty(email, "email");
-        validateWithRegularExpression(email, "email", REGEX_EMAIL);
+        validateWithRegularExpression(email, REGEX_EMAIL,"email");
     }
 
     private static void validateNotEmptyProperty(Object value, String propertyName) {
