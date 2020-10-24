@@ -4,7 +4,7 @@ public class Constants {
     public static final String EMAIL_TAKEN = "User with email %s already exists!";
     public static final String USER_NOT_FOUND_WITH_EMAIL = "User with such email does not exist:";
     public static final String NOT_ACTIVATED = "This user is not activated!";
-    public static final String USER_NOT_FOUND_WITH_ACTIVATION_URL = "User not found with activation URL: ";
+    public static final String USER_NOT_FOUND_WITH_ACTIVATION_URL = "User with such activation url not found";
     public static final String USER_NOT_FOUND_WITH_RECOVER_URL = "User not found with recovery URL: ";
     public static final String REG_MAIL_NOT_SENT = "Registration Mail not sent to user %s";
     public static final String RECOVERY_MAIL_NOT_SENT = "Recovery Mail not sent to user %s";
