@@ -16,13 +16,10 @@ public class RecoverDtoValidator {
             "(?:[a-zA-Z0-9-]+\\.)+[a-z" +
             "A-Z]{2,7}$";
 
-    private static final String REGEX_PASSWORD = "^(?=.*\\d).{4,28}$";
-
     private static final String EMPTY_PROPERTY_EXCEPTION_MESSAGE = "Field parameter '%s' must be provided";
 
     public static void validate(DtoForgotPassword dtoForgotPassword) throws ValidationException {
         validateNotEmptyProperty(dtoForgotPassword.getPassword(), "password");
-        validateWithRegularExpression(dtoForgotPassword.getPassword(), REGEX_PASSWORD, "password");
     }
 
     public static void validate(String email) throws ValidationException {
