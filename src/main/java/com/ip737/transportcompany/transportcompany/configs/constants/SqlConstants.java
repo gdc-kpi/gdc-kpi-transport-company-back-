@@ -12,6 +12,9 @@ public class SqlConstants {
     public static final String USER_GET_BY_EMAIL = SELECT_USER_QUERY +
             "WHERE email = ? ;";
 
+    public static final String USER_GET_BY_ID = SELECT_USER_QUERY +
+            "WHERE user_id = ? ;";
+
     public static final String USERS_GET_BY_ACTIVATION_URL = SELECT_USER_QUERY +
             "WHERE link = ? ;";
 
@@ -21,4 +24,11 @@ public class SqlConstants {
     public static final String USER_UPDATE_QUERY_BY_ID =
             "UPDATE users SET fullname = ?, email = ?, password= ?, is_activated = ?, link = ?, recovery_link = ? " +
             "WHERE user_id = UUID(?) ;";
+
+    public static final String VEHICLE_SAVE_QUERY =
+            "INSERT INTO vehicles (plate, capacity, velocity, fuel_consumption, load_capacity) " +
+                    "VALUES (?, ?, ?, ?, ?, ?, ?, ?) ;";
+
+    public static final String VEHICLE_GET_BY_ID = "SELECT plate, capacity, velocity, fuel_consumption, load_capacity" +
+            "FROM vehicles WHERE owner_id = ? ;";
 }

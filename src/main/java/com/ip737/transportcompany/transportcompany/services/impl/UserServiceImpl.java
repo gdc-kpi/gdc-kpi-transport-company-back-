@@ -4,7 +4,6 @@ import com.ip737.transportcompany.transportcompany.configs.constants.Constants;
 import com.ip737.transportcompany.transportcompany.data.dao.UserDao;
 import com.ip737.transportcompany.transportcompany.data.entities.User;
 import com.ip737.transportcompany.transportcompany.exceptions.IdentificationException;
-import com.ip737.transportcompany.transportcompany.exceptions.ValidationException;
 import com.ip737.transportcompany.transportcompany.services.EmailService;
 import com.ip737.transportcompany.transportcompany.services.UserService;
 import lombok.extern.slf4j.Slf4j;
@@ -16,6 +15,7 @@ import org.springframework.stereotype.Service;
 
 import javax.mail.MessagingException;
 import java.util.Random;
+import java.util.UUID;
 
 @Slf4j
 @Service
@@ -72,6 +72,11 @@ public class UserServiceImpl implements UserService {
     @Override
     public User getByEmail(String email) {
         return userDao.getByEmail(email);
+    }
+
+    @Override
+    public User getById(UUID id) {
+        return userDao.getById(id);
     }
 
     @Override

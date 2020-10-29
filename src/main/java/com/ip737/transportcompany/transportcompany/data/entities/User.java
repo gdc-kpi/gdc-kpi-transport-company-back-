@@ -12,6 +12,7 @@ import java.util.UUID;
 @EqualsAndHashCode
 @ToString
 @Builder
+@AllArgsConstructor
 @Table(name = "users")
 public class User {
     @Id
@@ -30,4 +31,6 @@ public class User {
     private boolean isActivated;
     private String link;
     private String recoveryLink;
+
+    public User() {}
 }

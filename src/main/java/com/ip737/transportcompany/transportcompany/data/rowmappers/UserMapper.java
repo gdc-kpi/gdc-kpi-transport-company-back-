@@ -12,7 +12,7 @@ public class UserMapper implements RowMapper<User> {
     @Override
     public User mapRow(ResultSet resultSet, int i) throws SQLException {
 
-        User user = User.builder()
+        return User.builder()
                 .id(UUID.fromString(resultSet.getString("user_id")))
                 .fullname(resultSet.getString("fullname"))
                 .email(resultSet.getString("email"))
@@ -22,7 +22,5 @@ public class UserMapper implements RowMapper<User> {
                 .link(resultSet.getString("link"))
                 //.recoveryLink((resultSet.getString("recovery_link")))
                 .build();
-
-        return user;
     }
 }

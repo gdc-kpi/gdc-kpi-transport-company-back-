@@ -48,6 +48,4 @@ public class ActivationServiceImpl implements ActivationService {
 
         return MESSAGE_ACTIVATED;
     }
-
-
 }
