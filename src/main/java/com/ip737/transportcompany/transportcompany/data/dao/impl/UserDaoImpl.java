@@ -72,6 +72,4 @@ public class UserDaoImpl implements UserDao {
                 user.getLink(), user.getRecoveryLink(), user.getId());
 
     }
-
-
 }
