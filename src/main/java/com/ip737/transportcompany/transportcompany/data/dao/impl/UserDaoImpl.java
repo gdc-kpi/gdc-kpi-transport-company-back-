@@ -72,4 +72,11 @@ public class UserDaoImpl implements UserDao {
                 user.getLink(), user.getRecoveryLink(), user.getId());
 
     }
+
+    @Override
+    public void delete(String email, String password) {
+        jdbcTemplate.update(SqlConstants.DELETE_USER_QUERY,
+                email, password);
+
+    }
 }

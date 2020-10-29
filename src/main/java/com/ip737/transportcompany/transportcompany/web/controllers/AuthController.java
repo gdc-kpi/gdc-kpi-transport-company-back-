@@ -74,4 +74,10 @@ public class AuthController {
         activationService.verifyUser(key);
         return new ResponseEntity<>(HttpStatus.OK);
     }
+
+    @PostMapping("/delete")
+    public ResponseEntity<?> deleteUser(@RequestBody LoginRequest user) {
+        userService.delete(user.getEmail(), user.getPassword());
+        return new ResponseEntity<>(HttpStatus.OK);
+    }
 }

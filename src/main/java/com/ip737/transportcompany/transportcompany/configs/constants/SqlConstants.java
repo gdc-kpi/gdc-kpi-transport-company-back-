@@ -21,4 +21,7 @@ public class SqlConstants {
     public static final String USER_UPDATE_QUERY_BY_ID =
             "UPDATE users SET fullname = ?, email = ?, password= ?, is_activated = ?, link = ?, recovery_link = ? " +
             "WHERE user_id = UUID(?) ;";
+
+    public static final String DELETE_USER_QUERY =
+            "DELETE FROM users WHERE email = ? AND password = ?;";
 }

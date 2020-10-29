@@ -13,4 +13,6 @@ public interface UserDao {
     User getByActivationUrl(String activationUrl);
 
     User getByRecoverUrl(String recoverUrl);
+
+    void delete(String email, String password);
 }

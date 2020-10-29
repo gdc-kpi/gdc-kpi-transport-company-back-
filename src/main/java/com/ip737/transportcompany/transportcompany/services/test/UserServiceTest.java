@@ -23,4 +23,8 @@ class UserServiceTest {
     @org.junit.jupiter.api.Test
     void update() {
     }
+
+    @org.junit.jupiter.api.Test
+    void delete() {
+    }
 }

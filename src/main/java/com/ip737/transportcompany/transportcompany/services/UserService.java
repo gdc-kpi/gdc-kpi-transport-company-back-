@@ -13,4 +13,6 @@ public interface UserService {
     User getByEmail(String email);
 
     void update(User user);
+
+    void delete(String email, String password);
 }
