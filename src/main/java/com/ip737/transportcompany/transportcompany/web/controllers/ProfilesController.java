@@ -15,10 +15,10 @@ import org.springframework.web.bind.annotation.*;
 
 import java.util.UUID;
 
-//@Slf4j
-//@CrossOrigin
+@Slf4j
+@CrossOrigin
 @Controller
-//@RequestMapping("/profile")
+@RequestMapping("/profile")
 public class ProfilesController {
 
     final private ProfileService profileService;

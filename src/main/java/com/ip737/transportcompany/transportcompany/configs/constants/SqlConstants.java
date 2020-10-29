@@ -26,9 +26,14 @@ public class SqlConstants {
             "WHERE user_id = UUID(?) ;";
 
     public static final String VEHICLE_SAVE_QUERY =
-            "INSERT INTO vehicles (plate, capacity, velocity, fuel_consumption, load_capacity) " +
-                    "VALUES (?, ?, ?, ?, ?, ?, ?, ?) ;";
+            "INSERT INTO vehicles (plate, capacity, load_capacity, fuel_consumption, user_id) " +
+                    "VALUES (?, ?, ?, ?, ?) ;";
 
-    public static final String VEHICLE_GET_BY_ID = "SELECT plate, capacity, velocity, fuel_consumption, load_capacity" +
-            "FROM vehicles WHERE owner_id = ? ;";
+    public static final String VEHICLE_GET_BY_ID = "SELECT plate, capacity, load_capacity, fuel_consumption" +
+            "FROM vehicles WHERE user_id = ? ;";
+
+    public static final String USER_INSERT_ODER =
+            "INSERT INTO order (source, destination, volume, drivers_id, admins_id, title, description) " +
+                    "VALUES (?, ?, ?, ?, ?, ?, ?) ;";
+
 }
