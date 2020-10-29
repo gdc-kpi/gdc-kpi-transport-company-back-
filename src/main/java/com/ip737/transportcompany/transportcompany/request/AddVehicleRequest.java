@@ -1,6 +1,5 @@
 package com.ip737.transportcompany.transportcompany.request;
 
-import com.ip737.transportcompany.transportcompany.configs.constants.Constants;
 import com.ip737.transportcompany.transportcompany.data.entities.Vehicle;
 
 public class AddVehicleRequest {
