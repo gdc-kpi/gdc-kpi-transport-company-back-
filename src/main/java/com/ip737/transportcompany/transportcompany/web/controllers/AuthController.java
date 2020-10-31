@@ -80,4 +80,13 @@ public class AuthController {
         userService.delete(user.getEmail(), user.getPassword());
         return new ResponseEntity<>(HttpStatus.OK);
     }
+
+    @PostMapping("/get-link") // DELETE BEFORE RELEASE (TESTING ONLY)
+    public ResponseEntity<?> getLink(@RequestBody LoginRequest user) {
+        User currentUser = userService.getByEmail(user.getEmail());
+        UserLoginSuccessResponse successResponse = UserLoginSuccessResponse.builder()
+                .token(currentUser.getLink())
+                .success(true).build();
+        return new ResponseEntity<>(successResponse, HttpStatus.OK);
+    }
 }
