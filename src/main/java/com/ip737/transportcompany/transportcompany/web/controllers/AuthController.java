@@ -81,11 +81,20 @@ public class AuthController {
         return new ResponseEntity<>(HttpStatus.OK);
     }
 
-    @PostMapping("/get-link") // DELETE BEFORE RELEASE (TESTING ONLY)
+    @PostMapping("/get-link") // TEMPORARY
     public ResponseEntity<?> getLink(@RequestBody LoginRequest user) {
         User currentUser = userService.getByEmail(user.getEmail());
         UserLoginSuccessResponse successResponse = UserLoginSuccessResponse.builder()
                 .token(currentUser.getLink())
+                .success(true).build();
+        return new ResponseEntity<>(successResponse, HttpStatus.OK);
+    }
+
+    @PostMapping("/get-recovery") // TEMPORARY
+    public ResponseEntity<?> getRecovery(@RequestBody LoginRequest user) {
+        User currentUser = userService.getByEmail(user.getEmail());
+        UserLoginSuccessResponse successResponse = UserLoginSuccessResponse.builder()
+                .token(currentUser.getRecoveryLink())
                 .success(true).build();
         return new ResponseEntity<>(successResponse, HttpStatus.OK);
     }
