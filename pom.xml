@@ -100,10 +100,11 @@
 			<scope>provided</scope>
 		</dependency>
         <dependency>
-            <groupId>org.junit.jupiter</groupId>
-            <artifactId>junit-jupiter-api</artifactId>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-test</artifactId>
+			<scope>test</scope>
         </dependency>
-    </dependencies>
+	</dependencies>
 
 	<build>
 		<plugins>
@@ -113,5 +114,6 @@
 			</plugin>
 		</plugins>
 	</build>
+
 
 </project>
