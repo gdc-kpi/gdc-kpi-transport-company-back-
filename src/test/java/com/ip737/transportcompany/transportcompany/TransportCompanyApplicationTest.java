@@ -9,6 +9,7 @@ import static org.junit.jupiter.api.Assertions.*;
 
 @ContextConfiguration
 @WebAppConfiguration
+//@SpringBootTest
 class TransportCompanyApplicationTest {
 
     @Test

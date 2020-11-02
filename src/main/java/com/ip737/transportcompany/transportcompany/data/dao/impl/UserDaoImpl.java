@@ -6,6 +6,7 @@ import com.ip737.transportcompany.transportcompany.data.rowmappers.UserMapper;
 import com.ip737.transportcompany.transportcompany.data.entities.User;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.annotation.Bean;
 import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.stereotype.Repository;
