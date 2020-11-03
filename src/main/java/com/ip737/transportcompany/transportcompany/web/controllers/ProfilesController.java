@@ -47,9 +47,9 @@ public class ProfilesController {
         return new ResponseEntity<>(HttpStatus.OK);
     }
 
-    @GetMapping()
-    public ResponseEntity<?> profile() {
-        return new ResponseEntity<>(HttpStatus.OK);
+    @GetMapping("{userId}")
+    public ResponseEntity<?> profile(@PathVariable String userId) {
+        return new ResponseEntity<>(userService.getById(UUID.fromString(userId)), HttpStatus.OK);
     }
 }
 
