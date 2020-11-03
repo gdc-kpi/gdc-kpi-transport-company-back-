@@ -18,4 +18,6 @@ public interface UserService {
     User getById(UUID id);
 
     void update(User user);
+
+    void delete(String email, String password);
 }
