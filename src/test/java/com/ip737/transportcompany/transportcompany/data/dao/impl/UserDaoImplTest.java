@@ -1,15 +1,13 @@
 package com.ip737.transportcompany.transportcompany.data.dao.impl;
 
+import com.ip737.transportcompany.transportcompany.configs.constants.Constants;
 import com.ip737.transportcompany.transportcompany.data.dao.UserDao;
+import com.ip737.transportcompany.transportcompany.data.entities.User;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.test.context.ContextConfiguration;
-import org.springframework.test.context.web.WebAppConfiguration;
+import org.springframework.boot.test.context.SpringBootTest;
 
-import static org.junit.jupiter.api.Assertions.*;
-
-@ContextConfiguration
-@WebAppConfiguration
+@SpringBootTest
 class UserDaoImplTest {
 
     @Autowired
@@ -17,6 +15,7 @@ class UserDaoImplTest {
 
     @Test
     void getByActivationUrl() {
+
     }
 
     @Test
@@ -29,6 +28,16 @@ class UserDaoImplTest {
 
     @Test
     void save() {
+        User user = User.builder()
+                .fullname("Some One")
+                .email("notamongass@gmail.com")
+                .role("role")
+                .password("password")
+                .isActivated(true)
+                .link("link")
+                .build();
+        userDao.save(user, Constants.ROLE_DRIVER_ID);
+        User user2 = userDao.getByEmail(user.getEmail());
     }
 
     @Test
