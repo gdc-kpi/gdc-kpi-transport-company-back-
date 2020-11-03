@@ -74,7 +74,7 @@ public class AuthController {
         return new ResponseEntity<>(HttpStatus.OK);
     }
 
-
+    //TODO won't work
     @PostMapping("/change-password")
     public ResponseEntity<?> changePassword(UUID userId, @RequestBody ChangePasswordDto pass) {
         User currentUser = userService.getById(userId);
