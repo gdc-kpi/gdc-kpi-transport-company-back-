@@ -34,7 +34,7 @@ public class JwtUtils {
     }
 
     public String getEmailFromJwtToken(String token) {
-        return Jwts.parser().setSigningKey(jwtSecret).parseClaimsJws(token).getBody().getSubject();
+        return Jwts.parser().setSigningKey(jwtSecret).parseClaimsJws(token).getBody().get("email").toString();
     }
 
     public boolean validateJwtToken(String authToken) {

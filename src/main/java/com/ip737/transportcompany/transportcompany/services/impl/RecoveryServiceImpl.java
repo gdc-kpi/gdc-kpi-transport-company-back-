@@ -5,7 +5,7 @@ import com.ip737.transportcompany.transportcompany.data.entities.User;
 import com.ip737.transportcompany.transportcompany.exceptions.ValidationException;
 import com.ip737.transportcompany.transportcompany.services.RecoveryService;
 import com.ip737.transportcompany.transportcompany.services.UserService;
-import com.ip737.transportcompany.transportcompany.web.dto.DtoForgotPassword;
+import com.ip737.transportcompany.transportcompany.web.dto.ForgotPasswordDto;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
@@ -69,7 +69,7 @@ public class RecoveryServiceImpl implements RecoveryService {
     }
 
     @Override
-    public void changePassword(@RequestBody DtoForgotPassword passwordDto) {
+    public void changePassword(@RequestBody ForgotPasswordDto passwordDto) {
         User user = userService.getByRecoverUrl(passwordDto.getRecoveryLink());
 
         if (user == null) {

@@ -47,6 +47,17 @@ public class UserDaoImpl implements UserDao {
     }
 
     @Override
+    public User getById(UUID id) {
+        try {
+            return jdbcTemplate.queryForObject(SqlConstants.USER_GET_BY_ID,
+                    new Object[]{id},
+                    new UserMapper());
+        } catch (EmptyResultDataAccessException exception) {
+            return null;
+        }
+    }
+    
+    @Override
     public User getByEmail(String email) {
         try {
             return jdbcTemplate.queryForObject(SqlConstants.USER_GET_BY_EMAIL,

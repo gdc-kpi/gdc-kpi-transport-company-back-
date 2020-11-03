@@ -4,14 +4,12 @@ import com.ip737.transportcompany.transportcompany.data.entities.User;
 import com.ip737.transportcompany.transportcompany.request.LoginRequest;
 import com.ip737.transportcompany.transportcompany.response.UserLoginSuccessResponse;
 import com.ip737.transportcompany.transportcompany.services.RecoveryService;
-import com.ip737.transportcompany.transportcompany.web.dto.DtoEmail;
-import com.ip737.transportcompany.transportcompany.web.dto.DtoForgotPassword;
+import com.ip737.transportcompany.transportcompany.web.dto.EmailDto;
+import com.ip737.transportcompany.transportcompany.web.dto.ForgotPasswordDto;
 import com.ip737.transportcompany.transportcompany.web.validators.RecoverDtoValidator;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.util.MultiValueMap;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PatchMapping;
@@ -35,7 +33,7 @@ public class RecoveryController {
     }
 
     @PostMapping("/send")
-    public ResponseEntity<?> sendRecoveryLink(@RequestBody DtoEmail email) {
+    public ResponseEntity<?> sendRecoveryLink(@RequestBody EmailDto email) {
         RecoverDtoValidator.validate(email.getEmail());
         recoveringService.sendRecoveryLink(email.getEmail());
         return new ResponseEntity<>(HttpStatus.OK);
@@ -48,7 +46,7 @@ public class RecoveryController {
     }
 
     @PatchMapping("/change-password")
-    public ResponseEntity<?> changePassword(@RequestBody DtoForgotPassword passwordDto) {
+    public ResponseEntity<?> changePassword(@RequestBody ForgotPasswordDto passwordDto) {
 
         RecoverDtoValidator.validate(passwordDto);
         recoveringService.changePassword(passwordDto);

@@ -1,11 +1,11 @@
 package com.ip737.transportcompany.transportcompany.services;
 
-import com.ip737.transportcompany.transportcompany.web.dto.DtoForgotPassword;
+import com.ip737.transportcompany.transportcompany.web.dto.ForgotPasswordDto;
 
 public interface RecoveryService {
     void sendRecoveryLink(String password);
 
     void confirmRecovery(String recoverUrl);
 
-    void changePassword(DtoForgotPassword passwordDto);
+    void changePassword(ForgotPasswordDto passwordDto);
 }
