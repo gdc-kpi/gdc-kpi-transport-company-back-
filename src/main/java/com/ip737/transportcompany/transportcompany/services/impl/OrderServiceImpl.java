@@ -10,20 +10,16 @@ import org.springframework.stereotype.Service;
 
 @Slf4j
 @Service
-@PropertySource("classpath:application.properties")
 public class OrderServiceImpl implements OrderService {
 
     final private OrderDao orderDao;
 
-
-
-    public OrderServiceImpl(UserService userService, OrderDao orderDao) {
+    public OrderServiceImpl( OrderDao orderDao) {
         this.orderDao = orderDao;
     }
 
-
     @Override
-    public void insertOrder(Order order) {
-        orderDao.insert(order);
+    public Order insertOrder(Order order) {
+        return orderDao.insert(order);
     }
 }

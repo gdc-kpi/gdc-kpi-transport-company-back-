@@ -33,7 +33,7 @@ public class SqlConstants {
             "FROM vehicles WHERE user_id = ? ;";
 
     public static final String USER_INSERT_ODER =
-            "INSERT INTO order (source, destination, volume, drivers_id, admins_id, title, description) " +
-                    "VALUES (?, ?, ?, ?, ?, ?, ?) ;";
+            "INSERT INTO orders (order_id, source, destination, volume, car_id, admin_id, title, description) " +
+                    "VALUES ((?), ?, ?, ?, (?), (?), ?, ?) ;";
 
 }

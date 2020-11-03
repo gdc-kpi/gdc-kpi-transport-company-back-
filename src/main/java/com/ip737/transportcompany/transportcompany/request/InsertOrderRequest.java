@@ -1,9 +1,14 @@
 package com.ip737.transportcompany.transportcompany.request;
 
 import com.ip737.transportcompany.transportcompany.data.entities.Order;
+import lombok.*;
 
-import java.util.UUID;
-
+@AllArgsConstructor
+@NoArgsConstructor
+@Getter
+@Setter
+@ToString
+@Builder
 public class InsertOrderRequest {
     //geography??
     private int source;
@@ -11,9 +16,9 @@ public class InsertOrderRequest {
     private int destination;
     private float volume;
     //UUID?
-    private UUID drivers_id;
+    private String drivers_id;
     //UUID?
-    private UUID admins_id;
+    private String admins_id;
     private String title;
     private String description;
 

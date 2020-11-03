@@ -24,10 +24,14 @@ public class OrderDaoImpl implements com.ip737.transportcompany.transportcompany
     }
 
     @Override
-    public void insert(Order order) {
+    public Order insert(Order order) {
+        order.setOrderId( UUID.randomUUID().toString());
+        System.out.println(order.toString());
         jdbcTemplate.update(SqlConstants.USER_INSERT_ODER,
+                UUID.fromString(order.getOrderId()),
                 order.getSource(), order.getDestination(), order.getVolume(),
-                order.getDrivers_id(), order.getAdmins_id(), order.getTitle(), order.getDescription()
+                UUID.fromString(order.getDrivers_id()),   UUID.fromString(order.getAdmins_id()), order.getTitle(), order.getDescription()
         );
+        return order;
     }
 }

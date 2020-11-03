@@ -11,20 +11,22 @@ import java.util.UUID;
 @EqualsAndHashCode
 @ToString
 @Builder
+@NoArgsConstructor
 @AllArgsConstructor
-@Table(name = "order")
 public class Order {
 
     @Id
+    private String orderId;
+
     //geography??
     private int source;
     //geography??
-    private int destination;
+    private int destination; //TODO
+
     private float volume;
-    private UUID drivers_id;
-    private UUID admins_id;
+    private String drivers_id;
+    private String admins_id;
     private String title;
     private String description;
 
-    public Order() {}
 }
