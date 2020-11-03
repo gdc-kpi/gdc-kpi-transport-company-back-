@@ -20,12 +20,12 @@ class UserDaoImplTest {
 
     @Before
     void setUp() {
-        userDao.delete("notamongass@gmail.com", "password");
+
     }
 
     @After
     void tearDown() {
-        userDao.delete("notamongass@gmail.com", "password");
+
     }
 
     @Test
@@ -43,6 +43,7 @@ class UserDaoImplTest {
 
     @Test
     void save() {
+        userDao.delete("notamongass@gmail.com", "password");
         User user = User.builder()
                 .fullname("Some One")
                 .email("notamongass@gmail.com")
@@ -55,6 +56,7 @@ class UserDaoImplTest {
         User user2 = userDao.getByEmail(user.getEmail());
         user.setId(user2.getId());
         assertEquals(user, user2);
+        userDao.delete("notamongass@gmail.com", "password");
     }
 
     @Test
