@@ -88,13 +88,13 @@ public class AuthController {
     }
 
     @PostMapping("/delete")
-    public ResponseEntity<?> deleteUser(@RequestBody LoginRequest user) {
+    public ResponseEntity<?> deleteUser(@RequestBody LoginDto user) {
         userService.delete(user.getEmail(), user.getPassword());
         return new ResponseEntity<>(HttpStatus.OK);
     }
 
     @PostMapping("/get-link") // TEMPORARY
-    public ResponseEntity<?> getLink(@RequestBody LoginRequest user) {
+    public ResponseEntity<?> getLink(@RequestBody LoginDto user) {
         User currentUser = userService.getByEmail(user.getEmail());
         UserLoginSuccessResponse successResponse = UserLoginSuccessResponse.builder()
                 .token(currentUser.getLink())
@@ -103,7 +103,7 @@ public class AuthController {
     }
 
     @PostMapping("/get-recovery") // TEMPORARY
-    public ResponseEntity<?> getRecovery(@RequestBody LoginRequest user) {
+    public ResponseEntity<?> getRecovery(@RequestBody LoginDto user) {
         User currentUser = userService.getByEmail(user.getEmail());
         UserLoginSuccessResponse successResponse = UserLoginSuccessResponse.builder()
                 .token(currentUser.getRecoveryLink())
