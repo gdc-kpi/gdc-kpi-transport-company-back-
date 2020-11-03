@@ -10,6 +10,8 @@ import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.stereotype.Repository;
 
+import java.util.UUID;
+
 
 @Repository
 @Slf4j
@@ -23,7 +25,7 @@ public class VehicleDaoImpl implements VehicleDao {
     }
 
     @Override
-    public Vehicle getByOwnerId(int ownerId) {
+    public Vehicle getByOwnerId(UUID ownerId) {
         try {
             return jdbcTemplate.queryForObject(SqlConstants.VEHICLE_GET_BY_ID,
                     new Object[]{ownerId},

@@ -1,4 +1,4 @@
-package com.ip737.transportcompany.transportcompany.request;
+package com.ip737.transportcompany.transportcompany.web.dto;
 
 import com.ip737.transportcompany.transportcompany.data.entities.Order;
 import lombok.*;
@@ -9,7 +9,7 @@ import lombok.*;
 @Setter
 @ToString
 @Builder
-public class InsertOrderRequest {
+public class OrderDto {
     //geography??
     private int source;
     //geography??

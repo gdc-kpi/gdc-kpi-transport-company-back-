@@ -1,4 +1,4 @@
-package com.ip737.transportcompany.transportcompany.web.dto;
+package com.ip737.transportcompany.transportcompany.data.entities;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;

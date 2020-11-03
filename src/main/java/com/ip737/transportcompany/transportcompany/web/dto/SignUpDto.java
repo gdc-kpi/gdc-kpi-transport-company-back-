@@ -1,4 +1,4 @@
-package com.ip737.transportcompany.transportcompany.request;
+package com.ip737.transportcompany.transportcompany.web.dto;
 
 import com.ip737.transportcompany.transportcompany.configs.constants.Constants;
 import com.ip737.transportcompany.transportcompany.data.entities.User;
@@ -7,7 +7,7 @@ import lombok.Setter;
 
 @Getter
 @Setter
-public class SignUpRequest {
+public class SignUpDto {
     private String fullname;
     private String email;
     private String password;

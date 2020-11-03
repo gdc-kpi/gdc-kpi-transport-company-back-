@@ -3,7 +3,7 @@ package com.ip737.transportcompany.transportcompany.services.impl;
 import com.ip737.transportcompany.transportcompany.configs.constants.Constants;
 import com.ip737.transportcompany.transportcompany.data.entities.User;
 import com.ip737.transportcompany.transportcompany.services.EmailService;
-import com.ip737.transportcompany.transportcompany.web.dto.Mail;
+import com.ip737.transportcompany.transportcompany.data.entities.Mail;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.mail.javamail.JavaMailSender;

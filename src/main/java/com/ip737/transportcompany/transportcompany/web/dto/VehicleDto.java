@@ -1,8 +1,12 @@
-package com.ip737.transportcompany.transportcompany.request;
+package com.ip737.transportcompany.transportcompany.web.dto;
 
 import com.ip737.transportcompany.transportcompany.data.entities.Vehicle;
+import lombok.Getter;
+import lombok.Setter;
 
-public class AddVehicleRequest {
+@Getter
+@Setter
+public class VehicleDto {
     private String plate;
     private double capacity;
     private double loadCapacity;

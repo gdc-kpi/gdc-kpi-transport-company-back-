@@ -2,7 +2,9 @@ package com.ip737.transportcompany.transportcompany.services;
 
 import com.ip737.transportcompany.transportcompany.data.entities.Vehicle;
 
-public interface ProfileService {
+import java.util.UUID;
 
-    void addVehicle(Vehicle vehicle);
+public interface DriverService {
+    Vehicle getVehicle(UUID userId);
+
 }

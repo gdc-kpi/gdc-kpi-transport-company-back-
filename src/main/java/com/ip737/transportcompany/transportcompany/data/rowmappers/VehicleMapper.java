@@ -17,6 +17,7 @@ public class VehicleMapper implements RowMapper<Vehicle> {
                 .capacity(resultSet.getDouble("capacity"))
                 .loadCapacity(resultSet.getDouble("load_capacity"))
                 .fuelConsumption(resultSet.getInt("fuel_consumption"))
+                .userId(UUID.fromString(resultSet.getString("user_id")))
                 .build();
     }
 }

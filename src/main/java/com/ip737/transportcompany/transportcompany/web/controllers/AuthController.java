@@ -4,8 +4,9 @@ import com.ip737.transportcompany.transportcompany.configs.constants.Constants;
 import com.ip737.transportcompany.transportcompany.data.entities.User;
 import com.ip737.transportcompany.transportcompany.exceptions.IdentificationException;
 import com.ip737.transportcompany.transportcompany.exceptions.ValidationException;
-import com.ip737.transportcompany.transportcompany.request.LoginRequest;
-import com.ip737.transportcompany.transportcompany.request.SignUpRequest;
+import com.ip737.transportcompany.transportcompany.web.dto.ChangePasswordDto;
+import com.ip737.transportcompany.transportcompany.web.dto.LoginDto;
+import com.ip737.transportcompany.transportcompany.web.dto.SignUpDto;
 import com.ip737.transportcompany.transportcompany.response.UserLoginSuccessResponse;
 import com.ip737.transportcompany.transportcompany.services.ActivationService;
 import com.ip737.transportcompany.transportcompany.services.UserService;
@@ -17,6 +18,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import javax.websocket.server.PathParam;
+import java.util.UUID;
 
 
 @Slf4j
@@ -35,7 +37,7 @@ public class AuthController {
     }
 
     @PostMapping("/log-in")
-    public ResponseEntity<?> authenticateUser(@RequestBody LoginRequest user) throws ValidationException {
+    public ResponseEntity<?> authenticateUser(@RequestBody LoginDto user) throws ValidationException {
         UserValidator.validate(user);
 
         User currentUser = userService.getByEmail(user.getEmail());
@@ -60,7 +62,7 @@ public class AuthController {
     }
 
     @PostMapping("/sign-up")
-    public ResponseEntity<?> registerUser(@RequestBody SignUpRequest user) {
+    public ResponseEntity<?> registerUser(@RequestBody SignUpDto user) {
         UserValidator.validate(user);
         userService.save(user.toUser());
         return new ResponseEntity<>(HttpStatus.OK);
@@ -69,6 +71,19 @@ public class AuthController {
     @PatchMapping("/activate")
     public ResponseEntity<?> activate(@PathParam("key") String key) {
         activationService.verifyUser(key);
+        return new ResponseEntity<>(HttpStatus.OK);
+    }
+
+
+    @PostMapping("/change-password")
+    public ResponseEntity<?> changePassword(UUID userId, @RequestBody ChangePasswordDto pass) {
+        User currentUser = userService.getById(userId);
+
+        if (userService.getById(userId).getPassword().equals(currentUser.getPassword())) {
+            currentUser.setPassword(pass.getNewPassword());
+            userService.update(currentUser);
+        } else throw new ValidationException(Constants.INCORRECT_PASSWORD);
+
         return new ResponseEntity<>(HttpStatus.OK);
     }
 }

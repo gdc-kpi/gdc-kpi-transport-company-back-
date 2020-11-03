@@ -1,7 +1,6 @@
 package com.ip737.transportcompany.transportcompany.web.controllers;
 
-import com.ip737.transportcompany.transportcompany.data.entities.Order;
-import com.ip737.transportcompany.transportcompany.request.InsertOrderRequest;
+import com.ip737.transportcompany.transportcompany.web.dto.OrderDto;
 import com.ip737.transportcompany.transportcompany.services.OrderService;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -23,7 +22,7 @@ public class OrderController {
     }
 
     @PostMapping()
-    public ResponseEntity<?> createOrder(@RequestBody InsertOrderRequest order) {
+    public ResponseEntity<?> createOrder(@RequestBody OrderDto order) {
         System.out.println(order.toString());
         return new ResponseEntity<>(orderService.insertOrder(order.toOrder()),HttpStatus.OK);
     }

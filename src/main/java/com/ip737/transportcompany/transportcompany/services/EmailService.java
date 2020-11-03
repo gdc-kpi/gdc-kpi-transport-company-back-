@@ -1,7 +1,7 @@
 package com.ip737.transportcompany.transportcompany.services;
 
 import com.ip737.transportcompany.transportcompany.data.entities.User;
-import com.ip737.transportcompany.transportcompany.web.dto.Mail;
+import com.ip737.transportcompany.transportcompany.data.entities.Mail;
 
 import javax.mail.MessagingException;
 

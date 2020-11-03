@@ -11,7 +11,7 @@ import lombok.Setter;
 @Builder
 @NoArgsConstructor
 @AllArgsConstructor
-public class DtoForgotPassword {
+public class ForgotPasswordDto {
 
     private String recoveryLink;
 

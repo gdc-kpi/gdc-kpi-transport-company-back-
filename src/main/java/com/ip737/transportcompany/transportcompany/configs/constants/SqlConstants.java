@@ -29,7 +29,7 @@ public class SqlConstants {
             "INSERT INTO vehicles (plate, capacity, load_capacity, fuel_consumption, user_id) " +
                     "VALUES (?, ?, ?, ?, ?) ;";
 
-    public static final String VEHICLE_GET_BY_ID = "SELECT plate, capacity, load_capacity, fuel_consumption" +
+    public static final String VEHICLE_GET_BY_ID = "SELECT plate, capacity, load_capacity, fuel_consumption, user_id " +
             "FROM vehicles WHERE user_id = ? ;";
 
     public static final String USER_INSERT_ODER =

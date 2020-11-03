@@ -4,6 +4,7 @@ import com.ip737.transportcompany.transportcompany.data.entities.User;
 
 import java.util.UUID;
 
+
 public interface UserService {
 
     void save(User user);
