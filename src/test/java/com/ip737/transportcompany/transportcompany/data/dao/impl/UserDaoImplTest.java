@@ -55,7 +55,7 @@ class UserDaoImplTest {
         userDao.save(user, Constants.ROLE_DRIVER_ID);
         User user2 = userDao.getByEmail(user.getEmail());
         user.setId(user2.getId());
-        assertEquals(user, user2);
+        assertEquals(user, user2);//krya
         userDao.delete("notamongass@gmail.com", "password");
     }
 
