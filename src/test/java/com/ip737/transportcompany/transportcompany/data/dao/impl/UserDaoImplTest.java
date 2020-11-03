@@ -7,6 +7,8 @@ import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 
+import static org.junit.Assert.assertEquals;
+
 @SpringBootTest
 class UserDaoImplTest {
 
@@ -31,13 +33,15 @@ class UserDaoImplTest {
         User user = User.builder()
                 .fullname("Some One")
                 .email("notamongass@gmail.com")
-                .role("role")
+                .role(Constants.ROLE_DRIVER)
                 .password("password")
                 .isActivated(true)
                 .link("link")
                 .build();
         userDao.save(user, Constants.ROLE_DRIVER_ID);
         User user2 = userDao.getByEmail(user.getEmail());
+        assertEquals(user2.getEmail(), "notamongass@gmail.com");
+        userDao.delete(user.getEmail(), user.getPassword());
     }
 
     @Test
