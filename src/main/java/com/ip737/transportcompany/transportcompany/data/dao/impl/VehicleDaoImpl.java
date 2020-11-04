@@ -42,5 +42,11 @@ public class VehicleDaoImpl implements VehicleDao {
                 vehicle.getFuelConsumption(), vehicle.getUserId()
         );
     }
+
+    @Override
+    public void delete(String plate, UUID ownerID) {
+        jdbcTemplate.update(SqlConstants.DELETE_VEHICLE_QUERY,
+                plate, ownerID);
+    }
 }
 

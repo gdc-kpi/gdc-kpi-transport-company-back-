@@ -8,11 +8,13 @@ import org.junit.Before;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.dao.DuplicateKeyException;
 
 import java.util.UUID;
 
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertNull;
+import static org.junit.Assert.*;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertThrows;
 
 @SpringBootTest
 class UserDaoImplTest {
@@ -119,6 +121,34 @@ class UserDaoImplTest {
         user.setId(user2.getId());
         assertEquals(user, user2);
         userDao.delete("notamongass@gmail.com", "password");
+    }
+
+    @Test
+    void sameEmail() {
+        userDao.delete("amongus@gmail.com", "niceone");
+        userDao.delete("amongus@gmail.com", "badone");
+        User user = User.builder()
+                .fullname("Some Body")
+                .email("amongus@gmail.com")
+                .role(Constants.ROLE_ADMIN)
+                .password("niceone")
+                .isActivated(true)
+                .link("mylink")
+                .recoveryLink("recovery_link")
+                .build();
+        userDao.save(user, Constants.ROLE_ADMIN_ID);
+        User user2 = User.builder()
+                .fullname("Once Toldme")
+                .email("amongus@gmail.com")
+                .role(Constants.ROLE_DRIVER)
+                .password("badone")
+                .isActivated(false)
+                .link("mylink2")
+                .recoveryLink("recovery_link2")
+                .build();
+        assertThrows(DuplicateKeyException.class, () -> userDao.save(user2, Constants.ROLE_ADMIN_ID));
+        userDao.delete("amongus@gmail.com", "niceone");
+        userDao.delete("amongus@gmail.com", "badone");
     }
 
     @Test

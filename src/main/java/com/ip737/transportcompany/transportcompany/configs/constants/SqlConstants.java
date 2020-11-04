@@ -38,4 +38,7 @@ public class SqlConstants {
 
     public static final String DELETE_USER_QUERY =
             "DELETE FROM users WHERE email = ? AND password = ?;";
+
+    public static final String DELETE_VEHICLE_QUERY =
+            "DELETE FROM vehicles WHERE plate = ? AND user_id = ?;";
 }
