@@ -1,8 +1,10 @@
 package com.ip737.transportcompany.transportcompany.configs.security;
 
+import com.ip737.transportcompany.transportcompany.configs.constants.Constants;
 import com.ip737.transportcompany.transportcompany.configs.security.jwt.AuthEntryPointJwt;
 import com.ip737.transportcompany.transportcompany.configs.security.jwt.AuthTokenFilter;
 import com.ip737.transportcompany.transportcompany.configs.security.services.UserDetailsServiceImpl;
+import io.swagger.models.HttpMethod;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -10,6 +12,7 @@ import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
 import org.springframework.security.config.annotation.method.configuration.EnableGlobalMethodSecurity;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
+import org.springframework.security.config.annotation.web.builders.WebSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
 import org.springframework.security.config.http.SessionCreationPolicy;
@@ -34,7 +37,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
     }
 
     @Override
-    public void configure(AuthenticationManagerBuilder authenticationManagerBuilder) throws Exception {
+    protected void configure(AuthenticationManagerBuilder authenticationManagerBuilder) throws Exception {
         authenticationManagerBuilder.userDetailsService(userDetailsService);
     }
 
@@ -60,5 +63,19 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
                 .anyRequest().authenticated();
 
         http.addFilterBefore(authenticationJwtTokenFilter(), UsernamePasswordAuthenticationFilter.class);
+    }
+
+    public void configure(WebSecurity webSecurity) {
+        webSecurity
+                .ignoring()
+                .antMatchers(
+                        Constants.SECUR_URLS,
+                        Constants.SECUR_DOCS_URLS,
+                        Constants.SECUR_CONFIG_UI_URLS,
+                        Constants.SECUR_SWAGGER_RESOURCES_URLS,
+                        Constants.SECUR_CONFIG_SECURITY_URLS,
+                        Constants.SECUR_SWAGGER_UI_URLS,
+                        Constants.SECUR_WEBJARS_URLS
+                );
     }
 }
