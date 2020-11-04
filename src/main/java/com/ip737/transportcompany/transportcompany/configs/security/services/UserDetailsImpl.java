@@ -1,13 +1,12 @@
 package com.ip737.transportcompany.transportcompany.configs.security.services;
 
-import java.util.Collection;
-
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.ip737.transportcompany.transportcompany.data.entities.User;
 import lombok.*;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
+import java.util.Collection;
 
 @Builder
 @ToString
@@ -56,6 +55,16 @@ public class UserDetailsImpl implements UserDetails {
     @Override
     public String getUsername() {
         return this.fullName;
+    }
+
+
+    public String getRole() {
+        return this.role;
+    }
+
+
+    public String getId() {
+        return this.id;
     }
 
     @Override

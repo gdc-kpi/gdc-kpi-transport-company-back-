@@ -1,18 +1,16 @@
 package com.ip737.transportcompany.transportcompany.services.impl;
 
 import com.ip737.transportcompany.transportcompany.configs.constants.Constants;
+import com.ip737.transportcompany.transportcompany.data.entities.Mail;
 import com.ip737.transportcompany.transportcompany.data.entities.User;
 import com.ip737.transportcompany.transportcompany.services.EmailService;
-import com.ip737.transportcompany.transportcompany.data.entities.Mail;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.mail.javamail.JavaMailSender;
 import org.springframework.mail.javamail.MimeMessageHelper;
 import org.springframework.stereotype.Service;
-
 import org.thymeleaf.context.Context;
 import org.thymeleaf.spring4.SpringTemplateEngine;
-
 
 import javax.mail.MessagingException;
 import javax.mail.internet.MimeMessage;
@@ -68,7 +66,7 @@ public class EmailServiceImpl implements EmailService {
     }
 
     @Override
-    public Mail createRecoverMail(User user){
+    public Mail createRecoverMail(User user) {
         Mail mail = new Mail();
         mail.setTo(user.getEmail());
         mail.setSubject(recoverMailSubject);

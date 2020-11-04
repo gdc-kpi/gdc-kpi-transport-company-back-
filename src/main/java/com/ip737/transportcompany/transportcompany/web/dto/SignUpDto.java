@@ -12,7 +12,7 @@ public class SignUpDto {
     private String email;
     private String password;
 
-    public User toUser(){
+    public User toUser() {
         return User.builder()
                 .password(this.password)
                 .email(this.email)

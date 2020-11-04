@@ -24,5 +24,9 @@ public class Constants {
     public static final String MAIL_MODEL_LINK = "link";
     public static final String MAIL_MODEL_EMAIL = "email";
 
+    public enum Status
+    {
+        CONFIRMED, REJECTED, PENDING_CONFIRMATION, STARTED, FINISHED
+    }
 
 }

@@ -4,5 +4,6 @@
       "name": "spring.datasource.driver",
       "type": "java.lang.String",
       "description": "Description for spring.datasource.driver."
-  }
-] }
+    }
+  ]
+}

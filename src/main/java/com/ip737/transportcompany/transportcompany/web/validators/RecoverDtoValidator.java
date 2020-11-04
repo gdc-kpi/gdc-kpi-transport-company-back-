@@ -24,7 +24,7 @@ public class RecoverDtoValidator {
 
     public static void validate(String email) throws ValidationException {
         validateNotEmptyProperty(email, "email");
-        validateWithRegularExpression(email, REGEX_EMAIL,"email");
+        validateWithRegularExpression(email, REGEX_EMAIL, "email");
     }
 
     private static void validateNotEmptyProperty(Object value, String propertyName) {
@@ -34,8 +34,6 @@ public class RecoverDtoValidator {
     }
 
     private static void validateWithRegularExpression(Object value, String regex, String propertyName) {
-        System.out.println("regex " +  regex);
-        System.out.println("value " +  String.valueOf(value));
         Matcher matcher = Pattern.compile(regex).matcher(String.valueOf(value));
         if (!matcher.matches()) {
             throw new ValidationException(String.format(REGEX_EXCEPTION_MESSAGE, propertyName, regex));

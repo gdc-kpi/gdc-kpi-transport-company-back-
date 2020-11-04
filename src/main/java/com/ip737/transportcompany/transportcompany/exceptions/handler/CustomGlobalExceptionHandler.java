@@ -1,8 +1,6 @@
 package com.ip737.transportcompany.transportcompany.exceptions.handler;
 
 import com.ip737.transportcompany.transportcompany.exceptions.AppException;
-import com.ip737.transportcompany.transportcompany.exceptions.IdentificationException;
-import com.ip737.transportcompany.transportcompany.exceptions.ValidationException;
 import com.ip737.transportcompany.transportcompany.exceptions.model.ErrorMessage;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.HttpStatus;
@@ -19,7 +17,7 @@ public class CustomGlobalExceptionHandler extends ResponseEntityExceptionHandler
 
     @ExceptionHandler()
     public ResponseEntity<ErrorMessage> handleException(AppException exception,
-                                                        HttpServletRequest request){
+                                                        HttpServletRequest request) {
 
         HttpStatus httpStatus = exception.getHttpStatus();
 

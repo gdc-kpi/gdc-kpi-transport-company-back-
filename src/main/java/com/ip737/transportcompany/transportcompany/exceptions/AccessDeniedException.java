@@ -4,16 +4,16 @@ import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.ResponseStatus;
 
 @ResponseStatus(HttpStatus.FORBIDDEN)
-public class IdentificationException extends AppException {
+public class AccessDeniedException extends AppException {
 
-    public IdentificationException() {
+    public AccessDeniedException() {
     }
 
-    public IdentificationException(String message) {
+    public AccessDeniedException(String message) {
         super(message);
     }
 
-    public IdentificationException(String message, Throwable cause) {
+    public AccessDeniedException(String message, Throwable cause) {
         super(message, cause);
     }
 }

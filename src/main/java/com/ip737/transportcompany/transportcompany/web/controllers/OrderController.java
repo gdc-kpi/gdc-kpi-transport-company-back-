@@ -1,7 +1,11 @@
 package com.ip737.transportcompany.transportcompany.web.controllers;
 
-import com.ip737.transportcompany.transportcompany.web.dto.OrderDto;
+import com.ip737.transportcompany.transportcompany.configs.constants.Constants;
+import com.ip737.transportcompany.transportcompany.configs.security.services.AuthenticationFacade;
+import com.ip737.transportcompany.transportcompany.exceptions.AccessDeniedException;
 import com.ip737.transportcompany.transportcompany.services.OrderService;
+import com.ip737.transportcompany.transportcompany.web.dto.OrderDto;
+import com.ip737.transportcompany.transportcompany.web.validators.OrderDtoValidator;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -16,13 +20,24 @@ public class OrderController {
 
     final private OrderService orderService;
 
+    final private AuthenticationFacade authenticationFacade;
+
     @Autowired
-    public OrderController(OrderService orderService) {
+    public OrderController(OrderService orderService, AuthenticationFacade authenticationFacade) {
         this.orderService = orderService;
+        this.authenticationFacade = authenticationFacade;
     }
 
     @PostMapping()
     public ResponseEntity<?> createOrder(@RequestBody OrderDto order) {
-        return new ResponseEntity<>(orderService.insertOrder(order.toOrder()),HttpStatus.CREATED);
+        if (authenticationFacade.isAllowed(Constants.ROLE_ADMIN)) {
+            System.out.println(order.toString());
+            OrderDtoValidator.validate(order);
+
+            order.setAdmins_id(authenticationFacade.getId());
+            return new ResponseEntity<>(orderService.insertOrder(order.toOrder()), HttpStatus.CREATED);
+        } else {
+            throw new AccessDeniedException("Resource forbidden for this user due to their role");
+        }
     }
 }

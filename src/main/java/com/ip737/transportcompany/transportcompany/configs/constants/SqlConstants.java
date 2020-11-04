@@ -23,7 +23,7 @@ public class SqlConstants {
 
     public static final String USER_UPDATE_QUERY_BY_ID =
             "UPDATE users SET fullname = ?, email = ?, password= ?, is_activated = ?, link = ?, recovery_link = ? " +
-            "WHERE user_id = UUID(?) ;";
+                    "WHERE user_id = UUID(?) ;";
 
     public static final String VEHICLE_SAVE_QUERY =
             "INSERT INTO vehicles (plate, capacity, load_capacity, fuel_consumption, user_id) " +
@@ -33,8 +33,8 @@ public class SqlConstants {
             "FROM vehicles WHERE user_id = ? ;";
 
     public static final String USER_INSERT_ODER =
-            "INSERT INTO orders (order_id, source, destination, volume, car_id, admin_id, title, description) " +
-                    "VALUES (?, ST_MakePoint(?, ?), ST_MakePoint(?, ?), ?, (?), (?), ?, ?) ;";
+            "INSERT INTO orders (order_id, source, destination, volume, car_id, admin_id, title, description, weight) " +
+                    "VALUES (?, point(?::double precision, ?::double precision), point(?::double precision, ?::double precision), ?, ?, ?, ?, ?, ?) ;";
 
     public static final String DELETE_USER_QUERY =
             "DELETE FROM users WHERE email = ? AND password = ?;";

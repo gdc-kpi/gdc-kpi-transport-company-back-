@@ -21,7 +21,7 @@ public class User {
             name = "UUID",
             strategy = "org.hibernate.id.UUIDGenerator"
     )
-    @Column(name="user_id")
+    @Column(name = "user_id")
     private UUID id;
 
     private String fullname;
@@ -32,5 +32,6 @@ public class User {
     private String link;
     private String recoveryLink;
 
-    public User() {}
+    public User() {
+    }
 }

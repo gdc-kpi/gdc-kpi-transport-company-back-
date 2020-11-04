@@ -4,12 +4,12 @@ import com.ip737.transportcompany.transportcompany.configs.constants.Constants;
 import com.ip737.transportcompany.transportcompany.data.entities.User;
 import com.ip737.transportcompany.transportcompany.exceptions.IdentificationException;
 import com.ip737.transportcompany.transportcompany.exceptions.ValidationException;
-import com.ip737.transportcompany.transportcompany.web.dto.ChangePasswordDto;
-import com.ip737.transportcompany.transportcompany.web.dto.LoginDto;
-import com.ip737.transportcompany.transportcompany.web.dto.SignUpDto;
 import com.ip737.transportcompany.transportcompany.response.UserLoginSuccessResponse;
 import com.ip737.transportcompany.transportcompany.services.ActivationService;
 import com.ip737.transportcompany.transportcompany.services.UserService;
+import com.ip737.transportcompany.transportcompany.web.dto.ChangePasswordDto;
+import com.ip737.transportcompany.transportcompany.web.dto.LoginDto;
+import com.ip737.transportcompany.transportcompany.web.dto.SignUpDto;
 import com.ip737.transportcompany.transportcompany.web.validators.UserValidator;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -31,7 +31,7 @@ public class AuthController {
     final private ActivationService activationService;
 
     @Autowired
-    public AuthController(UserService userService , ActivationService activationService) {
+    public AuthController(UserService userService, ActivationService activationService) {
         this.userService = userService;
         this.activationService = activationService;
     }

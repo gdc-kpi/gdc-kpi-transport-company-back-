@@ -7,7 +7,7 @@ import java.util.UUID;
 public interface UserDao {
 
     User getById(UUID id);
-    
+
     User getByEmail(String email);
 
     void save(User user, int roleId);

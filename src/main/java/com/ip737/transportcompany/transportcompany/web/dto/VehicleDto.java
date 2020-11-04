@@ -12,7 +12,7 @@ public class VehicleDto {
     private double loadCapacity;
     private int fuelConsumption;
 
-    public Vehicle toVehicle(){
+    public Vehicle toVehicle() {
         return Vehicle.builder()
                 .plate(this.plate)
                 .capacity(this.capacity)

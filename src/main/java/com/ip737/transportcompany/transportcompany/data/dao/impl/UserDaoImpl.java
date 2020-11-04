@@ -2,8 +2,8 @@ package com.ip737.transportcompany.transportcompany.data.dao.impl;
 
 import com.ip737.transportcompany.transportcompany.configs.constants.SqlConstants;
 import com.ip737.transportcompany.transportcompany.data.dao.UserDao;
-import com.ip737.transportcompany.transportcompany.data.rowmappers.UserMapper;
 import com.ip737.transportcompany.transportcompany.data.entities.User;
+import com.ip737.transportcompany.transportcompany.data.rowmappers.UserMapper;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.EmptyResultDataAccessException;
@@ -56,7 +56,7 @@ public class UserDaoImpl implements UserDao {
             return null;
         }
     }
-    
+
     @Override
     public User getByEmail(String email) {
         try {

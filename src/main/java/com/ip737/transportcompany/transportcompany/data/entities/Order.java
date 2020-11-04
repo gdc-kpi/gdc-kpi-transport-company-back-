@@ -2,8 +2,11 @@ package com.ip737.transportcompany.transportcompany.data.entities;
 
 import lombok.*;
 
-import javax.persistence.*;
-import java.util.UUID;
+import javax.persistence.Entity;
+import javax.persistence.Id;
+import java.sql.Date;
+import java.time.LocalDate;
+import java.time.LocalDateTime;
 
 @Entity
 @Getter
@@ -23,9 +26,12 @@ public class Order {
     private double destinationLatitude;
     private double destinationLongitude;
     private double volume;
-    private String drivers_id;
+    private double weight;
+    private String car_id;
     private String admins_id;
     private String title;
     private String description;
+    private LocalDateTime deadline;
+    public String status;
 
 }
