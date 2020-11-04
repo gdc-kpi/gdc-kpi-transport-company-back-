@@ -9,4 +9,6 @@ public interface VehicleDao {
     void save(Vehicle vehicle);
 
     Vehicle getByOwnerId(UUID ownerId);
+
+    Vehicle getOwnerId(String carId);
 }

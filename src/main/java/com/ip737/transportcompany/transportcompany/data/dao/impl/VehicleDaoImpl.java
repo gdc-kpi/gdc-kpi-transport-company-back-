@@ -27,8 +27,19 @@ public class VehicleDaoImpl implements VehicleDao {
     @Override
     public Vehicle getByOwnerId(UUID ownerId) {
         try {
-            return jdbcTemplate.queryForObject(SqlConstants.VEHICLE_GET_BY_ID,
+            return jdbcTemplate.queryForObject(SqlConstants.VEHICLE_GET_BY_USER_ID,
                     new Object[]{ownerId},
+                    new VehicleMapper());
+        } catch (EmptyResultDataAccessException exception) {
+            return null;
+        }
+    }
+
+    @Override
+    public Vehicle getOwnerId(String carId) {
+        try {
+            return jdbcTemplate.queryForObject(SqlConstants.VEHICLE_GET_BY_PLATE,
+                    new Object[]{carId},
                     new VehicleMapper());
         } catch (EmptyResultDataAccessException exception) {
             return null;

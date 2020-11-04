@@ -29,13 +29,24 @@ public class SqlConstants {
             "INSERT INTO vehicles (plate, capacity, load_capacity, fuel_consumption, user_id) " +
                     "VALUES (?, ?, ?, ?, ?) ;";
 
-    public static final String VEHICLE_GET_BY_ID = "SELECT plate, capacity, load_capacity, fuel_consumption, user_id " +
+    public static final String VEHICLE_GET_BY_USER_ID = "SELECT plate, capacity, load_capacity, fuel_consumption, user_id " +
             "FROM vehicles WHERE user_id = ? ;";
 
+    public static final String VEHICLE_GET_BY_PLATE = "SELECT plate, capacity, load_capacity, fuel_consumption, user_id " +
+            "FROM vehicles WHERE plate = ? ;";
+
     public static final String USER_INSERT_ODER =
-            "INSERT INTO orders (order_id, source, destination, volume, car_id, admin_id, title, description, weight) " +
-                    "VALUES (?, point(?::double precision, ?::double precision), point(?::double precision, ?::double precision), ?, ?, ?, ?, ?, ?) ;";
+            "INSERT INTO orders (order_id, source, destination, volume, car_id, admin_id, title, description, weight, deadline, status) " +
+                    "VALUES (?, point(?::double precision, ?::double precision), point(?::double precision, ?::double precision), ?, ?, ?, ?, ?, ?, ?, ?) ;";
 
     public static final String DELETE_USER_QUERY =
             "DELETE FROM users WHERE email = ? AND password = ?;";
+
+    public static final String GET_DRIVERS_DAY_OFF_FOR_THE_DATE =
+    "select count(1) from days_off where user_id = ? and date = ? and is_approved = true;";
+
+
+    public static final String GET_DRIVERS_ORDERS_FOR_THE_DAY =
+            "select count(1) from orders where car_id = ? and deadline::date = ? and status = 'CONFIRMED' ;";
+
 }
