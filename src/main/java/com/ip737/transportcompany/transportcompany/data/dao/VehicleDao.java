@@ -8,6 +8,8 @@ public interface VehicleDao {
 
     void save(Vehicle vehicle);
 
+    void delete(String plate, UUID ownerID);
+
     Vehicle getByOwnerId(UUID ownerId);
 
     Vehicle getOwnerId(String carId);
