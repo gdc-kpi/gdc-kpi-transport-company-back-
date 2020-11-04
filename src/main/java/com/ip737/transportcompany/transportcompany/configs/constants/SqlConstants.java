@@ -34,7 +34,7 @@ public class SqlConstants {
 
     public static final String USER_INSERT_ODER =
             "INSERT INTO orders (order_id, source, destination, volume, car_id, admin_id, title, description) " +
-                    "VALUES ((?), ?, ?, ?, (?), (?), ?, ?) ;";
+                    "VALUES (?, ST_MakePoint(?, ?), ST_MakePoint(?, ?), ?, (?), (?), ?, ?) ;";
 
     public static final String DELETE_USER_QUERY =
             "DELETE FROM users WHERE email = ? AND password = ?;";

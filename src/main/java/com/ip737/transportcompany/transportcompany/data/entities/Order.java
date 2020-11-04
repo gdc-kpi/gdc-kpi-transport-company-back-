@@ -18,12 +18,11 @@ public class Order {
     @Id
     private String orderId;
 
-    //geography??
-    private int source;
-    //geography??
-    private int destination; //TODO
-
-    private float volume;
+    private double sourceLatitude;
+    private double sourceLongitude;
+    private double destinationLatitude;
+    private double destinationLongitude;
+    private double volume;
     private String drivers_id;
     private String admins_id;
     private String title;

@@ -21,9 +21,8 @@ public class OrderController {
         this.orderService = orderService;
     }
 
-    //TODO Won't work, should try to path two floats instead of int for source as well as destination
     @PostMapping()
     public ResponseEntity<?> createOrder(@RequestBody OrderDto order) {
-        return new ResponseEntity<>(orderService.insertOrder(order.toOrder()),HttpStatus.OK);
+        return new ResponseEntity<>(orderService.insertOrder(order.toOrder()),HttpStatus.CREATED);
     }
 }

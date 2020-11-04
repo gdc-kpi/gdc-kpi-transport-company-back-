@@ -29,7 +29,7 @@ public class OrderDaoImpl implements com.ip737.transportcompany.transportcompany
         System.out.println(order.toString());
         jdbcTemplate.update(SqlConstants.USER_INSERT_ODER,
                 UUID.fromString(order.getOrderId()),
-                order.getSource(), order.getDestination(), order.getVolume(),
+                order.getSourceLongitude(), order.getSourceLatitude(), order.getDestinationLongitude(), order.getSourceLatitude(), order.getVolume(),
                 UUID.fromString(order.getDrivers_id()),   UUID.fromString(order.getAdmins_id()), order.getTitle(), order.getDescription()
         );
         return order;
