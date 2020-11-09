@@ -3,6 +3,7 @@ package com.ip737.transportcompany.transportcompany.web.controllers;
 import com.ip737.transportcompany.transportcompany.services.AdminService;
 import com.ip737.transportcompany.transportcompany.services.UserService;
 import com.ip737.transportcompany.transportcompany.web.dto.VehicleDto;
+import com.ip737.transportcompany.transportcompany.web.validators.VehicleValidator;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -22,20 +23,15 @@ public class AdminController {
     @Autowired
     final private AdminService profileService;
 
-    @Autowired
-    final private UserService userService;
-
-    public AdminController(AdminService profileService, UserService userService) {
+    public AdminController(AdminService profileService) {
         this.profileService = profileService;
-        this.userService = userService;
     }
 
     @PostMapping("/add-vehicle")
     public ResponseEntity<?> addVehicle(@RequestBody VehicleDto vehicle) {
+        VehicleValidator.validate(vehicle);
         profileService.addVehicle(vehicle.toVehicle());
         return new ResponseEntity<>(HttpStatus.OK);
     }
-
-
 }
 

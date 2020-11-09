@@ -35,6 +35,9 @@ public class SqlConstants {
     public static final String VEHICLE_GET_BY_PLATE = "SELECT plate, capacity, load_capacity, fuel_consumption, user_id " +
             "FROM vehicles WHERE plate = ? ;";
 
+    public static final String VEHICLE_GET_FREE = "SELECT plate, capacity, load_capacity, fuel_consumption, user_id " +
+            "FROM vehicles WHERE user_id = null;";
+
     public static final String USER_INSERT_ODER =
             "INSERT INTO orders (order_id, source, destination, volume, car_id, admin_id, title, description, weight, deadline, status) " +
                     "VALUES (?, point(?::double precision, ?::double precision), point(?::double precision, ?::double precision), ?, ?, ?, ?, ?, ?, ?, ?) ;";

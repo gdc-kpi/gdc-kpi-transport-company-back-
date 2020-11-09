@@ -10,6 +10,8 @@ import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.stereotype.Repository;
 
+import java.util.List;
+import java.util.Map;
 import java.util.UUID;
 
 
@@ -40,6 +42,17 @@ public class VehicleDaoImpl implements VehicleDao {
         try {
             return jdbcTemplate.queryForObject(SqlConstants.VEHICLE_GET_BY_PLATE,
                     new Object[]{carId},
+                    new VehicleMapper());
+        } catch (EmptyResultDataAccessException exception) {
+            return null;
+        }
+    }
+
+    @Override
+    public List<Map<String, Object>> getFree() {
+        try {
+            return jdbcTemplate.queryForList(SqlConstants.VEHICLE_GET_FREE,
+                    new Object[]{},
                     new VehicleMapper());
         } catch (EmptyResultDataAccessException exception) {
             return null;
