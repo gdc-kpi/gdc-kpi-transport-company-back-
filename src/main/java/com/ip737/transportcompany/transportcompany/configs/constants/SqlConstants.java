@@ -29,18 +29,30 @@ public class SqlConstants {
             "INSERT INTO vehicles (plate, capacity, load_capacity, fuel_consumption, user_id) " +
                     "VALUES (?, ?, ?, ?, ?) ;";
 
-    public static final String VEHICLE_GET_BY_USER_ID = "SELECT plate, capacity, load_capacity, fuel_consumption, user_id " +
+    public static final String VEHICLE_ADD_OWNER =
+            "UPDATE vehicles SET user_id = ? " + "WHERE plate = ? ;";
+
+    public static final String VEHICLE_GET_BY_USER_ID =
+            "SELECT plate, capacity, load_capacity, fuel_consumption, user_id " +
             "FROM vehicles WHERE user_id = ? ;";
 
-    public static final String VEHICLE_GET_BY_PLATE = "SELECT plate, capacity, load_capacity, fuel_consumption, user_id " +
+    public static final String VEHICLE_GET_BY_PLATE =
+            "SELECT plate, capacity, load_capacity, fuel_consumption, user_id " +
             "FROM vehicles WHERE plate = ? ;";
 
-    public static final String VEHICLE_GET_FREE = "SELECT plate, capacity, load_capacity, fuel_consumption, user_id " +
-            "FROM vehicles WHERE user_id = null;";
+    public static final String VEHICLE_GET_ALL =
+            "SELECT users.fullname, plate, capacity, load_capacity, fuel_consumption, vehicles.user_id " +
+            "FROM vehicles LEFT JOIN users ON vehicles.user_id = users.user_id";
+
+    public static final String VEHICLE_GET_FREE =
+            "SELECT plate, capacity, load_capacity, fuel_consumption, user_id " +
+            "FROM vehicles WHERE user_id is null;";
 
     public static final String USER_INSERT_ODER =
-            "INSERT INTO orders (order_id, source, destination, volume, car_id, admin_id, title, description, weight, deadline, status) " +
-                    "VALUES (?, point(?::double precision, ?::double precision), point(?::double precision, ?::double precision), ?, ?, ?, ?, ?, ?, ?, ?) ;";
+            "INSERT INTO orders (order_id, source, destination, volume, car_id, " +
+                    "admin_id, title, description, weight, deadline, status) " +
+                    "VALUES (?, point(?::double precision, ?::double precision), " +
+                    "point(?::double precision, ?::double precision), ?, ?, ?, ?, ?, ?, ?, ?) ;";
 
     public static final String DELETE_USER_QUERY =
             "DELETE FROM users WHERE email = ? AND password = ?;";

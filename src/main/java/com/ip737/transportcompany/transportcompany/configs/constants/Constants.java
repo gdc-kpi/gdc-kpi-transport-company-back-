@@ -9,6 +9,11 @@ public class Constants {
     public static final String REG_MAIL_NOT_SENT = "Registration Mail not sent to user %s";
     public static final String RECOVERY_MAIL_NOT_SENT = "Recovery Mail not sent to user %s";
     public static final String INCORRECT_PASSWORD = "Wrong password!";
+    public static final String EXIST_CAR_WITH_PLATE = "Car with such plate already exists!";
+    public static final String CAR_NOT_FOUND = "Such car not found!";
+    public static final String CAR_OCCUPIED = "This car is alredy occupied!";
+    public static final String DRIVER_HAS_CAR = "You alredy chose a car!";
+    public static final String ADMIN_CHOOSE_CAR = "Admin can`t choose a car!";
 
     public static final String JWT_CLAIMS_ID = "id";
     public static final String JWT_CLAIMS_FULL_NAME = "fullname";

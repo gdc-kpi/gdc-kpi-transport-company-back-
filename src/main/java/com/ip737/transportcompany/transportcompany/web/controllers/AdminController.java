@@ -1,5 +1,8 @@
 package com.ip737.transportcompany.transportcompany.web.controllers;
 
+import com.ip737.transportcompany.transportcompany.configs.constants.Constants;
+import com.ip737.transportcompany.transportcompany.data.entities.Vehicle;
+import com.ip737.transportcompany.transportcompany.exceptions.ValidationException;
 import com.ip737.transportcompany.transportcompany.services.AdminService;
 import com.ip737.transportcompany.transportcompany.services.UserService;
 import com.ip737.transportcompany.transportcompany.web.dto.VehicleDto;
@@ -9,10 +12,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.CrossOrigin;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.*;
 
 @Slf4j
 @CrossOrigin
@@ -27,10 +27,19 @@ public class AdminController {
         this.profileService = profileService;
     }
 
+    @GetMapping("/all-vehicles")
+    public ResponseEntity<?> getAllCars() {
+        return new ResponseEntity<>(profileService.getAllVehicle(), HttpStatus.OK);
+    }
+
     @PostMapping("/add-vehicle")
-    public ResponseEntity<?> addVehicle(@RequestBody VehicleDto vehicle) {
+    public ResponseEntity<?> addVehicle(@RequestBody VehicleDto vehicle) throws ValidationException {
         VehicleValidator.validate(vehicle);
-        profileService.addVehicle(vehicle.toVehicle());
+        if (profileService.getVehicle(vehicle.getPlate()) == null) {
+            profileService.addVehicle(vehicle.toVehicle());
+        } else {
+            throw new ValidationException(Constants.EXIST_CAR_WITH_PLATE);
+        }
         return new ResponseEntity<>(HttpStatus.OK);
     }
 }

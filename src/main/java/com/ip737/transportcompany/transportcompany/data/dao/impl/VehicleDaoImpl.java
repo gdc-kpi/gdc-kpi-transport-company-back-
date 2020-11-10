@@ -2,11 +2,13 @@ package com.ip737.transportcompany.transportcompany.data.dao.impl;
 
 import com.ip737.transportcompany.transportcompany.configs.constants.SqlConstants;
 import com.ip737.transportcompany.transportcompany.data.dao.VehicleDao;
+import com.ip737.transportcompany.transportcompany.data.entities.User;
 import com.ip737.transportcompany.transportcompany.data.entities.Vehicle;
 import com.ip737.transportcompany.transportcompany.data.rowmappers.VehicleMapper;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.EmptyResultDataAccessException;
+import org.springframework.jdbc.core.BeanPropertyRowMapper;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.stereotype.Repository;
 
@@ -38,6 +40,17 @@ public class VehicleDaoImpl implements VehicleDao {
     }
 
     @Override
+    public Vehicle getByPlate(String plate) {
+        try {
+            return jdbcTemplate.queryForObject(SqlConstants.VEHICLE_GET_BY_PLATE,
+                    new Object[]{plate},
+                    new VehicleMapper());
+        } catch (EmptyResultDataAccessException exception) {
+            return null;
+        }
+    }
+
+    @Override
     public Vehicle getOwnerId(String carId) {
         try {
             return jdbcTemplate.queryForObject(SqlConstants.VEHICLE_GET_BY_PLATE,
@@ -49,11 +62,18 @@ public class VehicleDaoImpl implements VehicleDao {
     }
 
     @Override
-    public List<Map<String, Object>> getFree() {
+    public List<Map<String, Object>> getAll() {
         try {
-            return jdbcTemplate.queryForList(SqlConstants.VEHICLE_GET_FREE,
-                    new Object[]{},
-                    new VehicleMapper());
+            return jdbcTemplate.queryForList(SqlConstants.VEHICLE_GET_ALL);
+        } catch (EmptyResultDataAccessException exception) {
+            return null;
+        }
+    }
+
+    @Override
+    public List<Vehicle> getFree() {
+        try {
+            return jdbcTemplate.query(SqlConstants.VEHICLE_GET_FREE, new BeanPropertyRowMapper<>(Vehicle.class));
         } catch (EmptyResultDataAccessException exception) {
             return null;
         }
@@ -65,6 +85,11 @@ public class VehicleDaoImpl implements VehicleDao {
                 vehicle.getPlate(), vehicle.getCapacity(), vehicle.getLoadCapacity(),
                 vehicle.getFuelConsumption(), vehicle.getUserId()
         );
+    }
+
+    @Override
+    public void addOwner(UUID ownerId, String plate) {
+        jdbcTemplate.update(SqlConstants.VEHICLE_ADD_OWNER, ownerId, plate);
     }
 }
 
