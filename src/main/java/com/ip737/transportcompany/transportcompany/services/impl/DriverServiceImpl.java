@@ -1,9 +1,13 @@
 package com.ip737.transportcompany.transportcompany.services.impl;
 
+import com.ip737.transportcompany.transportcompany.configs.constants.SqlConstants;
 import com.ip737.transportcompany.transportcompany.data.dao.VehicleDao;
+import com.ip737.transportcompany.transportcompany.data.entities.Order;
 import com.ip737.transportcompany.transportcompany.data.entities.Vehicle;
+import com.ip737.transportcompany.transportcompany.data.rowmappers.OrderMapper;
 import com.ip737.transportcompany.transportcompany.services.DriverService;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -38,4 +42,10 @@ public class DriverServiceImpl implements DriverService {
     public void chooseVehicle(UUID userId, String plate){
         vehicleDao.addOwner(userId, plate);
     }
+
+
+    public List<Order> getOrdersFilterByDriver(String driverId, String status){
+        return vehicleDao.getOrdersFilterByDriver(driverId, status);
+    }
+
 }

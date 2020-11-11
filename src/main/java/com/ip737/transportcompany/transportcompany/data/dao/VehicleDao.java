@@ -1,7 +1,9 @@
 package com.ip737.transportcompany.transportcompany.data.dao;
 
 import com.ip737.transportcompany.transportcompany.configs.constants.SqlConstants;
+import com.ip737.transportcompany.transportcompany.data.entities.Order;
 import com.ip737.transportcompany.transportcompany.data.entities.Vehicle;
+import com.ip737.transportcompany.transportcompany.data.rowmappers.OrderMapper;
 import com.ip737.transportcompany.transportcompany.data.rowmappers.VehicleMapper;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -91,5 +93,16 @@ public class VehicleDao {
     public void addOwner(UUID ownerId, String plate) {
         jdbcTemplate.update(SqlConstants.VEHICLE_ADD_OWNER, ownerId, plate);
     }
+
+
+    public List<Order> getOrdersFilterByDriver(String driverId, String status){
+        try {
+            return jdbcTemplate.query(SqlConstants.GET_ORDERS_BY_STATUS_FOR_DRIVER, new Object[]{ driverId, status},new OrderMapper());
+
+        } catch (EmptyResultDataAccessException | NullPointerException e ) {
+            return null;
+        }
+    }
+
 }
 

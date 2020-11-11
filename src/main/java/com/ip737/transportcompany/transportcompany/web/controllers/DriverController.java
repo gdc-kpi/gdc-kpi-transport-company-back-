@@ -52,4 +52,20 @@ public class DriverController {
         }
         return new ResponseEntity<>(HttpStatus.OK);
     }
+
+
+    @GetMapping("/{driverId}/orders/finished")
+    public ResponseEntity<?> getOrdersFin(@PathVariable UUID driverId) {
+        return new ResponseEntity<>(driverService.getOrdersFilterByDriver(driverId.toString(), Constants.Status.FINISHED.toString()), HttpStatus.OK);
+    }
+
+    @GetMapping("/{driverId}/orders/upcoming")
+    public ResponseEntity<?> getOrdersUpcom(@PathVariable UUID driverId) {
+        return new ResponseEntity<>(driverService.getOrdersFilterByDriver(driverId.toString(), Constants.Status.CONFIRMED.toString()), HttpStatus.OK);
+    }
+
+    @GetMapping("/{driverId}/orders/to-confirm")
+    public ResponseEntity<?> getOrdersToConfirm(@PathVariable UUID driverId) {
+        return new ResponseEntity<>(driverService.getOrdersFilterByDriver(driverId.toString(), Constants.Status.PENDING_CONFIRMATION.toString()), HttpStatus.OK);
+    }
 }
