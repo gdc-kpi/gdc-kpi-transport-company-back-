@@ -20,5 +20,6 @@ public interface DriverService {
 
 
     List<Order> getOrdersFilterByDriver(String driverId, String status);
+    List<Order> getOrdersFilterByDriver(String driverId, String status, String status2);
 
 }

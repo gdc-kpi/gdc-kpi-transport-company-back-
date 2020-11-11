@@ -98,4 +98,38 @@ public class SqlConstants {
                     "        drivers.user_id = vehicles.user_id\n" +
                     "where drivers.user_id = uuid(?) and orders.status = ? ";
 
+
+    public static final String GET_ORDERS_BY_STATUS_FOR_ADMIN =
+            "select order_id, drivers.fullname as driver_name, drivers.user_id as driver, vehicles.plate, admins.fullname as admin_name,  volume, weight, title, description, car_id, admin_id, source[0] as s1, source[1] as s2, destination[0] as d1, destination[1] as d2 , status, deadline from orders\n" +
+                    "left  join users as admins\n" +
+                    "    on orders.admin_id = admins.user_id\n" +
+                    "  left join vehicles\n" +
+                    "on      orders.car_id = vehicles.plate\n" +
+                    "left join  users as drivers on\n" +
+                    "        drivers.user_id = vehicles.user_id\n" +
+                    "where admins.user_id = uuid(?) and orders.status = ? ";
+
+
+
+    public static final String GET_ORDERS_BY_STATUS_FOR_DRIVER2 =
+            "select order_id, drivers.fullname as driver_name, drivers.user_id as driver, vehicles.plate, admins.fullname as admin_name,  volume, weight, title, description, car_id, admin_id, source[0] as s1, source[1] as s2, destination[0] as d1, destination[1] as d2 , status, deadline from orders\n" +
+                    "left  join users as admins\n" +
+                    "    on orders.admin_id = admins.user_id\n" +
+                    "  left join vehicles\n" +
+                    "on      orders.car_id = vehicles.plate\n" +
+                    "left join  users as drivers on\n" +
+                    "        drivers.user_id = vehicles.user_id\n" +
+                    "where drivers.user_id = uuid(?) and ( orders.status = ? or orders.status = ?) order by status desc";
+
+
+    public static final String GET_ORDERS_BY_STATUS_FOR_ADMIN2 =
+            "select order_id, drivers.fullname as driver_name, drivers.user_id as driver, vehicles.plate, admins.fullname as admin_name,  volume, weight, title, description, car_id, admin_id, source[0] as s1, source[1] as s2, destination[0] as d1, destination[1] as d2 , status, deadline from orders\n" +
+                    "left  join users as admins\n" +
+                    "    on orders.admin_id = admins.user_id\n" +
+                    "  left join vehicles\n" +
+                    "on      orders.car_id = vehicles.plate\n" +
+                    "left join  users as drivers on\n" +
+                    "        drivers.user_id = vehicles.user_id\n" +
+                    "where admins.user_id = uuid(?)  and ( orders.status = ? or orders.status = ?) order by status asc";
+
 }

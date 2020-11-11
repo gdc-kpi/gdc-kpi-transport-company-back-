@@ -3,6 +3,7 @@ package com.ip737.transportcompany.transportcompany.services.impl;
 import com.ip737.transportcompany.transportcompany.data.dao.DriverDao;
 import com.ip737.transportcompany.transportcompany.data.dao.VehicleDao;
 import com.ip737.transportcompany.transportcompany.data.entities.Driver;
+import com.ip737.transportcompany.transportcompany.data.entities.Order;
 import com.ip737.transportcompany.transportcompany.data.entities.Vehicle;
 import com.ip737.transportcompany.transportcompany.services.AdminService;
 import lombok.extern.slf4j.Slf4j;
@@ -50,5 +51,15 @@ public class AdminServiceImpl implements AdminService {
     @Override
     public List<Driver> getDriversFilterByName(String plate) {
         return driverDao.getDriversFilterByName(plate);
+    }
+
+    @Override
+    public List<Order> getOrdersFilterByStatus(String adminId, String status) {
+        return vehicleDao.getOrdersFilterByStatus(adminId, status);
+    }
+
+    @Override
+    public List<Order> getOrdersFilterByStatus(String adminId, String status, String status2) {
+        return vehicleDao.getOrdersFilterByStatus2(adminId, status, status2);
     }
 }

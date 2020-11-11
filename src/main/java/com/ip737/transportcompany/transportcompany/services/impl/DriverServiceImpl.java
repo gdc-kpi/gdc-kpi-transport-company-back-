@@ -48,4 +48,9 @@ public class DriverServiceImpl implements DriverService {
         return vehicleDao.getOrdersFilterByDriver(driverId, status);
     }
 
+    @Override
+    public List<Order> getOrdersFilterByDriver(String driverId, String status, String status2) {
+        return  vehicleDao.getOrdersFilterByDriver2(driverId, status, status2);
+    }
+
 }

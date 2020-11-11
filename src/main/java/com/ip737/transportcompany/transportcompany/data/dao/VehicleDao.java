@@ -104,5 +104,35 @@ public class VehicleDao {
         }
     }
 
+
+    public List<Order> getOrdersFilterByStatus(String adminId, String status){
+        try {
+            return jdbcTemplate.query(SqlConstants.GET_ORDERS_BY_STATUS_FOR_ADMIN, new Object[]{ adminId, status},new OrderMapper());
+
+        } catch (EmptyResultDataAccessException | NullPointerException e ) {
+            return null;
+        }
+    }
+
+
+
+    public List<Order> getOrdersFilterByDriver2(String driverId, String status,  String status2){
+        try {
+            return jdbcTemplate.query(SqlConstants.GET_ORDERS_BY_STATUS_FOR_DRIVER2, new Object[]{ driverId, status, status2},new OrderMapper());
+
+        } catch (EmptyResultDataAccessException | NullPointerException e ) {
+            return null;
+        }
+    }
+
+
+    public List<Order> getOrdersFilterByStatus2(String adminId, String status, String status2){
+        try {
+            return jdbcTemplate.query(SqlConstants.GET_ORDERS_BY_STATUS_FOR_ADMIN2, new Object[]{ adminId, status, status2},new OrderMapper());
+
+        } catch (EmptyResultDataAccessException | NullPointerException e ) {
+            return null;
+        }
+    }
 }
 

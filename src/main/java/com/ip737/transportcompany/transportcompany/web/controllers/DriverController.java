@@ -56,12 +56,12 @@ public class DriverController {
 
     @GetMapping("/{driverId}/orders/finished")
     public ResponseEntity<?> getOrdersFin(@PathVariable UUID driverId) {
-        return new ResponseEntity<>(driverService.getOrdersFilterByDriver(driverId.toString(), Constants.Status.FINISHED.toString()), HttpStatus.OK);
+        return new ResponseEntity<>(driverService.getOrdersFilterByDriver(driverId.toString(), Constants.Status.FINISHED.toString(), Constants.Status.FAILED.toString()), HttpStatus.OK);
     }
 
     @GetMapping("/{driverId}/orders/upcoming")
     public ResponseEntity<?> getOrdersUpcom(@PathVariable UUID driverId) {
-        return new ResponseEntity<>(driverService.getOrdersFilterByDriver(driverId.toString(), Constants.Status.CONFIRMED.toString()), HttpStatus.OK);
+        return new ResponseEntity<>(driverService.getOrdersFilterByDriver(driverId.toString(), Constants.Status.CONFIRMED.toString(),  Constants.Status.STARTED.toString() ), HttpStatus.OK);
     }
 
     @GetMapping("/{driverId}/orders/to-confirm")

@@ -32,7 +32,7 @@ public class Constants {
     public static final int MAX_DRIVER_ORDERS_FOR_DAY = 4;
     public enum Status
     {
-        CONFIRMED, REJECTED, PENDING_CONFIRMATION, STARTED, FINISHED
+        CONFIRMED, REJECTED, PENDING_CONFIRMATION, STARTED, FAILED, FINISHED,
     }
 
     public static final String SWAGGER_TITLE = "KyivTransComp Documentation";

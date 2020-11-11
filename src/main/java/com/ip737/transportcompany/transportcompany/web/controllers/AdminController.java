@@ -16,6 +16,8 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.UUID;
+
 @Slf4j
 @CrossOrigin
 @Controller
@@ -70,6 +72,27 @@ public class AdminController {
         }
     }
 
+
+    @GetMapping("/{adminId}/orders/finished")
+    public ResponseEntity<?> getOrdersFin(@PathVariable UUID adminId) {
+        return new ResponseEntity<>(profileService.getOrdersFilterByStatus(adminId.toString(), Constants.Status.FAILED.toString(), Constants.Status.FINISHED.toString()), HttpStatus.OK);
+    }
+
+    @GetMapping("/{adminId}/orders/confirmed")
+    public ResponseEntity<?> getOrdersCon(@PathVariable UUID adminId) {
+        return new ResponseEntity<>(profileService.getOrdersFilterByStatus(adminId.toString(), Constants.Status.CONFIRMED.toString(), Constants.Status.STARTED.toString() ), HttpStatus.OK);
+    }
+
+
+    @GetMapping("/{adminId}/orders/confirmation-pending")
+    public ResponseEntity<?> getOrdersToConfirm(@PathVariable UUID adminId) {
+        return new ResponseEntity<>(profileService.getOrdersFilterByStatus(adminId.toString(), Constants.Status.PENDING_CONFIRMATION.toString()), HttpStatus.OK);
+    }
+
+    @GetMapping("/{adminId}/orders/rejected")
+    public ResponseEntity<?> getOrdersRejected(@PathVariable UUID adminId) {
+        return new ResponseEntity<>(profileService.getOrdersFilterByStatus(adminId.toString(), Constants.Status.REJECTED.toString() ), HttpStatus.OK);
+    }
 
 
 }
