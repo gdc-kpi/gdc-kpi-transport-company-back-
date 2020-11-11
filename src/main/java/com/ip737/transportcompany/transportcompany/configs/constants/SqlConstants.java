@@ -63,6 +63,20 @@ public class SqlConstants {
                     "VALUES (?, point(?::double precision, ?::double precision), " +
                     "point(?::double precision, ?::double precision), ?, ?, ?, ?, ?, ?, ?, ?) ;";
 
+    public static final String GET_ORDER_BY_ID =
+            "select order_id, drivers.fullname as driver_name, drivers.user_id as driver, vehicles.plate, admins.fullname as admin_name,  volume, weight, title, description, car_id, admin_id, source[0] as s1, source[1] as s2, destination[0] as d1, destination[1] as d2 , status, deadline from orders\n" +
+                    "left  join users as admins\n" +
+                    "    on orders.admin_id = admins.user_id\n" +
+                    "  left join vehicles\n" +
+                    "on      orders.car_id = vehicles.plate\n" +
+                    "left join  users as drivers on\n" +
+                    "        drivers.user_id = vehicles.user_id\n" +
+                    "where order_id = uuid(?) ";
+
+    public static final String ORDER_ASSIGN_DRIVER =
+            "UPDATE orders set car_id = ? where order_id = uuid(?)";
+
+
     public static final String DELETE_USER_QUERY =
             "DELETE FROM users WHERE email = ? AND password = ?;";
 

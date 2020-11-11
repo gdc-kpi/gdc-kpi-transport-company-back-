@@ -27,8 +27,11 @@ public class Order {
     private double destinationLongitude;
     private double volume;
     private double weight;
-    private String car_id;
+    private String plate;
+    private String driver_id;
+    private String driver_name;
     private String admins_id;
+    private String admins_name;
     private String title;
     private String description;
     private LocalDateTime deadline;

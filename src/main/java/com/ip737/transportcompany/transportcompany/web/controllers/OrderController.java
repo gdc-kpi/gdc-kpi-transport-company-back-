@@ -16,6 +16,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import javax.websocket.server.PathParam;
 import java.util.UUID;
 
 @Slf4j
@@ -39,7 +40,6 @@ public class OrderController {
     @PostMapping("/order")
     public ResponseEntity<?> createOrder(@RequestBody OrderDto order) {
         if (authenticationFacade.isAllowed(Constants.ROLE_ADMIN)) {
-            System.out.println(order.toString());
             OrderDtoValidator.validate(order);
 
             order.setAdmins_id(authenticationFacade.getId());
@@ -48,6 +48,23 @@ public class OrderController {
             throw new AccessDeniedException("Resource forbidden for this user due to their role");
         }
     }
+
+    @GetMapping("/order/{orderId}")
+    public ResponseEntity<?> getOrder(@PathVariable("orderId") String orderId) {
+            return new ResponseEntity<>(orderService.getOrder(orderId), HttpStatus.OK);
+
+    }
+
+    @PatchMapping("/order/{orderId}")
+    public ResponseEntity<?> assignDriver(@PathVariable("orderId") String orderId, @PathParam("driver") String driver) {
+        if (authenticationFacade.isAllowed(Constants.ROLE_ADMIN)) {
+            orderService.assignDriver(orderId, driver);
+            return new ResponseEntity<>(HttpStatus.OK);
+        } else {
+            throw new AccessDeniedException("Resource forbidden for this user due to their role");
+        }
+    }
+
 
     @PatchMapping("auth/change-password")
     public ResponseEntity<?> changePassword(@RequestBody ChangePasswordDto pass) {

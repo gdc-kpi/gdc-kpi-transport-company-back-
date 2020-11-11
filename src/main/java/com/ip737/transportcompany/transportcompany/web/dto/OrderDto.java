@@ -34,7 +34,7 @@ public class OrderDto {
                 .destinationLongitude(this.destination.longitude)
                 .volume(this.volume)
                 .weight(this.weight)
-                .car_id(this.car_id)
+                .plate(this.car_id)
                 .admins_id(this.admins_id)
                 .deadline(LocalDateTime.parse(this.deadline, DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss.S")))
                 .description(this.description)
