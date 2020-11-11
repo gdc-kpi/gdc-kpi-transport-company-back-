@@ -19,5 +19,5 @@ public class Driver {
     @Id
     private UUID id;
     private String fullname;
-    private UUID carPlate;
+    private String carPlate;
 }

@@ -1,5 +1,6 @@
 package com.ip737.transportcompany.transportcompany.services.impl;
 
+import com.ip737.transportcompany.transportcompany.data.dao.DriverDao;
 import com.ip737.transportcompany.transportcompany.data.dao.VehicleDao;
 import com.ip737.transportcompany.transportcompany.data.entities.Driver;
 import com.ip737.transportcompany.transportcompany.data.entities.Vehicle;
@@ -17,9 +18,13 @@ import java.util.Map;
 public class AdminServiceImpl implements AdminService {
 
     final private VehicleDao vehicleDao;
+    final private DriverDao driverDao;
 
-    public AdminServiceImpl(VehicleDao vehicleDao) {
+
+    public AdminServiceImpl(VehicleDao vehicleDao,DriverDao driverDao) {
         this.vehicleDao = vehicleDao;
+        this.driverDao = driverDao;
+
     }
 
     @Override
@@ -44,6 +49,6 @@ public class AdminServiceImpl implements AdminService {
 
     @Override
     public List<Driver> getDriversFilterByName(String plate) {
-        return null;
+        return driverDao.getDriversFilterByName(plate);
     }
 }

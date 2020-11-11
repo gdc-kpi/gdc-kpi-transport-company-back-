@@ -53,6 +53,10 @@ public class SqlConstants {
             "SELECT plate, capacity, load_capacity, fuel_consumption, user_id " +
             "FROM vehicles WHERE user_id is null;";
 
+
+    public static final String DRIVER_GET_FILTERED =
+            "select users.user_id as user_id, fullname, vehicles.plate as plate from users left join vehicles on users.user_id = vehicles.user_id where role_id = 1 and is_activated = true and lower(fullname) like lower(?) ;";
+
     public static final String USER_INSERT_ODER =
             "INSERT INTO orders (order_id, source, destination, volume, car_id, " +
                     "admin_id, title, description, weight, deadline, status) " +
