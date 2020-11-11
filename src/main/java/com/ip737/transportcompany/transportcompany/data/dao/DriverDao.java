@@ -1,8 +1,7 @@
-package com.ip737.transportcompany.transportcompany.data.dao.impl;
+package com.ip737.transportcompany.transportcompany.data.dao;
 
 
 import com.ip737.transportcompany.transportcompany.configs.constants.SqlConstants;
-import com.ip737.transportcompany.transportcompany.data.rowmappers.UserMapper;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.EmptyResultDataAccessException;

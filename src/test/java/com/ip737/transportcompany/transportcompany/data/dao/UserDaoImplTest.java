@@ -1,7 +1,6 @@
-package com.ip737.transportcompany.transportcompany.data.dao.impl;
+package com.ip737.transportcompany.transportcompany.data.dao;
 
 import com.ip737.transportcompany.transportcompany.configs.constants.Constants;
-import com.ip737.transportcompany.transportcompany.data.dao.UserDao;
 import com.ip737.transportcompany.transportcompany.data.entities.User;
 import org.junit.After;
 import org.junit.Before;

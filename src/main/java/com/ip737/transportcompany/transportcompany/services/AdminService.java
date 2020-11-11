@@ -12,4 +12,7 @@ public interface AdminService {
     List<Map<String, Object>> getAllVehicle();
 
     Vehicle getVehicle(String plate);
+
+    List<Vehicle> getVehicleFilterByPartOfPlate(String plate);
+
 }

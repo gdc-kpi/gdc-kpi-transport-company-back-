@@ -11,7 +11,6 @@ public class VehicleMapper implements RowMapper<Vehicle> {
 
     @Override
     public Vehicle mapRow(ResultSet resultSet, int i) throws SQLException {
-
         return Vehicle.builder()
                 .plate(resultSet.getString("plate"))
                 .capacity(resultSet.getDouble("capacity"))

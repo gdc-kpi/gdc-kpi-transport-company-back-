@@ -1,8 +1,6 @@
-package com.ip737.transportcompany.transportcompany.data.dao.impl;
+package com.ip737.transportcompany.transportcompany.data.dao;
 
 import com.ip737.transportcompany.transportcompany.configs.constants.SqlConstants;
-import com.ip737.transportcompany.transportcompany.data.dao.VehicleDao;
-import com.ip737.transportcompany.transportcompany.data.entities.User;
 import com.ip737.transportcompany.transportcompany.data.entities.Vehicle;
 import com.ip737.transportcompany.transportcompany.data.rowmappers.VehicleMapper;
 import lombok.extern.slf4j.Slf4j;
@@ -19,7 +17,7 @@ import java.util.UUID;
 
 @Repository
 @Slf4j
-public class VehicleDaoImpl implements VehicleDao {
+public class VehicleDaoImpl {
 
     final private JdbcTemplate jdbcTemplate;
 
@@ -28,7 +26,6 @@ public class VehicleDaoImpl implements VehicleDao {
         this.jdbcTemplate = jdbcTemplate;
     }
 
-    @Override
     public Vehicle getByOwnerId(UUID ownerId) {
         try {
             return jdbcTemplate.queryForObject(SqlConstants.VEHICLE_GET_BY_USER_ID,
@@ -39,7 +36,7 @@ public class VehicleDaoImpl implements VehicleDao {
         }
     }
 
-    @Override
+
     public Vehicle getByPlate(String plate) {
         try {
             return jdbcTemplate.queryForObject(SqlConstants.VEHICLE_GET_BY_PLATE,
@@ -50,7 +47,6 @@ public class VehicleDaoImpl implements VehicleDao {
         }
     }
 
-    @Override
     public Vehicle getOwnerId(String carId) {
         try {
             return jdbcTemplate.queryForObject(SqlConstants.VEHICLE_GET_BY_PLATE,
@@ -61,7 +57,6 @@ public class VehicleDaoImpl implements VehicleDao {
         }
     }
 
-    @Override
     public List<Map<String, Object>> getAll() {
         try {
             return jdbcTemplate.queryForList(SqlConstants.VEHICLE_GET_ALL);
@@ -70,7 +65,6 @@ public class VehicleDaoImpl implements VehicleDao {
         }
     }
 
-    @Override
     public List<Vehicle> getFree() {
         try {
             return jdbcTemplate.query(SqlConstants.VEHICLE_GET_FREE, new BeanPropertyRowMapper<>(Vehicle.class));
@@ -79,7 +73,14 @@ public class VehicleDaoImpl implements VehicleDao {
         }
     }
 
-    @Override
+    public List<Vehicle> getVehicleFilterByPartOfPlate(String plate) {
+        try {
+            return jdbcTemplate.query(SqlConstants.VEHICLE_GET_FILTERED, new Object[]{ "%" + plate + "%"}, new VehicleMapper());
+        } catch (EmptyResultDataAccessException exception) {
+            return null;
+        }
+    }
+
     public void save(Vehicle vehicle) {
         jdbcTemplate.update(SqlConstants.VEHICLE_SAVE_QUERY,
                 vehicle.getPlate(), vehicle.getCapacity(), vehicle.getLoadCapacity(),
@@ -87,7 +88,6 @@ public class VehicleDaoImpl implements VehicleDao {
         );
     }
 
-    @Override
     public void addOwner(UUID ownerId, String plate) {
         jdbcTemplate.update(SqlConstants.VEHICLE_ADD_OWNER, ownerId, plate);
     }

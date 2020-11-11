@@ -1,7 +1,6 @@
-package com.ip737.transportcompany.transportcompany.data.dao.impl;
+package com.ip737.transportcompany.transportcompany.data.dao;
 
 import com.ip737.transportcompany.transportcompany.configs.constants.SqlConstants;
-import com.ip737.transportcompany.transportcompany.data.dao.UserDao;
 import com.ip737.transportcompany.transportcompany.data.entities.User;
 import com.ip737.transportcompany.transportcompany.data.rowmappers.UserMapper;
 import lombok.extern.slf4j.Slf4j;
@@ -15,7 +14,7 @@ import java.util.UUID;
 
 @Repository
 @Slf4j
-public class UserDaoImpl implements UserDao {
+public class UserDaoImpl  {
 
     final private JdbcTemplate jdbcTemplate;
 
@@ -24,7 +23,6 @@ public class UserDaoImpl implements UserDao {
         this.jdbcTemplate = jdbcTemplate;
     }
 
-    @Override
     public User getByActivationUrl(String activationUrl) {
         try {
             return jdbcTemplate.queryForObject(SqlConstants.USERS_GET_BY_ACTIVATION_URL,
@@ -35,7 +33,6 @@ public class UserDaoImpl implements UserDao {
         }
     }
 
-    @Override
     public User getByRecoverUrl(String recoverUrl) {
         try {
             return jdbcTemplate.queryForObject(SqlConstants.USERS_GET_BY_RECOVERY_URL,
@@ -46,7 +43,6 @@ public class UserDaoImpl implements UserDao {
         }
     }
 
-    @Override
     public User getById(UUID id) {
         try {
             return jdbcTemplate.queryForObject(SqlConstants.USER_GET_BY_ID,
@@ -57,7 +53,6 @@ public class UserDaoImpl implements UserDao {
         }
     }
 
-    @Override
     public User getByEmail(String email) {
         try {
             return jdbcTemplate.queryForObject(SqlConstants.USER_GET_BY_EMAIL,
@@ -68,7 +63,6 @@ public class UserDaoImpl implements UserDao {
         }
     }
 
-    @Override
     public void save(User user, int roleId) {
         jdbcTemplate.update(SqlConstants.USER_SAVE_QUERY,
                 UUID.randomUUID(), user.getFullname(), user.getEmail(), roleId, user.getPassword(),
@@ -76,7 +70,6 @@ public class UserDaoImpl implements UserDao {
         );
     }
 
-    @Override
     public void update(User user) {
         jdbcTemplate.update(SqlConstants.USER_UPDATE_QUERY_BY_ID,
                 user.getFullname(), user.getEmail(), user.getPassword(), user.isActivated(),
@@ -84,7 +77,6 @@ public class UserDaoImpl implements UserDao {
 
     }
 
-    @Override
     public void delete(String email, String password) {
         jdbcTemplate.update(SqlConstants.DELETE_USER_QUERY,
                 email, password);

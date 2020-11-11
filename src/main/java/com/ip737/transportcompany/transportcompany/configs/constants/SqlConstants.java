@@ -44,6 +44,11 @@ public class SqlConstants {
             "SELECT users.fullname, plate, capacity, load_capacity, fuel_consumption, vehicles.user_id " +
             "FROM vehicles LEFT JOIN users ON vehicles.user_id = users.user_id";
 
+    public static final String VEHICLE_GET_FILTERED =
+            "SELECT users.fullname, plate, capacity, load_capacity, fuel_consumption, vehicles.user_id " +
+                    "FROM vehicles LEFT JOIN users ON vehicles.user_id = users.user_id where vehicles.plate like ?";
+
+
     public static final String VEHICLE_GET_FREE =
             "SELECT plate, capacity, load_capacity, fuel_consumption, user_id " +
             "FROM vehicles WHERE user_id is null;";

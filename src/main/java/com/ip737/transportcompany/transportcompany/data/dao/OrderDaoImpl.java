@@ -1,6 +1,5 @@
-package com.ip737.transportcompany.transportcompany.data.dao.impl;
+package com.ip737.transportcompany.transportcompany.data.dao;
 
-import com.ip737.transportcompany.transportcompany.configs.constants.Constants;
 import com.ip737.transportcompany.transportcompany.configs.constants.SqlConstants;
 import com.ip737.transportcompany.transportcompany.data.entities.Order;
 import lombok.extern.slf4j.Slf4j;
@@ -13,7 +12,7 @@ import java.util.UUID;
 
 @Repository
 @Slf4j
-public class OrderDaoImpl implements com.ip737.transportcompany.transportcompany.data.dao.OrderDao {
+public class OrderDaoImpl  {
     final private JdbcTemplate jdbcTemplate;
 
     @Autowired
@@ -21,7 +20,6 @@ public class OrderDaoImpl implements com.ip737.transportcompany.transportcompany
         this.jdbcTemplate = jdbcTemplate;
     }
 
-    @Override
     public Order insert(Order order) {
         order.setOrderId(UUID.randomUUID().toString());
         order.setTitle("Order " + order.getOrderId());
