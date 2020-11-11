@@ -2,8 +2,12 @@ package com.ip737.transportcompany.transportcompany.web.controllers;
 
 import com.ip737.transportcompany.transportcompany.configs.constants.Constants;
 import com.ip737.transportcompany.transportcompany.configs.security.services.AuthenticationFacade;
+import com.ip737.transportcompany.transportcompany.data.entities.User;
 import com.ip737.transportcompany.transportcompany.exceptions.AccessDeniedException;
+import com.ip737.transportcompany.transportcompany.exceptions.ValidationException;
 import com.ip737.transportcompany.transportcompany.services.OrderService;
+import com.ip737.transportcompany.transportcompany.services.UserService;
+import com.ip737.transportcompany.transportcompany.web.dto.ChangePasswordDto;
 import com.ip737.transportcompany.transportcompany.web.dto.OrderDto;
 import com.ip737.transportcompany.transportcompany.web.validators.OrderDtoValidator;
 import lombok.extern.slf4j.Slf4j;
@@ -12,23 +16,27 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.UUID;
+
 @Slf4j
 @RestController
 @CrossOrigin
-@RequestMapping("/api/order")
+@RequestMapping("/api")
 public class OrderController {
 
     final private OrderService orderService;
+    final private UserService userService;
 
     final private AuthenticationFacade authenticationFacade;
 
     @Autowired
-    public OrderController(OrderService orderService, AuthenticationFacade authenticationFacade) {
+    public OrderController( UserService userService, OrderService orderService, AuthenticationFacade authenticationFacade) {
         this.orderService = orderService;
+        this.userService = userService;
         this.authenticationFacade = authenticationFacade;
     }
 
-    @PostMapping()
+    @PostMapping("/order")
     public ResponseEntity<?> createOrder(@RequestBody OrderDto order) {
         if (authenticationFacade.isAllowed(Constants.ROLE_ADMIN)) {
             System.out.println(order.toString());
@@ -39,5 +47,17 @@ public class OrderController {
         } else {
             throw new AccessDeniedException("Resource forbidden for this user due to their role");
         }
+    }
+
+    @PatchMapping("auth/change-password")
+    public ResponseEntity<?> changePassword(@RequestBody ChangePasswordDto pass) {
+        UUID userId = UUID.fromString(authenticationFacade.getId());
+        User currentUser = userService.getById(userId);
+        if (currentUser.getPassword().equals(pass.getOldPassword())) {
+            currentUser.setPassword(pass.getNewPassword());
+            userService.update(currentUser);
+        } else throw new ValidationException(Constants.INCORRECT_PASSWORD);
+
+        return new ResponseEntity<>(HttpStatus.OK);
     }
 }

@@ -74,18 +74,7 @@ public class AuthController {
         return new ResponseEntity<>(HttpStatus.OK);
     }
 
-    //TODO won't work
-    @PostMapping("/change-password")
-    public ResponseEntity<?> changePassword(UUID userId, @RequestBody ChangePasswordDto pass) {
-        User currentUser = userService.getById(userId);
 
-        if (userService.getById(userId).getPassword().equals(currentUser.getPassword())) {
-            currentUser.setPassword(pass.getNewPassword());
-            userService.update(currentUser);
-        } else throw new ValidationException(Constants.INCORRECT_PASSWORD);
-
-        return new ResponseEntity<>(HttpStatus.OK);
-    }
 
     @PostMapping("/delete")
     public ResponseEntity<?> deleteUser(@RequestBody LoginDto user) {
