@@ -1,5 +1,6 @@
 package com.ip737.transportcompany.transportcompany.services;
 
+import com.ip737.transportcompany.transportcompany.data.entities.Driver;
 import com.ip737.transportcompany.transportcompany.data.entities.Vehicle;
 
 import java.util.List;
@@ -14,5 +15,8 @@ public interface AdminService {
     Vehicle getVehicle(String plate);
 
     List<Vehicle> getVehicleFilterByPartOfPlate(String plate);
+
+    List<Driver> getDriversFilterByName(String plate);
+
 
 }

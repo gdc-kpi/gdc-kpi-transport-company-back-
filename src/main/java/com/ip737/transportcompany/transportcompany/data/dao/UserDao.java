@@ -14,12 +14,12 @@ import java.util.UUID;
 
 @Repository
 @Slf4j
-public class UserDaoImpl  {
+public class UserDao {
 
     final private JdbcTemplate jdbcTemplate;
 
     @Autowired
-    public UserDaoImpl(JdbcTemplate jdbcTemplate) {
+    public UserDao(JdbcTemplate jdbcTemplate) {
         this.jdbcTemplate = jdbcTemplate;
     }
 

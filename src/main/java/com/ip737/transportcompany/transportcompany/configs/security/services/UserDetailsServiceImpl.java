@@ -1,5 +1,6 @@
 package com.ip737.transportcompany.transportcompany.configs.security.services;
 
+import com.ip737.transportcompany.transportcompany.data.dao.UserDao;
 import com.ip737.transportcompany.transportcompany.data.entities.User;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.userdetails.UserDetails;

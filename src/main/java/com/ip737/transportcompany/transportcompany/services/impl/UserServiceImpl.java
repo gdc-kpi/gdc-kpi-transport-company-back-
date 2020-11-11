@@ -1,6 +1,7 @@
 package com.ip737.transportcompany.transportcompany.services.impl;
 
 import com.ip737.transportcompany.transportcompany.configs.constants.Constants;
+import com.ip737.transportcompany.transportcompany.data.dao.UserDao;
 import com.ip737.transportcompany.transportcompany.data.entities.User;
 import com.ip737.transportcompany.transportcompany.exceptions.IdentificationException;
 import com.ip737.transportcompany.transportcompany.services.EmailService;

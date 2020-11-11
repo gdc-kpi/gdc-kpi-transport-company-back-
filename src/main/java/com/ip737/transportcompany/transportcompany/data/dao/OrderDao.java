@@ -12,11 +12,11 @@ import java.util.UUID;
 
 @Repository
 @Slf4j
-public class OrderDaoImpl  {
+public class OrderDao {
     final private JdbcTemplate jdbcTemplate;
 
     @Autowired
-    public OrderDaoImpl(JdbcTemplate jdbcTemplate) {
+    public OrderDao(JdbcTemplate jdbcTemplate) {
         this.jdbcTemplate = jdbcTemplate;
     }
 

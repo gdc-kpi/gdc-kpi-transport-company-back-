@@ -17,12 +17,12 @@ import java.util.UUID;
 
 @Repository
 @Slf4j
-public class VehicleDaoImpl {
+public class VehicleDao {
 
     final private JdbcTemplate jdbcTemplate;
 
     @Autowired
-    public VehicleDaoImpl(JdbcTemplate jdbcTemplate) {
+    public VehicleDao(JdbcTemplate jdbcTemplate) {
         this.jdbcTemplate = jdbcTemplate;
     }
 

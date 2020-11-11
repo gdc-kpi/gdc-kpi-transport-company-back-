@@ -60,5 +60,18 @@ public class AdminController {
     }
 
 
+
+    @GetMapping("/drivers")
+    public ResponseEntity<?> getDriversByPartOfTheFullaname(@RequestParam(value ="fullname") String fullname) {
+        if(authenticationFacade.isAllowed(Constants.ROLE_ADMIN)) {
+            return null;
+           // return new ResponseEntity<>(profileService.getVehicleFilterByPartOfPlate(fullname), HttpStatus.OK);
+        } else {
+            throw new AccessDeniedException("Resource forbidden for this user due to their role");
+        }
+    }
+
+
+
 }
 
