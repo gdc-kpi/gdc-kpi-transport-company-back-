@@ -2,12 +2,14 @@ package com.ip737.transportcompany.transportcompany.data.dao.impl;
 
 import com.ip737.transportcompany.transportcompany.configs.constants.Constants;
 import com.ip737.transportcompany.transportcompany.configs.constants.SqlConstants;
+import com.ip737.transportcompany.transportcompany.data.entities.Coordinates;
 import com.ip737.transportcompany.transportcompany.data.entities.Order;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.stereotype.Repository;
 
+import java.util.LinkedList;
 import java.util.UUID;
 
 
@@ -19,6 +21,33 @@ public class OrderDaoImpl implements com.ip737.transportcompany.transportcompany
     @Autowired
     public OrderDaoImpl(JdbcTemplate jdbcTemplate) {
         this.jdbcTemplate = jdbcTemplate;
+    }
+
+    //TODO fix this
+    @Override
+    public LinkedList<Coordinates[]> getPath(UUID id) {
+        return null;
+    }
+
+    //TODO fix this
+    @Override
+    public  Coordinates[] getFirstLastPoint(UUID id)
+    {
+        return new Coordinates[]{new Coordinates(30.444648, 50.451482), new Coordinates(30.448861, 50.447617)};
+    }
+
+    //TODO fix this
+    @Override
+    public void setPath(UUID id, Coordinates[] path)
+    {
+
+    }
+
+    //TODO fix this
+    @Override
+    public void insertPath(UUID id, Coordinates[] path)
+    {
+
     }
 
     @Override

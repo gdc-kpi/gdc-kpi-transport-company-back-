@@ -10,5 +10,4 @@ import lombok.Setter;
 public class Coordinates {
     public final double longitude;
     public final double latitude;
-
 }
