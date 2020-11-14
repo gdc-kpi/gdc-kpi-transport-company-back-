@@ -3,7 +3,10 @@ package com.ip737.transportcompany.transportcompany.data.dao.impl;
 import com.ip737.transportcompany.transportcompany.configs.constants.Constants;
 import com.ip737.transportcompany.transportcompany.configs.constants.SqlConstants;
 import com.ip737.transportcompany.transportcompany.data.entities.Coordinates;
+import com.ip737.transportcompany.transportcompany.data.entities.FirstLastPoint;
 import com.ip737.transportcompany.transportcompany.data.entities.Order;
+import com.ip737.transportcompany.transportcompany.data.rowmappers.FirstLastPointMapper;
+import com.ip737.transportcompany.transportcompany.data.rowmappers.UserMapper;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.JdbcTemplate;
@@ -31,9 +34,12 @@ public class OrderDaoImpl implements com.ip737.transportcompany.transportcompany
 
     //TODO fix this
     @Override
-    public  Coordinates[] getFirstLastPoint(UUID id)
+    public FirstLastPoint getFirstLastPoint(UUID id)
     {
-        return new Coordinates[]{new Coordinates(30.444648, 50.451482), new Coordinates(30.448861, 50.447617)};
+        return jdbcTemplate.queryForObject(SqlConstants.GET_SOURCE_AND_DESTINATION_FOR_ORDER,
+                new Object[]{id},
+                new FirstLastPointMapper());
+        //return new Coordinates[]{new Coordinates(30.444648, 50.451482), new Coordinates(30.448861, 50.447617)};
     }
 
     //TODO fix this

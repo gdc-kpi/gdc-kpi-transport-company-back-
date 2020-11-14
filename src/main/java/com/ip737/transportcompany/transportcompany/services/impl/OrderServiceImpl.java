@@ -50,8 +50,10 @@ public class OrderServiceImpl implements OrderService {
             if(!update) update = (list == null || !list.isEmpty());
             //Coordinates [source, dest] = getFirstLastPoint(id);
             var temp = orderDao.getFirstLastPoint(id);
-            Coordinates source = temp[0];
-            Coordinates dest = temp[1];
+            Coordinates source = temp.source;
+            Coordinates dest = temp.destination;
+            //System.out.println(source.latitude);
+            //System.out.println(dest.latitude);
             list = new LinkedList<Coordinates[]>();
             var url = "https://route.arcgis.com/arcgis/rest/services/World/Route/NAServer/Route_World/solve";
             var urlParameters = "f=json"

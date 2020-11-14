@@ -64,4 +64,6 @@ public class SqlConstants {
     public static final String GET_DRIVERS_ORDERS_FOR_THE_DAY =
             "select count(1) from orders where car_id = ? and deadline::date = ? and status = 'CONFIRMED' ;";
 
+    public static final String GET_SOURCE_AND_DESTINATION_FOR_ORDER =
+            "SELECT source, destination FROM orders WHERE order_id = ? ;";
 }
