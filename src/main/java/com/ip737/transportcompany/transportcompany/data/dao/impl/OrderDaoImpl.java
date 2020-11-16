@@ -5,6 +5,7 @@ import com.ip737.transportcompany.transportcompany.configs.constants.SqlConstant
 import com.ip737.transportcompany.transportcompany.data.entities.Coordinates;
 import com.ip737.transportcompany.transportcompany.data.entities.FirstLastPoint;
 import com.ip737.transportcompany.transportcompany.data.entities.Order;
+import com.ip737.transportcompany.transportcompany.data.rowmappers.CoordinateListMapper;
 import com.ip737.transportcompany.transportcompany.data.rowmappers.FirstLastPointMapper;
 import com.ip737.transportcompany.transportcompany.data.rowmappers.UserMapper;
 import lombok.extern.slf4j.Slf4j;
@@ -13,7 +14,9 @@ import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.stereotype.Repository;
 
 import java.util.LinkedList;
+import java.util.List;
 import java.util.UUID;
+import java.util.stream.Collectors;
 
 
 @Repository
@@ -28,32 +31,48 @@ public class OrderDaoImpl implements com.ip737.transportcompany.transportcompany
 
     //TODO fix this
     @Override
-    public LinkedList<Coordinates[]> getPath(UUID id) {
-        return null;
+    public LinkedList<Coordinates> getPath(UUID id) {
+        var res = jdbcTemplate.query(SqlConstants.GET_PATH_FOR_ID,
+                new Object[]{id},
+                new CoordinateListMapper()
+        );
+        if(res.isEmpty())
+            return new LinkedList<Coordinates>();
+        else
+            return res.get(0);
     }
 
-    //TODO fix this
     @Override
     public FirstLastPoint getFirstLastPoint(UUID id)
     {
         return jdbcTemplate.queryForObject(SqlConstants.GET_SOURCE_AND_DESTINATION_FOR_ORDER,
                 new Object[]{id},
-                new FirstLastPointMapper());
-        //return new Coordinates[]{new Coordinates(30.444648, 50.451482), new Coordinates(30.448861, 50.447617)};
+                new FirstLastPointMapper()
+        );
     }
 
     //TODO fix this
     @Override
-    public void setPath(UUID id, Coordinates[] path)
+    public void setPath(UUID id, List<Coordinates> path)
     {
-
+        jdbcTemplate.update("UPDATE paths set path=PATH'["
+                        + path.stream().map(Object::toString).collect(Collectors.joining(", "))
+                        + "]' WHERE order_id = ? ;",
+                id
+        );
     }
 
-    //TODO fix this
     @Override
-    public void insertPath(UUID id, Coordinates[] path)
+    public void insertPath(UUID id, List<Coordinates> path)
     {
-
+        jdbcTemplate.update(SqlConstants.INSERT_PATH_FOR_ID_HACK  + '[' + path.stream().map(Object::toString).collect(Collectors.joining(", ")) + "]');",
+                id
+        );
+        /*
+        jdbcTemplate.update(SqlConstants.INSERT_PATH_FOR_ID,
+                '[' + path.stream().map(Object::toString).collect(Collectors.joining(", ")) + ']',
+                id
+        );*/
     }
 
     @Override

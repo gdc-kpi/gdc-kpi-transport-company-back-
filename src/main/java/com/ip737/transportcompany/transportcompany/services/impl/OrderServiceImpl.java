@@ -23,9 +23,12 @@ import java.net.MalformedURLException;
 import java.net.URL;
 import java.nio.charset.StandardCharsets;
 import java.util.LinkedList;
+import java.util.List;
+import java.util.Objects;
 import java.util.UUID;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
+import org.json.JSONObject;
 
 @Slf4j
 @Service
@@ -43,22 +46,18 @@ public class OrderServiceImpl implements OrderService {
     }
 
     @Override
-    public Coordinates[] getPath(UUID id, Boolean update) {
-        LinkedList<Coordinates[]> list = new LinkedList<Coordinates[]>();
-        if(!update) list = orderDao.getPath(id);
-        if(update || list == null || list.isEmpty()) {
-            if(!update) update = (list == null || !list.isEmpty());
-            //Coordinates [source, dest] = getFirstLastPoint(id);
+    public List<Coordinates> getPath(UUID id, Boolean update) {
+        LinkedList<Coordinates> list = orderDao.getPath(id);
+        if(update || list.isEmpty()) {
+            update = list.isEmpty();
             var temp = orderDao.getFirstLastPoint(id);
             Coordinates source = temp.source;
             Coordinates dest = temp.destination;
-            //System.out.println(source.latitude);
-            //System.out.println(dest.latitude);
-            list = new LinkedList<Coordinates[]>();
+            list = new LinkedList<Coordinates>();
             var url = "https://route.arcgis.com/arcgis/rest/services/World/Route/NAServer/Route_World/solve";
             var urlParameters = "f=json"
                     + "&findBestSequence=true"
-                    + "&token=yA7X_-Sw63TFg5Tm-OKWDPcZrc4lU8rSSa8m-nGzD3tzO9mHE7CFHm0GETf4HvHLgB6Lb_aBHnyJcPxJH3IeSs5HjcvUS6R7I0eSPXFW_ga_TwiDCg6Uc38luJjoi0nliLxTxH_dbkLXFz8IZ3L2IKwLS_bEU0vogLz6qgp_kui_irK9utzh40fwPllY9g4IhilxE1k-TzvvJyu5GzGeCGJk4q22-xho7UotMlTxUtw."
+                    + "&token=LeCam3ARaRjculBfCYmNkvB_YepfFY0OkplLPwHrx6zhH5-XK4TNk7dJh8RI5PD7lY11gIlA80ZFnbw3q-_8F5NmhLXJRfopC43Ash86LQume7Mh4lRXhjDQK9D6aOSur4thMZha0vs_uyY4d0Unbh7fRikpxxm0LYLGmPVjlvYv_kHp9g_z-xCJSfImjoU9aub3TiggKKKyVbP0tq2Oj8k2gpMCl1KXZDaLRTWFcME."
                     + "&stops={\"type\":\"features\",\"features\":[{\"geometry\": {\"y\": " + String.valueOf(source.latitude) + ",\"x\": " + String.valueOf(source.longitude) + "}}, {\"geometry\": {\"y\": " + String.valueOf(dest.latitude) + ",\"x\": " + String.valueOf(dest.longitude) + "}}]}";
             byte[] postData = urlParameters.getBytes(StandardCharsets.UTF_8);
             try {
@@ -86,66 +85,27 @@ public class OrderServiceImpl implements OrderService {
                     }
                 }
                 String res = content.toString();
-                //System.out.println(res);
-                Pattern regexPattern = Pattern.compile("\\[(\\[[0-9]*\\.[0-9]*,[0-9]*\\.[0-9]*\\],)*\\[[0-9]*\\.[0-9]*,[0-9]*\\.[0-9]*\\]\\]");
-                Matcher matcher = regexPattern.matcher(res);
-                matcher.find();
-                String strArr = matcher.group();
-                for(int i = 2, pos = 0; i < strArr.length(); i+=3, pos++) {
-                    double x = 0;
-                    long devider = 0;
-                    char c = strArr.charAt(i);
-                    while(c == '.' || ('0' <= c && c <= '9'))
-                    {
-                        if(c == '.')
-                        {
-                            devider = 1;
-                        } else
-                        {
-                            x = 10*x + c-'0';
-                            devider *= 10;
-                        }
-                        i++;
-                        c = strArr.charAt(i);
+                JSONObject jo = new JSONObject(res);
+                var strArr = jo.getJSONObject("routes").getJSONArray("features").getJSONObject(0).getJSONObject("geometry").getJSONArray("paths").getJSONArray(0).toString();
+                for(int i = 1; i < strArr.length(); i++) {
+                    if(strArr.charAt(i) == '[') {
+                        int next = strArr.indexOf(']', i);
+                        arr.add(new Coordinates(strArr.substring(i, next)));
+                        i = next;
                     }
-                    x /= Math.max(1, devider);
-                    double y = 0;
-                    devider = 0;
-                    i++;
-                    c = strArr.charAt(i);
-                    while(c == '.' || ('0' <= c && c <= '9'))
-                    {
-                        if(c == '.')
-                        {
-                            devider = 1;
-                        } else
-                        {
-                            y = 10*y + c-'0';
-                            devider *= 10;
-                        }
-                        i++;
-                        c = strArr.charAt(i);
-                    }
-                    y /= Math.max(1, devider);
-                    //System.out.printf("%f %f\n", x, y);
-                    arr.add(new Coordinates(x, y));
                 }
-                Object[] objArr = arr.toArray();
-                int length = objArr.length;
-                Coordinates[] coorArr = new Coordinates[length];
-                for(int i =0; i < length; i++) {
-                    coorArr[i] = (Coordinates) objArr[i];
-                }
-                list.add(coorArr);
+
+                list = arr;
                 con.disconnect();
-            } catch(Exception e) {}
-            list.add(new Coordinates[0]);
+            } catch(Exception e) {
+                System.out.println(e.toString());
+            }
             if(update)
-                orderDao.setPath(id, list.getFirst());
+                orderDao.insertPath(id, list);
             else
-                orderDao.insertPath(id, list.getFirst());
+                orderDao.setPath(id, list);
         }
-        return list.getFirst();
+        return list;
     }
 
     @Override
@@ -163,6 +123,4 @@ public class OrderServiceImpl implements OrderService {
 
         return orderDao.insert(order);
     }
-
-
 }

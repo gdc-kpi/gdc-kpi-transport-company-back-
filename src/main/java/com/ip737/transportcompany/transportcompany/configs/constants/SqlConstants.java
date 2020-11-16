@@ -66,4 +66,10 @@ public class SqlConstants {
 
     public static final String GET_SOURCE_AND_DESTINATION_FOR_ORDER =
             "SELECT source, destination FROM orders WHERE order_id = ? ;";
+    public static final String GET_PATH_FOR_ID =
+            "SELECT path FROM paths WHERE order_id = ? ;";
+    public static final String INSERT_PATH_FOR_ID =
+            "INSERT INTO paths (order_id, path) VALUES( ? , PATH' ? ')";
+    public static final String INSERT_PATH_FOR_ID_HACK =
+            "INSERT INTO paths (order_id, path) VALUES( ? , PATH' ";
 }
