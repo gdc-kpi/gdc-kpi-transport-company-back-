@@ -1,13 +1,14 @@
 package com.ip737.transportcompany.transportcompany.data.dao.impl;
 
-import com.ip737.transportcompany.transportcompany.configs.constants.Constants;
 import com.ip737.transportcompany.transportcompany.configs.constants.SqlConstants;
 import com.ip737.transportcompany.transportcompany.data.entities.Order;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.stereotype.Repository;
 
+import java.util.List;
 import java.util.UUID;
 
 
@@ -32,5 +33,14 @@ public class OrderDaoImpl implements com.ip737.transportcompany.transportcompany
                 order.getCar_id(), UUID.fromString(order.getAdmins_id()), order.getTitle(), order.getDescription(), order.getWeight(), order.getDeadline(), order.getStatus()
         );
         return order;
+    }
+
+    public List getDriversList(double weight, double volume, String deadline) {
+        try {
+            return jdbcTemplate.queryForObject(SqlConstants.GET_DRIVERS_LIST,
+                    new Object[]{weight, volume, deadline}, List.class);
+        } catch (EmptyResultDataAccessException | NullPointerException e) {
+            return null;
+        }
     }
 }

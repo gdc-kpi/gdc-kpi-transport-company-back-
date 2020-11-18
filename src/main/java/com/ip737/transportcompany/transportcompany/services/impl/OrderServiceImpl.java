@@ -13,6 +13,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.parameters.P;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
 import java.util.UUID;
 
 @Slf4j
@@ -46,5 +47,8 @@ public class OrderServiceImpl implements OrderService {
         return orderDao.insert(order);
     }
 
+    public List driversList(double weight, double volume, String deadline) {
+        return  orderDao.getDriversList(weight, volume, deadline);
+    }
 
 }

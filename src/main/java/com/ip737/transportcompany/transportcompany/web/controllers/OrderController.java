@@ -28,7 +28,7 @@ public class OrderController {
         this.authenticationFacade = authenticationFacade;
     }
 
-    @PostMapping()
+    @PostMapping("/create-order")
     public ResponseEntity<?> createOrder(@RequestBody OrderDto order) {
         if (authenticationFacade.isAllowed(Constants.ROLE_ADMIN)) {
             System.out.println(order.toString());
@@ -40,4 +40,14 @@ public class OrderController {
             throw new AccessDeniedException("Resource forbidden for this user due to their role");
         }
     }
+
+    @PostMapping("/drivers-list")
+    public ResponseEntity<?> driversList(@RequestBody double weight, double volume, String deadline) {
+        return new ResponseEntity<>(orderService.driversList(weight, volume, deadline), HttpStatus.OK);
+    }
+
+
+
+
+
 }
