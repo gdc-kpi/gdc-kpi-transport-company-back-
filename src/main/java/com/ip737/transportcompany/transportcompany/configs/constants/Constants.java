@@ -14,6 +14,10 @@ public class Constants {
     public static final String CAR_OCCUPIED = "This car is alredy occupied!";
     public static final String DRIVER_HAS_CAR = "You alredy chose a car!";
     public static final String ADMIN_CHOOSE_CAR = "Admin can`t choose a car!";
+    public static final String CAR_NOT_FOUND_WITH_PLATE = "No car with plate %s";
+    public static final String ORDER_NOT_FOUND_WITH_ID = "The order with id %s not found";
+    public static final String ORDER_CANNOT_CHANGE_STATUS = "The status of order with id %s cannot be changed to %s as it's status is %s";
+    public static final String ORDER_WRONG_DRIVER = "Driver with id %s is not assigned to order with id %s";
 
     public static final String JWT_CLAIMS_ID = "id";
     public static final String JWT_CLAIMS_FULL_NAME = "fullname";

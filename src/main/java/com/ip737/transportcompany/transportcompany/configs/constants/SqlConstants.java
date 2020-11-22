@@ -76,6 +76,8 @@ public class SqlConstants {
     public static final String ORDER_ASSIGN_DRIVER =
             "UPDATE orders set car_id = ? where order_id = uuid(?)";
 
+    public static final String ORDER_CHANGE_STATUS =
+            "UPDATE orders SET status = ? WHERE order_id = uuid(?)";
 
     public static final String DELETE_USER_QUERY =
             "DELETE FROM users WHERE email = ? AND password = ?;";

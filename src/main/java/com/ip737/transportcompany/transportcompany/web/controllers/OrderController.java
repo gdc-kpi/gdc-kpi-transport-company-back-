@@ -65,6 +65,16 @@ public class OrderController {
         }
     }
 
+    @PatchMapping("/order/status/{orderId}")
+    public ResponseEntity<?> changeStatus(@PathVariable("orderId") String orderId, @PathParam("status") String status) {
+        if (authenticationFacade.isAllowed(Constants.ROLE_DRIVER)) {
+            orderService.changeStatus(orderId, status, authenticationFacade.getId());
+            return new ResponseEntity<>(HttpStatus.OK);
+        } else {
+            throw new AccessDeniedException("Resource forbidden for this user due to their role");
+        }
+    }
+
 
     @PatchMapping("auth/change-password")
     public ResponseEntity<?> changePassword(@RequestBody ChangePasswordDto pass) {

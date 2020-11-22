@@ -9,4 +9,5 @@ public interface OrderService {
 
     Order getOrder(String orderId);
 
+    void changeStatus(String orderId, String status, String driverId);
 }

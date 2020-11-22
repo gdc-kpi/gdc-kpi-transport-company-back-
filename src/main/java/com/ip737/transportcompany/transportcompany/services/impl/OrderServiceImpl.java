@@ -33,7 +33,7 @@ public class OrderServiceImpl implements OrderService {
     public Order insertOrder(Order order) {
         Vehicle car = vehicleDao.getOwnerId(order.getPlate());
         if (car == null) {
-            throw new ValidationException("No car with plate " + order.getPlate());
+            throw new ValidationException(String.format(Constants.CAR_NOT_FOUND_WITH_PLATE, order.getPlate()));
         } else  if (car.getUserId() == null) {
             throw new ValidationException("The car with plate " + order.getPlate() + " hasn't been assigned to anyone yet");
         } else if (!driverDao.driverWorksThisDay(car.getUserId().toString(), order.getDeadline())) {
@@ -49,7 +49,7 @@ public class OrderServiceImpl implements OrderService {
     public void assignDriver(String orderId, String driverId) {
         Order order = orderDao.getOrder(orderId);
         if(order == null ) {
-            throw new ValidationException("The order with id " + orderId + " not found");
+            throw new ValidationException(String.format(Constants.CAR_NOT_FOUND_WITH_PLATE, orderId));
         } else if(! order.getStatus().equals(Constants.Status.PENDING_CONFIRMATION.toString())){
             throw new ValidationException("The order with id " + orderId + " cannot be changed as status is " + order.getStatus());
         } else {
@@ -67,5 +67,28 @@ public class OrderServiceImpl implements OrderService {
       return orderDao.getOrder(orderId);
     }
 
+    @Override
+    public void changeStatus(String orderId, String status, String driverId) {
+        Order order = orderDao.getOrder(orderId);
+        if(order == null ) {
+            throw new ValidationException(String.format(Constants.ORDER_NOT_FOUND_WITH_ID, orderId));
+        } else if (!order.getDriver_id().equals(driverId)) {
+            throw new ValidationException(String.format(Constants.ORDER_WRONG_DRIVER, driverId, orderId));
+        } else if(order.getStatus().equals(Constants.Status.PENDING_CONFIRMATION.toString()) &
+                (status.equals(Constants.Status.REJECTED.toString()) | status.equals(Constants.Status.CONFIRMED.toString()))) {
+            setNewStatus(order, status);
+        } else if(order.getStatus().equals(Constants.Status.CONFIRMED.toString()) & status.equals(Constants.Status.STARTED.toString())) {
+            setNewStatus(order, status);
+        } else if(order.getStatus().equals(Constants.Status.STARTED.toString()) &
+                (status.equals(Constants.Status.FAILED.toString()) | status.equals(Constants.Status.FINISHED.toString()))) {
+            setNewStatus(order, status);
+        } else {
+            throw new ValidationException(String.format(Constants.ORDER_CANNOT_CHANGE_STATUS, orderId, status, order.getStatus()));
+        }
+    }
 
+    private void setNewStatus(Order order, String status) {
+        order.setStatus(status);
+        orderDao.chageStatus(order);
+    }
 }

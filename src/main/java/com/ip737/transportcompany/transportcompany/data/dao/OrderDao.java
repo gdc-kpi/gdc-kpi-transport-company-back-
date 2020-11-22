@@ -51,4 +51,8 @@ public class OrderDao {
         }
     }
 
+    public void chageStatus(Order order) {
+        jdbcTemplate.update(SqlConstants.ORDER_CHANGE_STATUS,
+                order.getStatus(), UUID.fromString(order.getOrderId()));
+    }
 }
