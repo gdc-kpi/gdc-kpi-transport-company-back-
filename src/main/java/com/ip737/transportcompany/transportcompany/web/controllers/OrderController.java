@@ -37,6 +37,12 @@ public class OrderController {
         this.authenticationFacade = authenticationFacade;
     }
 
+    @GetMapping("/{id}/path")
+    public ResponseEntity<?> chooseCar(@PathVariable UUID id, @PathParam("update") Boolean update) {
+        if(update == null) update = false;
+        return new ResponseEntity<>(orderService.getPath(id, update), HttpStatus.OK);
+    }
+
     @PostMapping("/order")
     public ResponseEntity<?> createOrder(@RequestBody OrderDto order) {
         if (authenticationFacade.isAllowed(Constants.ROLE_ADMIN)) {

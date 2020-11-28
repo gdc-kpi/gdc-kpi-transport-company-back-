@@ -89,7 +89,6 @@ public class SqlConstants {
     public static final String GET_DRIVERS_ORDERS_FOR_THE_DAY =
             "select count(1) from orders where car_id = ? and deadline::date = ? and status = 'CONFIRMED' ;";
 
-
     public static final String GET_ORDERS_BY_STATUS_FOR_DRIVER =
             "select order_id, drivers.fullname as driver_name, drivers.user_id as driver, vehicles.plate, admins.fullname as admin_name,  volume, weight, title, description, car_id, admin_id, source[0] as s1, source[1] as s2, destination[0] as d1, destination[1] as d2 , status, deadline from orders\n" +
                     "left  join users as admins\n" +
@@ -134,4 +133,15 @@ public class SqlConstants {
                     "        drivers.user_id = vehicles.user_id\n" +
                     "where admins.user_id = uuid(?)  and ( orders.status = ? or orders.status = ?) order by status asc";
 
+    public static final String GET_SOURCE_AND_DESTINATION_FOR_ORDER =
+            "SELECT source, destination FROM orders WHERE order_id = ? ;";
+
+    public static final String GET_PATH_FOR_ID =
+            "SELECT path FROM paths WHERE order_id = ? ;";
+
+    public static final String INSERT_PATH_FOR_ID =
+            "INSERT INTO paths (order_id, path) VALUES( ? , PATH' ? ')";
+
+    public static final String INSERT_PATH_FOR_ID_HACK =
+            "INSERT INTO paths (order_id, path) VALUES( ? , PATH' ";
 }
