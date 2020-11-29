@@ -8,8 +8,10 @@ import com.ip737.transportcompany.transportcompany.data.rowmappers.OrderMapper;
 import com.ip737.transportcompany.transportcompany.services.DriverService;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.dao.EmptyResultDataAccessException;
+import org.springframework.data.util.Pair;
 import org.springframework.stereotype.Service;
 
+import java.util.Date;
 import java.util.List;
 import java.util.UUID;
 
@@ -53,4 +55,9 @@ public class DriverServiceImpl implements DriverService {
         return  vehicleDao.getOrdersFilterByDriver2(driverId, status, status2);
     }
 
+    @Override
+    public List<Pair<String, Date>> getDaysOff(UUID userId)
+    {
+        return vehicleDao.getDaysOff(userId);
+    }
 }

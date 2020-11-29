@@ -37,6 +37,11 @@ public class DriverController {
         return new ResponseEntity<>(driverService.getVehicle(driverId), HttpStatus.OK);
     }
 
+    @GetMapping("/{driverId}/days-off")
+    public ResponseEntity<?> getDaysOff(@PathVariable UUID driverId) {
+        return new ResponseEntity<>(driverService.getDaysOff(driverId), HttpStatus.OK);
+    }
+
     @GetMapping("/{driverId}/choose-car")
     public ResponseEntity<?> chooseCar(@PathVariable UUID driverId, String plate) throws ValidationException {
         if(userService.getById(driverId).getRole().equals("admin")) {

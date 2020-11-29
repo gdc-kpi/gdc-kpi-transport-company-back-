@@ -1,6 +1,9 @@
 package com.ip737.transportcompany.transportcompany.configs.constants;
 
 public class SqlConstants {
+    public static final String GET_DAYS_OFF =
+            "SELECT date, is_approved from days_off WHERE user_id = ? ;";
+
     public static final String USER_SAVE_QUERY =
             "INSERT INTO users (user_id, fullname, email, role_id, password, is_activated, link, recovery_link) " +
                     "VALUES (?, ?, ?, ?, ?, ?, ?, ?) ;";
