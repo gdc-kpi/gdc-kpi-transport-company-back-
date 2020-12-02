@@ -1,0 +1,1690 @@
+{
+	"info": {
+		"_postman_id": "53ff4719-0d6f-4b33-87a7-10f5afacb799",
+		"name": "TransCompBackTest",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "Authorization/Recovery related",
+			"item": [
+				{
+					"name": "User1 Sign-Up",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"type": "text/javascript",
+								"exec": [
+									"pm.test(\"Status code is 200\", function () {\r",
+									"    pm.response.to.have.status(200);\r",
+									"});"
+								]
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"fullname\": \"Full Name\",\n\t\"email\": \"{{email}}\",\n\t\"password\": \"{{password}}\"\n}",
+							"options": {
+								"raw": {}
+							}
+						},
+						"url": {
+							"raw": "{{url}}api/auth/sign-up",
+							"host": [
+								"{{url}}api"
+							],
+							"path": [
+								"auth",
+								"sign-up"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "User1 Log-In Not-Activated",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"type": "text/javascript",
+								"exec": [
+									"pm.test(\"Status code is 200\", function () {\r",
+									"    pm.response.to.have.status(403);\r",
+									"});"
+								]
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n\t\"email\": \"{{email}}\",\n\t\"password\": \"{{password}}\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{url}}api/auth/log-in",
+							"host": [
+								"{{url}}api"
+							],
+							"path": [
+								"auth",
+								"log-in"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "User1 Get-Link",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"type": "text/javascript",
+								"exec": [
+									"pm.test(\"Status code is 200\", function () {\r",
+									"    pm.response.to.have.status(200);\r",
+									"});\r",
+									"pm.environment.set(\"link\", pm.response.json().token);"
+								]
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n\t\"email\": \"{{email}}\",\n\t\"password\": \"{{password}}\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{url}}api/auth/get-link",
+							"host": [
+								"{{url}}api"
+							],
+							"path": [
+								"auth",
+								"get-link"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "User1 Activate",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"type": "text/javascript",
+								"exec": [
+									"pm.test(\"Status code is 200\", function () {\r",
+									"    pm.response.to.have.status(200);\r",
+									"});"
+								]
+							}
+						}
+					],
+					"request": {
+						"method": "PATCH",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{url}}api/auth/activate?key={{link}}",
+							"host": [
+								"{{url}}api"
+							],
+							"path": [
+								"auth",
+								"activate"
+							],
+							"query": [
+								{
+									"key": "key",
+									"value": "{{link}}"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "User1 Log-In",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"type": "text/javascript",
+								"exec": [
+									"pm.test(\"Status code is 200\", function () {\r",
+									"    pm.response.to.have.status(200);\r",
+									"});"
+								]
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n\t\"email\": \"{{email}}\",\n\t\"password\": \"{{password}}\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{url}}api/auth/log-in",
+							"host": [
+								"{{url}}api"
+							],
+							"path": [
+								"auth",
+								"log-in"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "User1 Init-Recovery",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"type": "text/javascript",
+								"exec": [
+									"pm.test(\"Status code is 200\", function () {\r",
+									"    pm.response.to.have.status(200);\r",
+									"});"
+								]
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n\t\"email\": \"{{email}}\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{url}}api/recovery/send",
+							"host": [
+								"{{url}}api"
+							],
+							"path": [
+								"recovery",
+								"send"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "User1 Get-Recovery",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"type": "text/javascript",
+								"exec": [
+									"pm.test(\"Status code is 200\", function () {\r",
+									"    pm.response.to.have.status(200);\r",
+									"});\r",
+									"pm.environment.set(\"recovery\", pm.response.json().token);"
+								]
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n\t\"email\": \"{{email}}\",\n\t\"password\": \"{{password}}\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{url}}api/auth/get-recovery",
+							"host": [
+								"{{url}}api"
+							],
+							"path": [
+								"auth",
+								"get-recovery"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "User1 Check-Recovery",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"type": "text/javascript",
+								"exec": [
+									"pm.test(\"Status code is 200\", function () {\r",
+									"    pm.response.to.have.status(200);\r",
+									"});\r",
+									""
+								]
+							}
+						}
+					],
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "GET",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{url}}api/recovery/confirm?key={{recovery}}",
+							"host": [
+								"{{url}}api"
+							],
+							"path": [
+								"recovery",
+								"confirm"
+							],
+							"query": [
+								{
+									"key": "key",
+									"value": "{{recovery}}"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "User1 Change-Password",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"type": "text/javascript",
+								"exec": [
+									"pm.test(\"Status code is 200\", function () {\r",
+									"    pm.response.to.have.status(200);\r",
+									"});"
+								]
+							}
+						}
+					],
+					"request": {
+						"method": "PATCH",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"recoveryLink\": \"{{recovery}}\",\r\n    \"password\": \"{{new_password}}\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{url}}api/recovery/change-password",
+							"host": [
+								"{{url}}api"
+							],
+							"path": [
+								"recovery",
+								"change-password"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "User1 Log-In Old-Password",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"type": "text/javascript",
+								"exec": [
+									"pm.test(\"Status code is 200\", function () {\r",
+									"    pm.response.to.have.status(403);\r",
+									"});"
+								]
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n\t\"email\": \"{{email}}\",\n\t\"password\": \"{{password}}\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{url}}api/auth/log-in",
+							"host": [
+								"{{url}}api"
+							],
+							"path": [
+								"auth",
+								"log-in"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "User1 Log-In New-Password",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"type": "text/javascript",
+								"exec": [
+									"pm.test(\"Status code is 200\", function () {\r",
+									"    pm.response.to.have.status(200);\r",
+									"});"
+								]
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n\t\"email\": \"{{email}}\",\n\t\"password\": \"{{new_password}}\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{url}}api/auth/log-in",
+							"host": [
+								"{{url}}api"
+							],
+							"path": [
+								"auth",
+								"log-in"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "User1 Delete",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"type": "text/javascript",
+								"exec": [
+									"pm.test(\"Status code is 200\", function () {\r",
+									"    pm.response.to.have.status(200);\r",
+									"});"
+								]
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n\t\"email\": \"{{email}}\",\n\t\"password\": \"{{password}}\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{url}}api/auth/delete",
+							"host": [
+								"{{url}}api"
+							],
+							"path": [
+								"auth",
+								"delete"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "User1 Log-In Deleted",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"type": "text/javascript",
+								"exec": [
+									"pm.test(\"Status code is 200\", function () {\r",
+									"    pm.response.to.have.status(403);\r",
+									"});"
+								]
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n\t\"email\": \"{{email}}\",\n\t\"password\": \"{{password}}\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{url}}api/auth/log-in",
+							"host": [
+								"{{url}}api"
+							],
+							"path": [
+								"auth",
+								"log-in"
+							]
+						}
+					},
+					"response": []
+				}
+			],
+			"protocolProfileBehavior": {}
+		},
+		{
+			"name": "Admin related ",
+			"item": [
+				{
+					"name": "Get token for admin",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"type": "text/javascript",
+								"exec": [
+									"pm.test(\"Status code is 200\", function () {",
+									"    pm.response.to.have.status(200);",
+									"});",
+									"pm.environment.set(\"admin_token\", pm.response.json().token);"
+								]
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n\t\"email\": \"{{admin_login}}\",\n\t\"password\": \"{{admin_password}}\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{url}}api/auth/log-in",
+							"host": [
+								"{{url}}api"
+							],
+							"path": [
+								"auth",
+								"log-in"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get list of all vehicles",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"type": "text/javascript",
+								"exec": [
+									"pm.test(\"Status code is 200\", function () {",
+									"    pm.response.to.have.status(200);",
+									"});",
+									""
+								]
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer {{admin_token}}",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "{{url}}api/admin/all-vehicles",
+							"host": [
+								"{{url}}api"
+							],
+							"path": [
+								"admin",
+								"all-vehicles"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Add a new vehicle",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"type": "text/javascript",
+								"exec": [
+									"pm.test(\"Status code is 200\", function () {",
+									"    pm.response.to.have.status(200);",
+									"});",
+									""
+								]
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer {{admin_token}}",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"plate\": \"{{plate}}\",\n    \"fuelConsumption\" : \"40\",\n    \"capacity\" : \"60\",\n    \"loadCapacity\": \"50\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{url}}api/admin/add-vehicle",
+							"host": [
+								"{{url}}api"
+							],
+							"path": [
+								"admin",
+								"add-vehicle"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Add a new vehicle with identical plate",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"type": "text/javascript",
+								"exec": [
+									"pm.test(\"Status code is 400\", function () {",
+									"    pm.response.to.have.status(400);",
+									"});",
+									""
+								]
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer {{admin_token}}",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"plate\": \"{{plate}}\",\n    \"capacity\" : \"50\",\n    \"loadCapacity\": \"20\",\n    \"fuelConsumption\": \"40\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{url}}api/admin/add-vehicle",
+							"host": [
+								"{{url}}api"
+							],
+							"path": [
+								"admin",
+								"add-vehicle"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get vehicle by plate",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"type": "text/javascript",
+								"exec": [
+									"pm.test(\"Status code is 200\", function () {",
+									"    pm.response.to.have.status(200);",
+									"});",
+									""
+								]
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer {{admin_token}}",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "{{url}}api/admin/vehicles?plate={{plate}}",
+							"host": [
+								"{{url}}api"
+							],
+							"path": [
+								"admin",
+								"vehicles"
+							],
+							"query": [
+								{
+									"key": "plate",
+									"value": "{{plate}}"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get driver by part of the full name",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"type": "text/javascript",
+								"exec": [
+									"pm.test(\"Status code is 200\", function () {",
+									"    pm.response.to.have.status(200);",
+									"});",
+									""
+								]
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer {{admin_token}}",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "{{url}}api/admin/drivers?fullname=luca",
+							"host": [
+								"{{url}}api"
+							],
+							"path": [
+								"admin",
+								"drivers"
+							],
+							"query": [
+								{
+									"key": "fullname",
+									"value": "luca"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get finished orders",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"type": "text/javascript",
+								"exec": [
+									"pm.test(\"Status code is 200\", function () {",
+									"    pm.response.to.have.status(200);",
+									"});",
+									""
+								]
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer {{admin_token}}",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "{{url}}api/admin/{{admin_id}}/orders/finished",
+							"host": [
+								"{{url}}api"
+							],
+							"path": [
+								"admin",
+								"{{admin_id}}",
+								"orders",
+								"finished"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get confirmed orders",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"type": "text/javascript",
+								"exec": [
+									"pm.test(\"Status code is 200\", function () {",
+									"    pm.response.to.have.status(200);",
+									"});",
+									""
+								]
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer {{admin_token}}",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "{{url}}api/admin/{{admin_id}}/orders/confirmed",
+							"host": [
+								"{{url}}api"
+							],
+							"path": [
+								"admin",
+								"{{admin_id}}",
+								"orders",
+								"confirmed"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get confirmation pending requests",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"type": "text/javascript",
+								"exec": [
+									"pm.test(\"Status code is 200\", function () {",
+									"    pm.response.to.have.status(200);",
+									"});",
+									""
+								]
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer {{admin_token}}",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "{{url}}api/admin/{{admin_id}}/orders/confirmation-pending",
+							"host": [
+								"{{url}}api"
+							],
+							"path": [
+								"admin",
+								"{{admin_id}}",
+								"orders",
+								"confirmation-pending"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get rejected requests",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"type": "text/javascript",
+								"exec": [
+									"pm.test(\"Status code is 200\", function () {",
+									"    pm.response.to.have.status(200);",
+									"});",
+									""
+								]
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer {{admin_token}}",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "{{url}}api/admin/{{admin_id}}/orders/rejected",
+							"host": [
+								"{{url}}api"
+							],
+							"path": [
+								"admin",
+								"{{admin_id}}",
+								"orders",
+								"rejected"
+							]
+						}
+					},
+					"response": []
+				}
+			],
+			"protocolProfileBehavior": {}
+		},
+		{
+			"name": "Driver related",
+			"item": [
+				{
+					"name": "Get token for driver",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"type": "text/javascript",
+								"exec": [
+									"pm.test(\"Status code is 200\", function () {",
+									"    pm.response.to.have.status(200);",
+									"});",
+									"pm.environment.set(\"driver_token\", pm.response.json().token);"
+								]
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n\t\"email\": \"{{driver_login}}\",\n\t\"password\": \"{{driver_password}}\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{url}}api/auth/log-in",
+							"host": [
+								"{{url}}api"
+							],
+							"path": [
+								"auth",
+								"log-in"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get free vehicles",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"type": "text/javascript",
+								"exec": [
+									"pm.test(\"Status code is 200\", function () {",
+									"    pm.response.to.have.status(200);",
+									"});",
+									"",
+									"pm.test(\"Free cars present\", function () {",
+									"   pm.expect(pm.response.json()[0]).not.eq(undefined);",
+									"",
+									"});",
+									"pm.environment.set(\"free_car\", pm.response.json()[0].plate);",
+									""
+								]
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer {{driver_token}}",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "{{url}}api/driver/free-vehicles",
+							"host": [
+								"{{url}}api"
+							],
+							"path": [
+								"driver",
+								"free-vehicles"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get driver vehicle for an unassigned driver",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"type": "text/javascript",
+								"exec": [
+									"pm.test(\"Status code is 200\", function () {",
+									"    pm.response.to.have.status(200);",
+									"});",
+									"",
+									"tests[\"No car assigned to this driver\"] = (responseBody!=null && responseBody.length==0);",
+									"",
+									"",
+									"",
+									"",
+									"",
+									""
+								]
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer {{driver_token}}",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "{{url}}api/driver/{{driver_id}}/vehicle",
+							"host": [
+								"{{url}}api"
+							],
+							"path": [
+								"driver",
+								"{{driver_id}}",
+								"vehicle"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Assign vehicle",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"type": "text/javascript",
+								"exec": [
+									"pm.test(\"Status code is 200\", function () {",
+									"    pm.response.to.have.status(200);",
+									"});",
+									"",
+									"",
+									"",
+									"",
+									""
+								]
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer {{driver_token}}",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "{{url}}api/driver/{{driver_id}}/choose-car?plate={{free_car}}",
+							"host": [
+								"{{url}}api"
+							],
+							"path": [
+								"driver",
+								"{{driver_id}}",
+								"choose-car"
+							],
+							"query": [
+								{
+									"key": "plate",
+									"value": "{{free_car}}"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get driver vehicle",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"type": "text/javascript",
+								"exec": [
+									"pm.test(\"Status code is 200\", function () {",
+									"    pm.response.to.have.status(200);",
+									"});",
+									"",
+									"pm.test(\"Сar present\", function () {",
+									"   pm.expect(pm.response.json().plate).not.eq(undefined);",
+									"",
+									"});",
+									""
+								]
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer {{driver_token}}",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "{{url}}api/driver/{{driver_id}}/vehicle",
+							"host": [
+								"{{url}}api"
+							],
+							"path": [
+								"driver",
+								"{{driver_id}}",
+								"vehicle"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get driver finished orders",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"type": "text/javascript",
+								"exec": [
+									"pm.test(\"Status code is 200\", function () {",
+									"    pm.response.to.have.status(200);",
+									"});",
+									"",
+									""
+								]
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer {{driver_token}}",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "{{url}}api/driver/{{driver_id}}/orders/finished",
+							"host": [
+								"{{url}}api"
+							],
+							"path": [
+								"driver",
+								"{{driver_id}}",
+								"orders",
+								"finished"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get driver upcoming orders",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"type": "text/javascript",
+								"exec": [
+									"pm.test(\"Status code is 200\", function () {",
+									"    pm.response.to.have.status(200);",
+									"});",
+									"",
+									""
+								]
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer {{driver_token}}",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "{{url}}api/driver/{{driver_id}}/orders/upcoming",
+							"host": [
+								"{{url}}api"
+							],
+							"path": [
+								"driver",
+								"{{driver_id}}",
+								"orders",
+								"upcoming"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get driver to-confirm orders",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"type": "text/javascript",
+								"exec": [
+									"pm.test(\"Status code is 200\", function () {",
+									"    pm.response.to.have.status(200);",
+									"});",
+									"",
+									""
+								]
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer {{driver_token}}",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "{{url}}api/driver/{{driver_id}}/orders/to-confirm",
+							"host": [
+								"{{url}}api"
+							],
+							"path": [
+								"driver",
+								"{{driver_id}}",
+								"orders",
+								"to-confirm"
+							]
+						}
+					},
+					"response": []
+				}
+			],
+			"protocolProfileBehavior": {}
+		},
+		{
+			"name": "Order related",
+			"item": [
+				{
+					"name": "Get token for admin",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"type": "text/javascript",
+								"exec": [
+									"pm.test(\"Status code is 200\", function () {",
+									"    pm.response.to.have.status(200);",
+									"});",
+									"pm.environment.set(\"admin_token\", pm.response.json().token);"
+								]
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n\t\"email\": \"{{admin_login}}\",\n\t\"password\": \"{{admin_password}}\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{url}}api/auth/log-in",
+							"host": [
+								"{{url}}api"
+							],
+							"path": [
+								"auth",
+								"log-in"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Create order",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"type": "text/javascript",
+								"exec": [
+									"pm.test(\"Status code is 201\", function () {",
+									"    pm.response.to.have.status(201);",
+									"});",
+									"",
+									"pm.environment.set(\"order_id\", pm.response.json().orderId);",
+									""
+								]
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer {{admin_token}}",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"source\": {\n        \"longitude\": \"30.542721\",\n        \"latitude\": \"50.447731\"\n    },\n    \"destination\": {\n        \"longitude\": \"30.518351\",\n        \"latitude\": \"50.433017\"\n    },\n    \"volume\": \"0.5\",\n    \"weight\": \"1\",\n    \"car_id\": \"{{driver_car}}\",\n    \"admins_id\": \"{{admin_id}}\",\n    \"description\": \"\",\n    \"deadline\": \"2021-10-06 14:59:00.0\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{url}}api/order",
+							"host": [
+								"{{url}}api"
+							],
+							"path": [
+								"order"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get order by id",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"type": "text/javascript",
+								"exec": [
+									"pm.test(\"Status code is 200\", function () {",
+									"    pm.response.to.have.status(200);",
+									"});"
+								]
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer {{admin_token}}",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "{{url}}api/order/{{order_id}}",
+							"host": [
+								"{{url}}api"
+							],
+							"path": [
+								"order",
+								"{{order_id}}"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get token for driver",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"type": "text/javascript",
+								"exec": [
+									"pm.test(\"Status code is 200\", function () {",
+									"    pm.response.to.have.status(200);",
+									"});",
+									"pm.environment.set(\"driver_token\", pm.response.json().token);"
+								]
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n\t\"email\": \"{{driver_login}}\",\n\t\"password\": \"{{driver_password}}\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{url}}api/auth/log-in",
+							"host": [
+								"{{url}}api"
+							],
+							"path": [
+								"auth",
+								"log-in"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Set order confirmed",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"type": "text/javascript",
+								"exec": [
+									"pm.test(\"Status code is 200\", function () {",
+									"    pm.response.to.have.status(200);",
+									"});"
+								]
+							}
+						}
+					],
+					"request": {
+						"method": "PATCH",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer {{driver_token}}",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "{{url}}api/order/status/{{order_id}}?status=CONFIRMED",
+							"host": [
+								"{{url}}api"
+							],
+							"path": [
+								"order",
+								"status",
+								"{{order_id}}"
+							],
+							"query": [
+								{
+									"key": "status",
+									"value": "CONFIRMED"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Set order started",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"type": "text/javascript",
+								"exec": [
+									"pm.test(\"Status code is 200\", function () {",
+									"    pm.response.to.have.status(200);",
+									"});"
+								]
+							}
+						}
+					],
+					"request": {
+						"method": "PATCH",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer {{driver_token}}",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "{{url}}api/order/status/{{order_id}}?status=STARTED",
+							"host": [
+								"{{url}}api"
+							],
+							"path": [
+								"order",
+								"status",
+								"{{order_id}}"
+							],
+							"query": [
+								{
+									"key": "status",
+									"value": "STARTED"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get order path",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"type": "text/javascript",
+								"exec": [
+									"pm.test(\"Status code is 200\", function () {",
+									"    pm.response.to.have.status(200);",
+									"});"
+								]
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer {{driver_token}}",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "{{url}}api/{{order_id}}/path?update=false",
+							"host": [
+								"{{url}}api"
+							],
+							"path": [
+								"{{order_id}}",
+								"path"
+							],
+							"query": [
+								{
+									"key": "update",
+									"value": "false"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Set order completed",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"type": "text/javascript",
+								"exec": [
+									"pm.test(\"Status code is 200\", function () {",
+									"    pm.response.to.have.status(200);",
+									"});"
+								]
+							}
+						}
+					],
+					"request": {
+						"method": "PATCH",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer {{driver_token}}",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "{{url}}api/order/status/{{order_id}}?status=FINISHED",
+							"host": [
+								"{{url}}api"
+							],
+							"path": [
+								"order",
+								"status",
+								"{{order_id}}"
+							],
+							"query": [
+								{
+									"key": "status",
+									"value": "FINISHED"
+								}
+							]
+						}
+					},
+					"response": []
+				}
+			],
+			"protocolProfileBehavior": {}
+		}
+	],
+	"protocolProfileBehavior": {}
+}
