@@ -1,12 +1,15 @@
 {
+	"variables": [],
 	"info": {
-		"_postman_id": "53ff4719-0d6f-4b33-87a7-10f5afacb799",
 		"name": "TransCompBackTest",
-		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+		"_postman_id": "4459a46e-83e2-2798-b7b2-140cfa78d0b7",
+		"description": "",
+		"schema": "https://schema.getpostman.com/json/collection/v2.0.0/collection.json"
 	},
 	"item": [
 		{
 			"name": "Authorization/Recovery related",
+			"description": "",
 			"item": [
 				{
 					"name": "User1 Sign-Up",
@@ -24,6 +27,7 @@
 						}
 					],
 					"request": {
+						"url": "{{url}}api/auth/sign-up",
 						"method": "POST",
 						"header": [
 							{
@@ -33,21 +37,9 @@
 						],
 						"body": {
 							"mode": "raw",
-							"raw": "{\n    \"fullname\": \"Full Name\",\n\t\"email\": \"{{email}}\",\n\t\"password\": \"{{password}}\"\n}",
-							"options": {
-								"raw": {}
-							}
+							"raw": "{\n    \"fullname\": \"Full Name\",\n\t\"email\": \"{{email}}\",\n\t\"password\": \"{{password}}\"\n}"
 						},
-						"url": {
-							"raw": "{{url}}api/auth/sign-up",
-							"host": [
-								"{{url}}api"
-							],
-							"path": [
-								"auth",
-								"sign-up"
-							]
-						}
+						"description": ""
 					},
 					"response": []
 				},
@@ -67,27 +59,20 @@
 						}
 					],
 					"request": {
+						"url": "{{url}}api/auth/log-in",
 						"method": "POST",
-						"header": [],
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"description": ""
+							}
+						],
 						"body": {
 							"mode": "raw",
-							"raw": "{\n\t\"email\": \"{{email}}\",\n\t\"password\": \"{{password}}\"\n}",
-							"options": {
-								"raw": {
-									"language": "json"
-								}
-							}
+							"raw": "{\n\t\"email\": \"{{email}}\",\n\t\"password\": \"{{password}}\"\n}"
 						},
-						"url": {
-							"raw": "{{url}}api/auth/log-in",
-							"host": [
-								"{{url}}api"
-							],
-							"path": [
-								"auth",
-								"log-in"
-							]
-						}
+						"description": ""
 					},
 					"response": []
 				},
@@ -108,27 +93,20 @@
 						}
 					],
 					"request": {
+						"url": "{{url}}api/auth/get-link",
 						"method": "POST",
-						"header": [],
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"description": ""
+							}
+						],
 						"body": {
 							"mode": "raw",
-							"raw": "{\n\t\"email\": \"{{email}}\",\n\t\"password\": \"{{password}}\"\n}",
-							"options": {
-								"raw": {
-									"language": "json"
-								}
-							}
+							"raw": "{\n\t\"email\": \"{{email}}\",\n\t\"password\": \"{{password}}\"\n}"
 						},
-						"url": {
-							"raw": "{{url}}api/auth/get-link",
-							"host": [
-								"{{url}}api"
-							],
-							"path": [
-								"auth",
-								"get-link"
-							]
-						}
+						"description": ""
 					},
 					"response": []
 				},
@@ -148,17 +126,6 @@
 						}
 					],
 					"request": {
-						"method": "PATCH",
-						"header": [],
-						"body": {
-							"mode": "raw",
-							"raw": "",
-							"options": {
-								"raw": {
-									"language": "json"
-								}
-							}
-						},
 						"url": {
 							"raw": "{{url}}api/auth/activate?key={{link}}",
 							"host": [
@@ -171,10 +138,26 @@
 							"query": [
 								{
 									"key": "key",
-									"value": "{{link}}"
+									"value": "{{link}}",
+									"equals": true,
+									"description": ""
 								}
-							]
-						}
+							],
+							"variable": []
+						},
+						"method": "PATCH",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"description": ""
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": ""
+						},
+						"description": ""
 					},
 					"response": []
 				},
@@ -194,27 +177,20 @@
 						}
 					],
 					"request": {
+						"url": "{{url}}api/auth/log-in",
 						"method": "POST",
-						"header": [],
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"description": ""
+							}
+						],
 						"body": {
 							"mode": "raw",
-							"raw": "{\n\t\"email\": \"{{email}}\",\n\t\"password\": \"{{password}}\"\n}",
-							"options": {
-								"raw": {
-									"language": "json"
-								}
-							}
+							"raw": "{\n\t\"email\": \"{{email}}\",\n\t\"password\": \"{{password}}\"\n}"
 						},
-						"url": {
-							"raw": "{{url}}api/auth/log-in",
-							"host": [
-								"{{url}}api"
-							],
-							"path": [
-								"auth",
-								"log-in"
-							]
-						}
+						"description": ""
 					},
 					"response": []
 				},
@@ -234,27 +210,20 @@
 						}
 					],
 					"request": {
+						"url": "{{url}}api/recovery/send",
 						"method": "POST",
-						"header": [],
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"description": ""
+							}
+						],
 						"body": {
 							"mode": "raw",
-							"raw": "{\n\t\"email\": \"{{email}}\"\n}",
-							"options": {
-								"raw": {
-									"language": "json"
-								}
-							}
+							"raw": "{\n\t\"email\": \"{{email}}\"\n}"
 						},
-						"url": {
-							"raw": "{{url}}api/recovery/send",
-							"host": [
-								"{{url}}api"
-							],
-							"path": [
-								"recovery",
-								"send"
-							]
-						}
+						"description": ""
 					},
 					"response": []
 				},
@@ -275,27 +244,20 @@
 						}
 					],
 					"request": {
+						"url": "{{url}}api/auth/get-recovery",
 						"method": "POST",
-						"header": [],
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"description": ""
+							}
+						],
 						"body": {
 							"mode": "raw",
-							"raw": "{\n\t\"email\": \"{{email}}\",\n\t\"password\": \"{{password}}\"\n}",
-							"options": {
-								"raw": {
-									"language": "json"
-								}
-							}
+							"raw": "{\n\t\"email\": \"{{email}}\",\n\t\"password\": \"{{password}}\"\n}"
 						},
-						"url": {
-							"raw": "{{url}}api/auth/get-recovery",
-							"host": [
-								"{{url}}api"
-							],
-							"path": [
-								"auth",
-								"get-recovery"
-							]
-						}
+						"description": ""
 					},
 					"response": []
 				},
@@ -315,21 +277,7 @@
 							}
 						}
 					],
-					"protocolProfileBehavior": {
-						"disableBodyPruning": true
-					},
 					"request": {
-						"method": "GET",
-						"header": [],
-						"body": {
-							"mode": "raw",
-							"raw": "",
-							"options": {
-								"raw": {
-									"language": "json"
-								}
-							}
-						},
 						"url": {
 							"raw": "{{url}}api/recovery/confirm?key={{recovery}}",
 							"host": [
@@ -344,8 +292,16 @@
 									"key": "key",
 									"value": "{{recovery}}"
 								}
-							]
-						}
+							],
+							"variable": []
+						},
+						"method": "GET",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": ""
+						},
+						"description": ""
 					},
 					"response": []
 				},
@@ -365,27 +321,20 @@
 						}
 					],
 					"request": {
+						"url": "{{url}}api/recovery/change-password",
 						"method": "PATCH",
-						"header": [],
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"description": ""
+							}
+						],
 						"body": {
 							"mode": "raw",
-							"raw": "{\r\n    \"recoveryLink\": \"{{recovery}}\",\r\n    \"password\": \"{{new_password}}\"\r\n}",
-							"options": {
-								"raw": {
-									"language": "json"
-								}
-							}
+							"raw": "{\r\n    \"recoveryLink\": \"{{recovery}}\",\r\n    \"password\": \"{{new_password}}\"\r\n}"
 						},
-						"url": {
-							"raw": "{{url}}api/recovery/change-password",
-							"host": [
-								"{{url}}api"
-							],
-							"path": [
-								"recovery",
-								"change-password"
-							]
-						}
+						"description": ""
 					},
 					"response": []
 				},
@@ -405,27 +354,20 @@
 						}
 					],
 					"request": {
+						"url": "{{url}}api/auth/log-in",
 						"method": "POST",
-						"header": [],
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"description": ""
+							}
+						],
 						"body": {
 							"mode": "raw",
-							"raw": "{\n\t\"email\": \"{{email}}\",\n\t\"password\": \"{{password}}\"\n}",
-							"options": {
-								"raw": {
-									"language": "json"
-								}
-							}
+							"raw": "{\n\t\"email\": \"{{email}}\",\n\t\"password\": \"{{password}}\"\n}"
 						},
-						"url": {
-							"raw": "{{url}}api/auth/log-in",
-							"host": [
-								"{{url}}api"
-							],
-							"path": [
-								"auth",
-								"log-in"
-							]
-						}
+						"description": ""
 					},
 					"response": []
 				},
@@ -445,27 +387,20 @@
 						}
 					],
 					"request": {
+						"url": "{{url}}api/auth/log-in",
 						"method": "POST",
-						"header": [],
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"description": ""
+							}
+						],
 						"body": {
 							"mode": "raw",
-							"raw": "{\n\t\"email\": \"{{email}}\",\n\t\"password\": \"{{new_password}}\"\n}",
-							"options": {
-								"raw": {
-									"language": "json"
-								}
-							}
+							"raw": "{\n\t\"email\": \"{{email}}\",\n\t\"password\": \"{{new_password}}\"\n}"
 						},
-						"url": {
-							"raw": "{{url}}api/auth/log-in",
-							"host": [
-								"{{url}}api"
-							],
-							"path": [
-								"auth",
-								"log-in"
-							]
-						}
+						"description": ""
 					},
 					"response": []
 				},
@@ -485,32 +420,20 @@
 						}
 					],
 					"request": {
+						"url": "{{url}}api/auth/delete",
 						"method": "POST",
 						"header": [
 							{
 								"key": "Content-Type",
-								"value": "application/json"
+								"value": "application/json",
+								"description": ""
 							}
 						],
 						"body": {
 							"mode": "raw",
-							"raw": "{\n\t\"email\": \"{{email}}\",\n\t\"password\": \"{{password}}\"\n}",
-							"options": {
-								"raw": {
-									"language": "json"
-								}
-							}
+							"raw": "{\n\t\"email\": \"{{email}}\",\n\t\"password\": \"{{password}}\"\n}"
 						},
-						"url": {
-							"raw": "{{url}}api/auth/delete",
-							"host": [
-								"{{url}}api"
-							],
-							"path": [
-								"auth",
-								"delete"
-							]
-						}
+						"description": ""
 					},
 					"response": []
 				},
@@ -530,35 +453,28 @@
 						}
 					],
 					"request": {
+						"url": "{{url}}api/auth/log-in",
 						"method": "POST",
-						"header": [],
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"description": ""
+							}
+						],
 						"body": {
 							"mode": "raw",
-							"raw": "{\n\t\"email\": \"{{email}}\",\n\t\"password\": \"{{password}}\"\n}",
-							"options": {
-								"raw": {
-									"language": "json"
-								}
-							}
+							"raw": "{\n\t\"email\": \"{{email}}\",\n\t\"password\": \"{{password}}\"\n}"
 						},
-						"url": {
-							"raw": "{{url}}api/auth/log-in",
-							"host": [
-								"{{url}}api"
-							],
-							"path": [
-								"auth",
-								"log-in"
-							]
-						}
+						"description": ""
 					},
 					"response": []
 				}
-			],
-			"protocolProfileBehavior": {}
+			]
 		},
 		{
 			"name": "Admin related ",
+			"description": "",
 			"item": [
 				{
 					"name": "Get token for admin",
@@ -577,27 +493,20 @@
 						}
 					],
 					"request": {
+						"url": "{{url}}api/auth/log-in",
 						"method": "POST",
-						"header": [],
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"description": ""
+							}
+						],
 						"body": {
 							"mode": "raw",
-							"raw": "{\n\t\"email\": \"{{admin_login}}\",\n\t\"password\": \"{{admin_password}}\"\n}",
-							"options": {
-								"raw": {
-									"language": "json"
-								}
-							}
+							"raw": "{\n\t\"email\": \"{{admin_login}}\",\n\t\"password\": \"{{admin_password}}\"\n}"
 						},
-						"url": {
-							"raw": "{{url}}api/auth/log-in",
-							"host": [
-								"{{url}}api"
-							],
-							"path": [
-								"auth",
-								"log-in"
-							]
-						}
+						"description": ""
 					},
 					"response": []
 				},
@@ -618,6 +527,7 @@
 						}
 					],
 					"request": {
+						"url": "{{url}}api/admin/all-vehicles",
 						"method": "GET",
 						"header": [
 							{
@@ -626,16 +536,11 @@
 								"type": "text"
 							}
 						],
-						"url": {
-							"raw": "{{url}}api/admin/all-vehicles",
-							"host": [
-								"{{url}}api"
-							],
-							"path": [
-								"admin",
-								"all-vehicles"
-							]
-						}
+						"body": {
+							"mode": "raw",
+							"raw": ""
+						},
+						"description": ""
 					},
 					"response": []
 				},
@@ -656,33 +561,25 @@
 						}
 					],
 					"request": {
+						"url": "{{url}}api/admin/add-vehicle",
 						"method": "POST",
 						"header": [
 							{
 								"key": "Authorization",
 								"value": "Bearer {{admin_token}}",
-								"type": "text"
+								"description": ""
+							},
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"description": ""
 							}
 						],
 						"body": {
 							"mode": "raw",
-							"raw": "{\n    \"plate\": \"{{plate}}\",\n    \"fuelConsumption\" : \"40\",\n    \"capacity\" : \"60\",\n    \"loadCapacity\": \"50\"\n}",
-							"options": {
-								"raw": {
-									"language": "json"
-								}
-							}
+							"raw": "{\n    \"plate\": \"{{plate}}\",\n    \"fuelConsumption\" : \"40\",\n    \"capacity\" : \"60\",\n    \"loadCapacity\": \"50\"\n}"
 						},
-						"url": {
-							"raw": "{{url}}api/admin/add-vehicle",
-							"host": [
-								"{{url}}api"
-							],
-							"path": [
-								"admin",
-								"add-vehicle"
-							]
-						}
+						"description": ""
 					},
 					"response": []
 				},
@@ -703,33 +600,25 @@
 						}
 					],
 					"request": {
+						"url": "{{url}}api/admin/add-vehicle",
 						"method": "POST",
 						"header": [
 							{
 								"key": "Authorization",
 								"value": "Bearer {{admin_token}}",
-								"type": "text"
+								"description": ""
+							},
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"description": ""
 							}
 						],
 						"body": {
 							"mode": "raw",
-							"raw": "{\n    \"plate\": \"{{plate}}\",\n    \"capacity\" : \"50\",\n    \"loadCapacity\": \"20\",\n    \"fuelConsumption\": \"40\"\n}",
-							"options": {
-								"raw": {
-									"language": "json"
-								}
-							}
+							"raw": "{\n    \"plate\": \"{{plate}}\",\n    \"capacity\" : \"50\",\n    \"loadCapacity\": \"20\",\n    \"fuelConsumption\": \"40\"\n}"
 						},
-						"url": {
-							"raw": "{{url}}api/admin/add-vehicle",
-							"host": [
-								"{{url}}api"
-							],
-							"path": [
-								"admin",
-								"add-vehicle"
-							]
-						}
+						"description": ""
 					},
 					"response": []
 				},
@@ -750,14 +639,6 @@
 						}
 					],
 					"request": {
-						"method": "GET",
-						"header": [
-							{
-								"key": "Authorization",
-								"value": "Bearer {{admin_token}}",
-								"type": "text"
-							}
-						],
 						"url": {
 							"raw": "{{url}}api/admin/vehicles?plate={{plate}}",
 							"host": [
@@ -772,8 +653,22 @@
 									"key": "plate",
 									"value": "{{plate}}"
 								}
-							]
-						}
+							],
+							"variable": []
+						},
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer {{admin_token}}",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": ""
+						},
+						"description": ""
 					},
 					"response": []
 				},
@@ -794,14 +689,6 @@
 						}
 					],
 					"request": {
-						"method": "GET",
-						"header": [
-							{
-								"key": "Authorization",
-								"value": "Bearer {{admin_token}}",
-								"type": "text"
-							}
-						],
 						"url": {
 							"raw": "{{url}}api/admin/drivers?fullname=luca",
 							"host": [
@@ -816,8 +703,22 @@
 									"key": "fullname",
 									"value": "luca"
 								}
-							]
-						}
+							],
+							"variable": []
+						},
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer {{admin_token}}",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": ""
+						},
+						"description": ""
 					},
 					"response": []
 				},
@@ -838,6 +739,7 @@
 						}
 					],
 					"request": {
+						"url": "{{url}}api/admin/{{admin_id}}/orders/finished",
 						"method": "GET",
 						"header": [
 							{
@@ -846,18 +748,11 @@
 								"type": "text"
 							}
 						],
-						"url": {
-							"raw": "{{url}}api/admin/{{admin_id}}/orders/finished",
-							"host": [
-								"{{url}}api"
-							],
-							"path": [
-								"admin",
-								"{{admin_id}}",
-								"orders",
-								"finished"
-							]
-						}
+						"body": {
+							"mode": "raw",
+							"raw": ""
+						},
+						"description": ""
 					},
 					"response": []
 				},
@@ -878,6 +773,7 @@
 						}
 					],
 					"request": {
+						"url": "{{url}}api/admin/{{admin_id}}/orders/confirmed",
 						"method": "GET",
 						"header": [
 							{
@@ -886,18 +782,11 @@
 								"type": "text"
 							}
 						],
-						"url": {
-							"raw": "{{url}}api/admin/{{admin_id}}/orders/confirmed",
-							"host": [
-								"{{url}}api"
-							],
-							"path": [
-								"admin",
-								"{{admin_id}}",
-								"orders",
-								"confirmed"
-							]
-						}
+						"body": {
+							"mode": "raw",
+							"raw": ""
+						},
+						"description": ""
 					},
 					"response": []
 				},
@@ -918,6 +807,7 @@
 						}
 					],
 					"request": {
+						"url": "{{url}}api/admin/{{admin_id}}/orders/confirmation-pending",
 						"method": "GET",
 						"header": [
 							{
@@ -926,18 +816,11 @@
 								"type": "text"
 							}
 						],
-						"url": {
-							"raw": "{{url}}api/admin/{{admin_id}}/orders/confirmation-pending",
-							"host": [
-								"{{url}}api"
-							],
-							"path": [
-								"admin",
-								"{{admin_id}}",
-								"orders",
-								"confirmation-pending"
-							]
-						}
+						"body": {
+							"mode": "raw",
+							"raw": ""
+						},
+						"description": ""
 					},
 					"response": []
 				},
@@ -958,6 +841,7 @@
 						}
 					],
 					"request": {
+						"url": "{{url}}api/admin/{{admin_id}}/orders/rejected",
 						"method": "GET",
 						"header": [
 							{
@@ -966,26 +850,19 @@
 								"type": "text"
 							}
 						],
-						"url": {
-							"raw": "{{url}}api/admin/{{admin_id}}/orders/rejected",
-							"host": [
-								"{{url}}api"
-							],
-							"path": [
-								"admin",
-								"{{admin_id}}",
-								"orders",
-								"rejected"
-							]
-						}
+						"body": {
+							"mode": "raw",
+							"raw": ""
+						},
+						"description": ""
 					},
 					"response": []
 				}
-			],
-			"protocolProfileBehavior": {}
+			]
 		},
 		{
 			"name": "Driver related",
+			"description": "",
 			"item": [
 				{
 					"name": "Get token for driver",
@@ -1004,27 +881,20 @@
 						}
 					],
 					"request": {
+						"url": "{{url}}api/auth/log-in",
 						"method": "POST",
-						"header": [],
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"description": ""
+							}
+						],
 						"body": {
 							"mode": "raw",
-							"raw": "{\n\t\"email\": \"{{driver_login}}\",\n\t\"password\": \"{{driver_password}}\"\n}",
-							"options": {
-								"raw": {
-									"language": "json"
-								}
-							}
+							"raw": "{\n\t\"email\": \"{{driver_login}}\",\n\t\"password\": \"{{driver_password}}\"\n}"
 						},
-						"url": {
-							"raw": "{{url}}api/auth/log-in",
-							"host": [
-								"{{url}}api"
-							],
-							"path": [
-								"auth",
-								"log-in"
-							]
-						}
+						"description": ""
 					},
 					"response": []
 				},
@@ -1051,6 +921,7 @@
 						}
 					],
 					"request": {
+						"url": "{{url}}api/driver/free-vehicles",
 						"method": "GET",
 						"header": [
 							{
@@ -1059,16 +930,11 @@
 								"type": "text"
 							}
 						],
-						"url": {
-							"raw": "{{url}}api/driver/free-vehicles",
-							"host": [
-								"{{url}}api"
-							],
-							"path": [
-								"driver",
-								"free-vehicles"
-							]
-						}
+						"body": {
+							"mode": "raw",
+							"raw": ""
+						},
+						"description": ""
 					},
 					"response": []
 				},
@@ -1096,6 +962,7 @@
 						}
 					],
 					"request": {
+						"url": "{{url}}api/driver/{{driver_id}}/vehicle",
 						"method": "GET",
 						"header": [
 							{
@@ -1104,17 +971,11 @@
 								"type": "text"
 							}
 						],
-						"url": {
-							"raw": "{{url}}api/driver/{{driver_id}}/vehicle",
-							"host": [
-								"{{url}}api"
-							],
-							"path": [
-								"driver",
-								"{{driver_id}}",
-								"vehicle"
-							]
-						}
+						"body": {
+							"mode": "raw",
+							"raw": ""
+						},
+						"description": ""
 					},
 					"response": []
 				},
@@ -1139,14 +1000,6 @@
 						}
 					],
 					"request": {
-						"method": "GET",
-						"header": [
-							{
-								"key": "Authorization",
-								"value": "Bearer {{driver_token}}",
-								"type": "text"
-							}
-						],
 						"url": {
 							"raw": "{{url}}api/driver/{{driver_id}}/choose-car?plate={{free_car}}",
 							"host": [
@@ -1162,8 +1015,22 @@
 									"key": "plate",
 									"value": "{{free_car}}"
 								}
-							]
-						}
+							],
+							"variable": []
+						},
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer {{driver_token}}",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": ""
+						},
+						"description": ""
 					},
 					"response": []
 				},
@@ -1189,6 +1056,7 @@
 						}
 					],
 					"request": {
+						"url": "{{url}}api/driver/{{driver_id}}/vehicle",
 						"method": "GET",
 						"header": [
 							{
@@ -1197,17 +1065,11 @@
 								"type": "text"
 							}
 						],
-						"url": {
-							"raw": "{{url}}api/driver/{{driver_id}}/vehicle",
-							"host": [
-								"{{url}}api"
-							],
-							"path": [
-								"driver",
-								"{{driver_id}}",
-								"vehicle"
-							]
-						}
+						"body": {
+							"mode": "raw",
+							"raw": ""
+						},
+						"description": ""
 					},
 					"response": []
 				},
@@ -1229,6 +1091,7 @@
 						}
 					],
 					"request": {
+						"url": "{{url}}api/driver/{{driver_id}}/orders/finished",
 						"method": "GET",
 						"header": [
 							{
@@ -1237,18 +1100,11 @@
 								"type": "text"
 							}
 						],
-						"url": {
-							"raw": "{{url}}api/driver/{{driver_id}}/orders/finished",
-							"host": [
-								"{{url}}api"
-							],
-							"path": [
-								"driver",
-								"{{driver_id}}",
-								"orders",
-								"finished"
-							]
-						}
+						"body": {
+							"mode": "raw",
+							"raw": ""
+						},
+						"description": ""
 					},
 					"response": []
 				},
@@ -1270,6 +1126,7 @@
 						}
 					],
 					"request": {
+						"url": "{{url}}api/driver/{{driver_id}}/orders/upcoming",
 						"method": "GET",
 						"header": [
 							{
@@ -1278,18 +1135,11 @@
 								"type": "text"
 							}
 						],
-						"url": {
-							"raw": "{{url}}api/driver/{{driver_id}}/orders/upcoming",
-							"host": [
-								"{{url}}api"
-							],
-							"path": [
-								"driver",
-								"{{driver_id}}",
-								"orders",
-								"upcoming"
-							]
-						}
+						"body": {
+							"mode": "raw",
+							"raw": ""
+						},
+						"description": ""
 					},
 					"response": []
 				},
@@ -1311,6 +1161,7 @@
 						}
 					],
 					"request": {
+						"url": "{{url}}api/driver/{{driver_id}}/orders/to-confirm",
 						"method": "GET",
 						"header": [
 							{
@@ -1319,26 +1170,19 @@
 								"type": "text"
 							}
 						],
-						"url": {
-							"raw": "{{url}}api/driver/{{driver_id}}/orders/to-confirm",
-							"host": [
-								"{{url}}api"
-							],
-							"path": [
-								"driver",
-								"{{driver_id}}",
-								"orders",
-								"to-confirm"
-							]
-						}
+						"body": {
+							"mode": "raw",
+							"raw": ""
+						},
+						"description": ""
 					},
 					"response": []
 				}
-			],
-			"protocolProfileBehavior": {}
+			]
 		},
 		{
 			"name": "Order related",
+			"description": "",
 			"item": [
 				{
 					"name": "Get token for admin",
@@ -1357,27 +1201,20 @@
 						}
 					],
 					"request": {
+						"url": "{{url}}api/auth/log-in",
 						"method": "POST",
-						"header": [],
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"description": ""
+							}
+						],
 						"body": {
 							"mode": "raw",
-							"raw": "{\n\t\"email\": \"{{admin_login}}\",\n\t\"password\": \"{{admin_password}}\"\n}",
-							"options": {
-								"raw": {
-									"language": "json"
-								}
-							}
+							"raw": "{\n\t\"email\": \"{{admin_login}}\",\n\t\"password\": \"{{admin_password}}\"\n}"
 						},
-						"url": {
-							"raw": "{{url}}api/auth/log-in",
-							"host": [
-								"{{url}}api"
-							],
-							"path": [
-								"auth",
-								"log-in"
-							]
-						}
+						"description": ""
 					},
 					"response": []
 				},
@@ -1400,32 +1237,25 @@
 						}
 					],
 					"request": {
+						"url": "{{url}}api/order",
 						"method": "POST",
 						"header": [
 							{
 								"key": "Authorization",
 								"value": "Bearer {{admin_token}}",
-								"type": "text"
+								"description": ""
+							},
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"description": ""
 							}
 						],
 						"body": {
 							"mode": "raw",
-							"raw": "{\n    \"source\": {\n        \"longitude\": \"30.542721\",\n        \"latitude\": \"50.447731\"\n    },\n    \"destination\": {\n        \"longitude\": \"30.518351\",\n        \"latitude\": \"50.433017\"\n    },\n    \"volume\": \"0.5\",\n    \"weight\": \"1\",\n    \"car_id\": \"{{driver_car}}\",\n    \"admins_id\": \"{{admin_id}}\",\n    \"description\": \"\",\n    \"deadline\": \"2021-10-06 14:59:00.0\"\n}",
-							"options": {
-								"raw": {
-									"language": "json"
-								}
-							}
+							"raw": "{\n    \"source\": {\n        \"longitude\": \"30.542721\",\n        \"latitude\": \"50.447731\"\n    },\n    \"destination\": {\n        \"longitude\": \"30.518351\",\n        \"latitude\": \"50.433017\"\n    },\n    \"volume\": \"0.5\",\n    \"weight\": \"1\",\n    \"car_id\": \"{{driver_car}}\",\n    \"admins_id\": \"{{admin_id}}\",\n    \"description\": \"\",\n    \"deadline\": \"2021-10-06 14:59:00.0\"\n}"
 						},
-						"url": {
-							"raw": "{{url}}api/order",
-							"host": [
-								"{{url}}api"
-							],
-							"path": [
-								"order"
-							]
-						}
+						"description": ""
 					},
 					"response": []
 				},
@@ -1445,6 +1275,7 @@
 						}
 					],
 					"request": {
+						"url": "{{url}}api/order/{{order_id}}",
 						"method": "GET",
 						"header": [
 							{
@@ -1453,16 +1284,11 @@
 								"type": "text"
 							}
 						],
-						"url": {
-							"raw": "{{url}}api/order/{{order_id}}",
-							"host": [
-								"{{url}}api"
-							],
-							"path": [
-								"order",
-								"{{order_id}}"
-							]
-						}
+						"body": {
+							"mode": "raw",
+							"raw": ""
+						},
+						"description": ""
 					},
 					"response": []
 				},
@@ -1483,27 +1309,20 @@
 						}
 					],
 					"request": {
+						"url": "{{url}}api/auth/log-in",
 						"method": "POST",
-						"header": [],
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"description": ""
+							}
+						],
 						"body": {
 							"mode": "raw",
-							"raw": "{\n\t\"email\": \"{{driver_login}}\",\n\t\"password\": \"{{driver_password}}\"\n}",
-							"options": {
-								"raw": {
-									"language": "json"
-								}
-							}
+							"raw": "{\n\t\"email\": \"{{driver_login}}\",\n\t\"password\": \"{{driver_password}}\"\n}"
 						},
-						"url": {
-							"raw": "{{url}}api/auth/log-in",
-							"host": [
-								"{{url}}api"
-							],
-							"path": [
-								"auth",
-								"log-in"
-							]
-						}
+						"description": ""
 					},
 					"response": []
 				},
@@ -1523,14 +1342,6 @@
 						}
 					],
 					"request": {
-						"method": "PATCH",
-						"header": [
-							{
-								"key": "Authorization",
-								"value": "Bearer {{driver_token}}",
-								"type": "text"
-							}
-						],
 						"url": {
 							"raw": "{{url}}api/order/status/{{order_id}}?status=CONFIRMED",
 							"host": [
@@ -1544,10 +1355,31 @@
 							"query": [
 								{
 									"key": "status",
-									"value": "CONFIRMED"
+									"value": "CONFIRMED",
+									"equals": true,
+									"description": ""
 								}
-							]
-						}
+							],
+							"variable": []
+						},
+						"method": "PATCH",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer {{driver_token}}",
+								"description": ""
+							},
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"description": ""
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": ""
+						},
+						"description": ""
 					},
 					"response": []
 				},
@@ -1567,14 +1399,6 @@
 						}
 					],
 					"request": {
-						"method": "PATCH",
-						"header": [
-							{
-								"key": "Authorization",
-								"value": "Bearer {{driver_token}}",
-								"type": "text"
-							}
-						],
 						"url": {
 							"raw": "{{url}}api/order/status/{{order_id}}?status=STARTED",
 							"host": [
@@ -1588,10 +1412,31 @@
 							"query": [
 								{
 									"key": "status",
-									"value": "STARTED"
+									"value": "STARTED",
+									"equals": true,
+									"description": ""
 								}
-							]
-						}
+							],
+							"variable": []
+						},
+						"method": "PATCH",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer {{driver_token}}",
+								"description": ""
+							},
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"description": ""
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": ""
+						},
+						"description": ""
 					},
 					"response": []
 				},
@@ -1611,14 +1456,6 @@
 						}
 					],
 					"request": {
-						"method": "GET",
-						"header": [
-							{
-								"key": "Authorization",
-								"value": "Bearer {{driver_token}}",
-								"type": "text"
-							}
-						],
 						"url": {
 							"raw": "{{url}}api/{{order_id}}/path?update=false",
 							"host": [
@@ -1633,8 +1470,22 @@
 									"key": "update",
 									"value": "false"
 								}
-							]
-						}
+							],
+							"variable": []
+						},
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer {{driver_token}}",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": ""
+						},
+						"description": ""
 					},
 					"response": []
 				},
@@ -1654,14 +1505,6 @@
 						}
 					],
 					"request": {
-						"method": "PATCH",
-						"header": [
-							{
-								"key": "Authorization",
-								"value": "Bearer {{driver_token}}",
-								"type": "text"
-							}
-						],
 						"url": {
 							"raw": "{{url}}api/order/status/{{order_id}}?status=FINISHED",
 							"host": [
@@ -1675,16 +1518,35 @@
 							"query": [
 								{
 									"key": "status",
-									"value": "FINISHED"
+									"value": "FINISHED",
+									"equals": true,
+									"description": ""
 								}
-							]
-						}
+							],
+							"variable": []
+						},
+						"method": "PATCH",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer {{driver_token}}",
+								"description": ""
+							},
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"description": ""
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": ""
+						},
+						"description": ""
 					},
 					"response": []
 				}
-			],
-			"protocolProfileBehavior": {}
+			]
 		}
-	],
-	"protocolProfileBehavior": {}
+	]
 }
