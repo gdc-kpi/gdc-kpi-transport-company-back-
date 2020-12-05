@@ -32,6 +32,7 @@ public class DriverController {
         return new ResponseEntity<>(driverService.getFreeVehicle(), HttpStatus.OK);
     }
 
+
     @GetMapping("/{driverId}/vehicle")
     public ResponseEntity<?> getCar(@PathVariable UUID driverId) {
         return new ResponseEntity<>(driverService.getVehicle(driverId), HttpStatus.OK);
