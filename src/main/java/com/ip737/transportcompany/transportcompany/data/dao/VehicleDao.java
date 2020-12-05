@@ -134,5 +134,13 @@ public class VehicleDao {
             return null;
         }
     }
+
+    public List<Vehicle> getDrivers() {
+        try {
+            return jdbcTemplate.query(SqlConstants.VEHICLE_GET_FREE, new BeanPropertyRowMapper<>(Vehicle.class));
+        } catch (EmptyResultDataAccessException exception) {
+            return null;
+        }
+    }
 }
 

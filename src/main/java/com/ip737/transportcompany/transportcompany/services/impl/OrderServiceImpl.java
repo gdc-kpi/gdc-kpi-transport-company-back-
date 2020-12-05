@@ -168,4 +168,9 @@ public class OrderServiceImpl implements OrderService {
         order.setStatus(status);
         orderDao.chageStatus(order);
     }
+
+    @Override
+    public List<Vehicle> getDriversList() {
+        return vehicleDao.getDrivers();
+    }
 }
