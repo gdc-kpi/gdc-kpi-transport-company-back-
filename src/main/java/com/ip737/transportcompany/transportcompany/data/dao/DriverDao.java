@@ -1,12 +1,10 @@
 package com.ip737.transportcompany.transportcompany.data.dao;
 
-
 import com.ip737.transportcompany.transportcompany.configs.constants.SqlConstants;
+import com.ip737.transportcompany.transportcompany.data.entities.DayOff;
 import com.ip737.transportcompany.transportcompany.data.entities.Driver;
-import com.ip737.transportcompany.transportcompany.data.entities.Order;
+import com.ip737.transportcompany.transportcompany.data.rowmappers.DayOffMapper;
 import com.ip737.transportcompany.transportcompany.data.rowmappers.DriverMapper;
-import com.ip737.transportcompany.transportcompany.data.rowmappers.OrderMapper;
-import com.ip737.transportcompany.transportcompany.data.rowmappers.VehicleMapper;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.EmptyResultDataAccessException;
@@ -63,5 +61,13 @@ public class DriverDao {
         }
     }
 
+    public List<DayOff> getAllDaysOffOfDrivers() {
+        try {
+            return jdbcTemplate.query(SqlConstants.GET_DRIVERS_DAYS_OFF_FOR_ADMIN_APPROVES,
+                    new Object[]{}, new DayOffMapper());
+        } catch (EmptyResultDataAccessException | NullPointerException e ) {
+            return null;
+        }
+    }
 
 }

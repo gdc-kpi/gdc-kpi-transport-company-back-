@@ -36,7 +36,7 @@ public class AdminController {
     @GetMapping("/all-vehicles")
     public ResponseEntity<?> getAllCars() {
         if (!authenticationFacade.isAllowed(Constants.ROLE_ADMIN)) {
-            throw new AccessDeniedException("Resource forbidden for this user due to their role");
+            throw new AccessDeniedException(Constants.FORBIDDEN_BY_ROLE);
         }
         return new ResponseEntity<>(profileService.getAllVehicle(), HttpStatus.OK);
     }
@@ -44,7 +44,7 @@ public class AdminController {
     @PostMapping("/add-vehicle")
     public ResponseEntity<?> addVehicle(@RequestBody VehicleDto vehicle) {
         if (!authenticationFacade.isAllowed(Constants.ROLE_ADMIN)) {
-            throw new AccessDeniedException("Resource forbidden for this user due to their role");
+            throw new AccessDeniedException(Constants.FORBIDDEN_BY_ROLE);
         }
         VehicleValidator.validate(vehicle);
 
@@ -61,7 +61,7 @@ public class AdminController {
         if (authenticationFacade.isAllowed(Constants.ROLE_ADMIN)) {
             return new ResponseEntity<>(profileService.getVehicleFilterByPartOfPlate(plate), HttpStatus.OK);
         } else {
-            throw new AccessDeniedException("Resource forbidden for this user due to their role");
+            throw new AccessDeniedException(Constants.FORBIDDEN_BY_ROLE);
         }
     }
 
@@ -71,7 +71,16 @@ public class AdminController {
         if (authenticationFacade.isAllowed(Constants.ROLE_ADMIN)) {
             return new ResponseEntity<>(profileService.getDriversFilterByName(fullname), HttpStatus.OK);
         } else {
-            throw new AccessDeniedException("Resource forbidden for this user due to their role");
+            throw new AccessDeniedException(Constants.FORBIDDEN_BY_ROLE);
+        }
+    }
+
+    @GetMapping("/days-off")
+    public ResponseEntity<?> getDaysOffToConfirm() {
+        if (authenticationFacade.isAllowed(Constants.ROLE_ADMIN)) {
+            return new ResponseEntity<>(profileService.getDaysOff(), HttpStatus.OK);
+        } else {
+            throw new AccessDeniedException(Constants.FORBIDDEN_BY_ROLE);
         }
     }
 
@@ -79,7 +88,7 @@ public class AdminController {
     @GetMapping("/{adminId}/orders/finished")
     public ResponseEntity<?> getOrdersFin(@PathVariable UUID adminId) {
         if (!authenticationFacade.isAllowed(Constants.ROLE_ADMIN)) {
-            throw new AccessDeniedException("Resource forbidden for this user due to their role");
+            throw new AccessDeniedException(Constants.FORBIDDEN_BY_ROLE);
         }
         return new ResponseEntity<>(profileService.getOrdersFilterByStatus(adminId.toString(), Constants.Status.FAILED.toString(), Constants.Status.FINISHED.toString()), HttpStatus.OK);
     }
@@ -87,7 +96,7 @@ public class AdminController {
     @GetMapping("/{adminId}/orders/confirmed")
     public ResponseEntity<?> getOrdersCon(@PathVariable UUID adminId) {
         if (!authenticationFacade.isAllowed(Constants.ROLE_ADMIN)) {
-            throw new AccessDeniedException("Resource forbidden for this user due to their role");
+            throw new AccessDeniedException(Constants.FORBIDDEN_BY_ROLE);
         }
         return new ResponseEntity<>(profileService.getOrdersFilterByStatus(adminId.toString(), Constants.Status.CONFIRMED.toString(), Constants.Status.STARTED.toString()), HttpStatus.OK);
     }
@@ -96,7 +105,7 @@ public class AdminController {
     @GetMapping("/{adminId}/orders/confirmation-pending")
     public ResponseEntity<?> getOrdersToConfirm(@PathVariable UUID adminId) {
         if (!authenticationFacade.isAllowed(Constants.ROLE_ADMIN)) {
-            throw new AccessDeniedException("Resource forbidden for this user due to their role");
+            throw new AccessDeniedException(Constants.FORBIDDEN_BY_ROLE);
         }
         return new ResponseEntity<>(profileService.getOrdersFilterByStatus(adminId.toString(), Constants.Status.PENDING_CONFIRMATION.toString()), HttpStatus.OK);
     }
@@ -104,7 +113,7 @@ public class AdminController {
     @GetMapping("/{adminId}/orders/rejected")
     public ResponseEntity<?> getOrdersRejected(@PathVariable UUID adminId) {
         if (!authenticationFacade.isAllowed(Constants.ROLE_ADMIN)) {
-            throw new AccessDeniedException("Resource forbidden for this user due to their role");
+            throw new AccessDeniedException(Constants.FORBIDDEN_BY_ROLE);
         }
         return new ResponseEntity<>(profileService.getOrdersFilterByStatus(adminId.toString(), Constants.Status.REJECTED.toString()), HttpStatus.OK);
     }

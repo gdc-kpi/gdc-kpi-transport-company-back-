@@ -2,6 +2,7 @@ package com.ip737.transportcompany.transportcompany.services.impl;
 
 import com.ip737.transportcompany.transportcompany.data.dao.DriverDao;
 import com.ip737.transportcompany.transportcompany.data.dao.VehicleDao;
+import com.ip737.transportcompany.transportcompany.data.entities.DayOff;
 import com.ip737.transportcompany.transportcompany.data.entities.Driver;
 import com.ip737.transportcompany.transportcompany.data.entities.Order;
 import com.ip737.transportcompany.transportcompany.data.entities.Vehicle;
@@ -61,5 +62,10 @@ public class AdminServiceImpl implements AdminService {
     @Override
     public List<Order> getOrdersFilterByStatus(String adminId, String status, String status2) {
         return vehicleDao.getOrdersFilterByStatus2(adminId, status, status2);
+    }
+
+    @Override
+    public List<DayOff> getDaysOff(){
+        return driverDao.getAllDaysOffOfDrivers();
     }
 }
