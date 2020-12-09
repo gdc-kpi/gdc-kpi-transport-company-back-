@@ -11,7 +11,6 @@ import org.springframework.stereotype.Component;
 import java.util.Date;
 
 import static javax.management.timer.Timer.ONE_DAY;
-import static javax.management.timer.Timer.ONE_SECOND;
 
 @Slf4j
 @Component
@@ -24,7 +23,7 @@ public class OrdersScheduler {
         this.orderDao = orderDao;
     }
 
-    @Scheduled(fixedDelay = ONE_SECOND * 300)
+    @Scheduled(fixedDelay = ONE_DAY)
     public void deleteUnacceptedUsers() {
         orderDao.reassignUnconfirmedOrders();
         log.info(Constants.SCHEDULER_INFO);
