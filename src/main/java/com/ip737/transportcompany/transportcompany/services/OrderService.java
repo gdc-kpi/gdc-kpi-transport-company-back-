@@ -1,6 +1,7 @@
 package com.ip737.transportcompany.transportcompany.services;
 
 import com.ip737.transportcompany.transportcompany.data.entities.Coordinates;
+import com.ip737.transportcompany.transportcompany.data.entities.Driver;
 import com.ip737.transportcompany.transportcompany.data.entities.Order;
 import com.ip737.transportcompany.transportcompany.data.entities.Vehicle;
 
@@ -17,5 +18,6 @@ public interface OrderService {
     void changeStatus(String orderId, String status, String driverId);
 
     List<Coordinates> getPath(UUID id, Boolean update);
-    List<Vehicle> getDriversList();
+
+    List<Driver> getDriversList(Order order);
 }
