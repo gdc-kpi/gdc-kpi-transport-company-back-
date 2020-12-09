@@ -5,6 +5,7 @@ import com.ip737.transportcompany.transportcompany.data.dao.DriverDao;
 import com.ip737.transportcompany.transportcompany.data.dao.OrderDao;
 import com.ip737.transportcompany.transportcompany.data.dao.VehicleDao;
 import com.ip737.transportcompany.transportcompany.data.entities.Coordinates;
+import com.ip737.transportcompany.transportcompany.data.entities.Driver;
 import com.ip737.transportcompany.transportcompany.data.entities.Order;
 import com.ip737.transportcompany.transportcompany.data.entities.Vehicle;
 import com.ip737.transportcompany.transportcompany.exceptions.ValidationException;
@@ -170,7 +171,7 @@ public class OrderServiceImpl implements OrderService {
     }
 
     @Override
-    public List<Vehicle> getDriversList() {
-        return vehicleDao.getDrivers();
+    public List<Driver> getDriversList(Order order) {
+        return driverDao.getDrivers(order.getWeight(), order.getVolume(), order.getDeadline());
     }
 }

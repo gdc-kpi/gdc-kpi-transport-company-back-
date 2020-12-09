@@ -4,7 +4,6 @@ import com.ip737.transportcompany.transportcompany.configs.constants.SqlConstant
 import com.ip737.transportcompany.transportcompany.data.entities.Order;
 import com.ip737.transportcompany.transportcompany.data.entities.Vehicle;
 import com.ip737.transportcompany.transportcompany.data.rowmappers.OrderMapper;
-import com.ip737.transportcompany.transportcompany.data.rowmappers.StringDatePairMapper;
 import com.ip737.transportcompany.transportcompany.data.rowmappers.VehicleMapper;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -14,7 +13,10 @@ import org.springframework.jdbc.core.BeanPropertyRowMapper;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.stereotype.Repository;
 
-import java.util.*;
+import java.util.Date;
+import java.util.List;
+import java.util.Map;
+import java.util.UUID;
 
 
 @Repository
@@ -131,6 +133,14 @@ public class VehicleDao {
             return jdbcTemplate.query(SqlConstants.GET_ORDERS_BY_STATUS_FOR_ADMIN2, new Object[]{ adminId, status, status2},new OrderMapper());
 
         } catch (EmptyResultDataAccessException | NullPointerException e ) {
+            return null;
+        }
+    }
+
+    public List<Vehicle> getDrivers() {
+        try {
+            return jdbcTemplate.query(SqlConstants.VEHICLE_GET_FREE, new BeanPropertyRowMapper<>(Vehicle.class));
+        } catch (EmptyResultDataAccessException exception) {
             return null;
         }
     }
