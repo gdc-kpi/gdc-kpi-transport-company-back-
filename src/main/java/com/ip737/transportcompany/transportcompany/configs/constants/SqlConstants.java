@@ -151,4 +151,14 @@ public class SqlConstants {
 
     public static final String GET_DRIVERS_DAYS_OFF_FOR_ADMIN_APPROVES =
             "SELECT user_id, date FROM days_off WHERE is_approved = False";
+
+    public static final String GET_UNCONFIRMED_ORDER_BY_DEADLINE =
+            "SELECT order_id, drivers.fullname AS driver_name, drivers.user_id AS driver, vehicles.plate, admins.fullname AS admin_name,  " +
+                    "volume, weight, title, description, car_id, admin_id, source[0] AS s1, source[1] AS s2, destination[0] AS d1, destination[1] AS d2, " +
+                    "status, deadline FROM orders " +
+                    "LEFT JOIN users AS admins ON orders.admin_id = admins.user_id " +
+                    "LEFT JOIN vehicles ON orders.car_id = vehicles.plate " +
+                    "LEFT JOIN users as drivers ON drivers.user_id = vehicles.user_id " +
+                    "WHERE to_char(deadline, 'yyyy-MM-dd') = ? AND status = ? ;";
+
 }

@@ -19,6 +19,7 @@ public class Constants {
     public static final String ORDER_CANNOT_CHANGE_STATUS = "The status of order with id %s cannot be changed to %s as it's status is %s";
     public static final String ORDER_WRONG_DRIVER = "Driver with id %s is not assigned to order with id %s";
     public static final String FORBIDDEN_BY_ROLE = "Resource forbidden for this user due to their role";
+    public static final String SCHEDULER_INFO = "Orders, that weren't confirmed two days before the deadline, was reassigned";
 
     public static final String JWT_CLAIMS_ID = "id";
     public static final String JWT_CLAIMS_FULL_NAME = "fullname";
