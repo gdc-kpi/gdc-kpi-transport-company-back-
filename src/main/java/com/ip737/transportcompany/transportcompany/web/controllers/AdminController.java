@@ -5,7 +5,10 @@ import com.ip737.transportcompany.transportcompany.configs.security.services.Aut
 import com.ip737.transportcompany.transportcompany.exceptions.AccessDeniedException;
 import com.ip737.transportcompany.transportcompany.exceptions.ValidationException;
 import com.ip737.transportcompany.transportcompany.services.AdminService;
+import com.ip737.transportcompany.transportcompany.services.UserService;
+import com.ip737.transportcompany.transportcompany.web.dto.SignUpDto;
 import com.ip737.transportcompany.transportcompany.web.dto.VehicleDto;
+import com.ip737.transportcompany.transportcompany.web.validators.UserValidator;
 import com.ip737.transportcompany.transportcompany.web.validators.VehicleValidator;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -14,6 +17,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 
+import javax.websocket.server.PathParam;
 import java.util.UUID;
 
 @Slf4j
@@ -24,12 +28,13 @@ public class AdminController {
 
     @Autowired
     final private AdminService profileService;
-
+    final private UserService userService;
     final private AuthenticationFacade authenticationFacade;
 
-    public AdminController(AdminService profileService, AuthenticationFacade authenticationFacade) {
+    public AdminController(AdminService profileService, AuthenticationFacade authenticationFacade, UserService userService) {
         this.profileService = profileService;
         this.authenticationFacade = authenticationFacade;
+        this.userService = userService;
 
     }
 
@@ -84,6 +89,16 @@ public class AdminController {
         }
     }
 
+    @PostMapping("/invite-admin")
+    public ResponseEntity<?> registerNewAdmin(@RequestBody SignUpDto user) {
+        if(authenticationFacade.isAllowed(Constants.ROLE_ADMIN)) {
+            UserValidator.validate(user);
+            userService.saveAdmin(user.toUser(Constants.ROLE_ADMIN), authenticationFacade.getUsername());
+            return new ResponseEntity<>(HttpStatus.OK);
+        } else {
+            throw new AccessDeniedException(Constants.FORBIDDEN_BY_ROLE);
+        }
+    }
 
     @GetMapping("/{adminId}/orders/finished")
     public ResponseEntity<?> getOrdersFin(@PathVariable UUID adminId) {

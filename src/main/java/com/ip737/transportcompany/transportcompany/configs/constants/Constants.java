@@ -33,6 +33,8 @@ public class Constants {
 
     public static final String MAIL_MODEL_LINK = "link";
     public static final String MAIL_MODEL_EMAIL = "email";
+    public static final String MAIL_MODEL_CREATOR = "creator";
+    public static final String MAIL_MODEL_ROLE = "role";
 
     public static final int MAX_DRIVER_ORDERS_FOR_DAY = 4;
     public enum Status

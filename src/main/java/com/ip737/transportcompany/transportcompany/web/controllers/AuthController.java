@@ -7,6 +7,7 @@ import com.ip737.transportcompany.transportcompany.exceptions.ValidationExceptio
 import com.ip737.transportcompany.transportcompany.response.UserLoginSuccessResponse;
 import com.ip737.transportcompany.transportcompany.services.ActivationService;
 import com.ip737.transportcompany.transportcompany.services.UserService;
+import com.ip737.transportcompany.transportcompany.web.dto.ActivateAdminDto;
 import com.ip737.transportcompany.transportcompany.web.dto.ChangePasswordDto;
 import com.ip737.transportcompany.transportcompany.web.dto.LoginDto;
 import com.ip737.transportcompany.transportcompany.web.dto.SignUpDto;
@@ -64,7 +65,7 @@ public class AuthController {
     @PostMapping("/sign-up")
     public ResponseEntity<?> registerUser(@RequestBody SignUpDto user) {
         UserValidator.validate(user);
-        userService.save(user.toUser());
+        userService.save(user.toUser(Constants.ROLE_DRIVER));
         return new ResponseEntity<>(HttpStatus.OK);
     }
 
@@ -74,7 +75,12 @@ public class AuthController {
         return new ResponseEntity<>(HttpStatus.OK);
     }
 
-
+    @PatchMapping("/admin-activate")
+    public ResponseEntity<?> activate(@PathParam("key") String key, @RequestBody ActivateAdminDto password) {
+        activationService.verifyUser(key);
+        userService.activateAdmin(key, password.getPassword());
+        return new ResponseEntity<>(HttpStatus.OK);
+    }
 
     @PostMapping("/delete")
     public ResponseEntity<?> deleteUser(@RequestBody LoginDto user) {

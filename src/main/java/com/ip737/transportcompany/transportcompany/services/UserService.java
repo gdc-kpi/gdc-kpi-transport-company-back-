@@ -9,6 +9,8 @@ public interface UserService {
 
     void save(User user);
 
+    void saveAdmin(User newAdmin, String currentAdmin);
+
     User getByActivationUrl(String activationUrl);
 
     User getByRecoverUrl(String recoverUrl);
@@ -20,4 +22,6 @@ public interface UserService {
     void update(User user);
 
     void delete(String email, String password);
+
+    void activateAdmin(String activationLink, String password);
 }

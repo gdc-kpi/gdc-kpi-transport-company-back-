@@ -2,6 +2,7 @@ package com.ip737.transportcompany.transportcompany.services.impl;
 
 import com.ip737.transportcompany.transportcompany.configs.constants.Constants;
 import com.ip737.transportcompany.transportcompany.data.dao.UserDao;
+import com.ip737.transportcompany.transportcompany.data.entities.Mail;
 import com.ip737.transportcompany.transportcompany.data.entities.User;
 import com.ip737.transportcompany.transportcompany.exceptions.IdentificationException;
 import com.ip737.transportcompany.transportcompany.services.EmailService;
@@ -14,6 +15,7 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import javax.mail.MessagingException;
+import java.util.Map;
 import java.util.Random;
 import java.util.UUID;
 
@@ -27,6 +29,9 @@ public class UserServiceImpl implements UserService {
 
     @Value("${user.reg.template}")
     private String userRegTemplate;
+
+    @Value("${admin.reg.template}")
+    private String adminRegTemplate;
 
     @Autowired
     public UserServiceImpl(EmailService mailService, BCryptPasswordEncoder bCryptPasswordEncoder, UserDao userDao) {
@@ -60,6 +65,34 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
+    public void saveAdmin(User newAdmin, String currentAdmin) {
+        if (userDao.getByEmail(newAdmin.getEmail()) != null) {
+            throw new IdentificationException(String.format(Constants.EMAIL_TAKEN, newAdmin.getEmail()));
+        }
+        Random random = new Random();
+        User admin = User.builder()
+                .password(newAdmin.getPassword())
+                .email(newAdmin.getEmail())
+                .role(newAdmin.getRole())
+                .fullname(newAdmin.getFullname())
+                .link(bCryptPasswordEncoder.encode(newAdmin.getFullname() + newAdmin.getEmail() + random.nextLong()))
+                .build();
+
+        userDao.save(admin, Constants.ROLE_ADMIN_ID);
+
+        Mail mail = mailService.createBasicRegMail(admin);
+        Map<String, Object> model = mail.getModel();
+        model.put(Constants.MAIL_MODEL_CREATOR, currentAdmin);
+        model.put(Constants.MAIL_MODEL_ROLE, admin.getRole().toLowerCase());
+
+        try {
+            mailService.sendMailMessage(mail, adminRegTemplate);
+        } catch (MessagingException e) {
+            log.error(String.format(Constants.REG_MAIL_NOT_SENT, admin.getEmail()), e);
+        }
+    }
+
+    @Override
     public User getByActivationUrl(String activationUrl) {
         return userDao.getByActivationUrl(activationUrl);
     }
@@ -87,5 +120,10 @@ public class UserServiceImpl implements UserService {
     @Override
     public void delete(String email, String password) {
         userDao.delete(email, password);
+    }
+
+    @Override
+    public void activateAdmin(String activationLink, String password) {
+        userDao.activateAdmin(activationLink, password);
     }
 }

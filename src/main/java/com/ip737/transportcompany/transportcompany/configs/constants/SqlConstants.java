@@ -25,6 +25,10 @@ public class SqlConstants {
             "UPDATE users SET fullname = ?, email = ?, password= ?, is_activated = ?, link = ?, recovery_link = ? " +
                     "WHERE user_id = UUID(?) ;";
 
+    public static final String ADMIN_UPDATE_BY_ACTIVATE_LINK =
+            "UPDATE users SET password= ? " +
+                    "WHERE link = ? ;";
+
     public static final String VEHICLE_SAVE_QUERY =
             "INSERT INTO vehicles (plate, capacity, load_capacity, fuel_consumption, user_id) " +
                     "VALUES (?, ?, ?, ?, ?) ;";

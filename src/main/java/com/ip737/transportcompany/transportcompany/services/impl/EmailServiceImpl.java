@@ -33,6 +33,9 @@ public class EmailServiceImpl implements EmailService {
     @Value("${reg.url.activate}")
     private String regUrlActivate;
 
+    @Value("${reg.url.admin.activate}")
+    private String regUrlAdminActivate;
+
     @Value("${reg.mail.subject}")
     private String regMailSubject;
 
@@ -84,9 +87,10 @@ public class EmailServiceImpl implements EmailService {
         mail.setTo(user.getEmail());
         mail.setSubject(regMailSubject);
 
+        String urlActivate = (user.getRole().equals(Constants.ROLE_ADMIN)) ? regUrlAdminActivate : regUrlActivate;
         Map<String, Object> model = new HashMap<>();
         model.put(Constants.MAIL_MODEL_EMAIL, user.getFullname());
-        model.put(Constants.MAIL_MODEL_LINK, regUrlActivate + user.getLink());
+        model.put(Constants.MAIL_MODEL_LINK, urlActivate + user.getLink());
 
         mail.setModel(model);
         return mail;

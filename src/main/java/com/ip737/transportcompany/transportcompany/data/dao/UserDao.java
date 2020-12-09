@@ -70,6 +70,12 @@ public class UserDao {
         );
     }
 
+    public void activateAdmin(String activationLink, String password) {
+        jdbcTemplate.update(SqlConstants.ADMIN_UPDATE_BY_ACTIVATE_LINK,
+                password, activationLink
+        );
+    }
+
     public void update(User user) {
         jdbcTemplate.update(SqlConstants.USER_UPDATE_QUERY_BY_ID,
                 user.getFullname(), user.getEmail(), user.getPassword(), user.isActivated(),

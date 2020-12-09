@@ -43,7 +43,6 @@ public class ActivationServiceImpl implements ActivationService {
         }
 
         user.setActivated(true);
-        user.setLink(null);
         userService.update(user);
 
         return MESSAGE_ACTIVATED;
