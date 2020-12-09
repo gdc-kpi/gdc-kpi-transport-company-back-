@@ -93,7 +93,16 @@ public class SqlConstants {
             "select count(1) from orders where car_id = ? and deadline::date = ? and status = 'CONFIRMED' ;";
 
     public static final String GET_DRIVERS_LIST =
-            "FUCK"
+            "select user_id, fullname, plate from\n" +
+            "(\n" +
+            "    select users.user_id as user_id, users.fullname as fullname, vehicles.plate as plate, days_off.is_approved, count(order_id)  as number_of_orders_per_vehicle from users\n" +
+            "    inner join vehicles on users.user_id = vehicles.user_id\n" +
+            "    left join days_off on users.user_id = days_off.user_id\n" +
+            "    left join orders on vehicles.plate = orders.car_id\n" +
+            "    where vehicles.load_capacity >= ? and vehicles.capacity >= ? and (not days_off.is_approved or days_off.is_approved is null) and orders.deadline = ?\n" +
+            "    group by users.user_id, users.fullname, vehicles.plate, days_off.is_approved\n" +
+            ") as drivers\n" +
+            "where number_of_orders_per_vehicle <= 6;";
 
     public static final String GET_ORDERS_BY_STATUS_FOR_DRIVER =
             "select order_id, drivers.fullname as driver_name, drivers.user_id as driver, vehicles.plate, admins.fullname as admin_name,  volume, weight, title, description, car_id, admin_id, source[0] as s1, source[1] as s2, destination[0] as d1, destination[1] as d2 , status, deadline from orders\n" +
