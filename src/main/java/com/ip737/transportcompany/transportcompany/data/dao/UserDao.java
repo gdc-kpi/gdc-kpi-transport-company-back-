@@ -78,15 +78,18 @@ public class UserDao {
 
     }
 
-    public List<Date> getListOfApprovedDays(String userId, List<Date> days) {
+    public List<Date> getListOfApprovedDays(UUID userId, List<Date> days) {
         var res = new ArrayList<Date>();
         System.out.println(userId);
         for(var date: days)
         {
             var ret = jdbcTemplate.queryForList(SqlConstants.IS_DATE_BUSY,
-                    new Object[]{date, userId});
+                    new Object[]{userId, date});
             System.out.println(ret);
-            //b9c991b2-7a71-43a8-924e-6b3aad3bf3e3
+            if(!ret.isEmpty())
+                res.add(date);
+            else
+                jdbcTemplate.update(SqlConstants.SET_BUSY_DATE, userId, date);
         }
         return res;
     }

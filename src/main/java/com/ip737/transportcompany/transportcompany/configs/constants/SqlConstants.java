@@ -149,5 +149,8 @@ public class SqlConstants {
             "INSERT INTO paths (order_id, path) VALUES( ? , PATH' ";
 
     public static final String IS_DATE_BUSY =
-            "SELECT is_approved FROM days_off WHERE date = ? AND user_id = ? ;";
+            "select orders.deadline, orders.car_id, vehicles.user_id from orders JOIN vehicles on orders.car_id=vehicles.plate WHERE user_id= ? AND DATE(deadline)= ? ;";
+
+    public static final String SET_BUSY_DATE =
+            "INSERT INTO days_off VALUES( ? , ? , False)";
 }

@@ -50,8 +50,9 @@ public class DriverController {
 
     @PostMapping("/set-days-off")
     public ResponseEntity<?> setDaysOff(@RequestBody List<Date> days) {
-        System.out.println(authenticationFacade.getId());
-        return new ResponseEntity<>(userService.setDaysOff(authenticationFacade.getId(), days), HttpStatus.OK);
+        //System.out.println(authenticationFacade.getId());
+        //System.out.println(UUID.fromString(authenticationFacade.getId()));
+        return new ResponseEntity<>(userService.setDaysOff(UUID.fromString(authenticationFacade.getId()), days), HttpStatus.OK);
     }
 
     @GetMapping("/{driverId}/choose-car")

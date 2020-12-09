@@ -24,5 +24,5 @@ public interface UserService {
 
     void delete(String email, String password);
 
-    List<Pair<Date, String>> setDaysOff(String userId, List<Date> days);
+    List<Pair<Date, String>> setDaysOff(UUID userId, List<Date> days);
 }

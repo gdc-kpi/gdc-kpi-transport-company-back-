@@ -94,7 +94,7 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public List<Pair<Date, String>> setDaysOff(String userId, List<Date> days) {
+    public List<Pair<Date, String>> setDaysOff(UUID userId, List<Date> days) {
         List<Date> rejected = userDao.getListOfApprovedDays(userId, days);
         ArrayList<Pair<Date, String>> res = new ArrayList<Pair<Date, String>>();
         for(var date: rejected)
