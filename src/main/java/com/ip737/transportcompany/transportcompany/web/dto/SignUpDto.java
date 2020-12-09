@@ -12,15 +12,16 @@ public class SignUpDto {
     private String email;
     private String password;
 
-    public User toUser() {
+    public User toUser(String role) {
         return User.builder()
                 .password(this.password)
                 .email(this.email)
-                .role(Constants.ROLE_DRIVER)
+                .role(role)
                 .fullname(this.fullname)
                 .isActivated(false)
                 .link("")
                 .recoveryLink("")
                 .build();
     }
+
 }

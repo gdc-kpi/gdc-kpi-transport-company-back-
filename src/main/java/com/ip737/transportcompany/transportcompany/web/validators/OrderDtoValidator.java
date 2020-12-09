@@ -1,7 +1,6 @@
 package com.ip737.transportcompany.transportcompany.web.validators;
 
 import com.ip737.transportcompany.transportcompany.exceptions.ValidationException;
-import com.ip737.transportcompany.transportcompany.web.dto.ForgotPasswordDto;
 import com.ip737.transportcompany.transportcompany.web.dto.OrderDto;
 import org.springframework.util.StringUtils;
 
@@ -15,9 +14,11 @@ public class OrderDtoValidator {
     private static final String DATE_PROPERTY_EXCEPTION_MESSAGE = "Date parameter '%s' must refer to time in 24 hours at least ";
 
     public static void validate(OrderDto orderDto) throws ValidationException {
-        validateFloat(orderDto.getSource().latitude, "source latitude");
+        validateNotEmptyProperty(orderDto.getSource(), "source");
+
         validateFloat(orderDto.getSource().latitude, "source latitude");
         validateFloat(orderDto.getSource().longitude, "source longitude");
+        validateNotEmptyProperty(orderDto.getDestination(), "destination");
 
         validateFloat(orderDto.getDestination().latitude, "destination latitude");
         validateFloat(orderDto.getDestination().longitude, "destination longitude" );

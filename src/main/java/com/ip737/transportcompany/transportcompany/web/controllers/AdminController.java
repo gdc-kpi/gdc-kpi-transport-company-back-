@@ -2,12 +2,13 @@ package com.ip737.transportcompany.transportcompany.web.controllers;
 
 import com.ip737.transportcompany.transportcompany.configs.constants.Constants;
 import com.ip737.transportcompany.transportcompany.configs.security.services.AuthenticationFacade;
-import com.ip737.transportcompany.transportcompany.data.entities.Vehicle;
 import com.ip737.transportcompany.transportcompany.exceptions.AccessDeniedException;
 import com.ip737.transportcompany.transportcompany.exceptions.ValidationException;
 import com.ip737.transportcompany.transportcompany.services.AdminService;
 import com.ip737.transportcompany.transportcompany.services.UserService;
+import com.ip737.transportcompany.transportcompany.web.dto.SignUpDto;
 import com.ip737.transportcompany.transportcompany.web.dto.VehicleDto;
+import com.ip737.transportcompany.transportcompany.web.validators.UserValidator;
 import com.ip737.transportcompany.transportcompany.web.validators.VehicleValidator;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -16,6 +17,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 
+import javax.websocket.server.PathParam;
 import java.util.UUID;
 
 @Slf4j
@@ -26,23 +28,31 @@ public class AdminController {
 
     @Autowired
     final private AdminService profileService;
-
+    final private UserService userService;
     final private AuthenticationFacade authenticationFacade;
 
-    public AdminController(AdminService profileService, AuthenticationFacade authenticationFacade) {
+    public AdminController(AdminService profileService, AuthenticationFacade authenticationFacade, UserService userService) {
         this.profileService = profileService;
         this.authenticationFacade = authenticationFacade;
+        this.userService = userService;
 
     }
 
     @GetMapping("/all-vehicles")
     public ResponseEntity<?> getAllCars() {
+        if (!authenticationFacade.isAllowed(Constants.ROLE_ADMIN)) {
+            throw new AccessDeniedException(Constants.FORBIDDEN_BY_ROLE);
+        }
         return new ResponseEntity<>(profileService.getAllVehicle(), HttpStatus.OK);
     }
 
     @PostMapping("/add-vehicle")
-    public ResponseEntity<?> addVehicle(@RequestBody VehicleDto vehicle) throws ValidationException {
+    public ResponseEntity<?> addVehicle(@RequestBody VehicleDto vehicle) {
+        if (!authenticationFacade.isAllowed(Constants.ROLE_ADMIN)) {
+            throw new AccessDeniedException(Constants.FORBIDDEN_BY_ROLE);
+        }
         VehicleValidator.validate(vehicle);
+
         if (profileService.getVehicle(vehicle.getPlate()) == null) {
             profileService.addVehicle(vehicle.toVehicle());
         } else {
@@ -52,46 +62,75 @@ public class AdminController {
     }
 
     @GetMapping("/vehicles")
-    public ResponseEntity<?> getVehicleFilterByPartOfPlate(@RequestParam(value ="plate") String plate) {
-        if(authenticationFacade.isAllowed(Constants.ROLE_ADMIN)) {
-
-        return new ResponseEntity<>(profileService.getVehicleFilterByPartOfPlate(plate), HttpStatus.OK);
-     } else {
-            throw new AccessDeniedException("Resource forbidden for this user due to their role");
+    public ResponseEntity<?> getVehicleFilterByPartOfPlate(@RequestParam(value = "plate") String plate) {
+        if (authenticationFacade.isAllowed(Constants.ROLE_ADMIN)) {
+            return new ResponseEntity<>(profileService.getVehicleFilterByPartOfPlate(plate), HttpStatus.OK);
+        } else {
+            throw new AccessDeniedException(Constants.FORBIDDEN_BY_ROLE);
         }
     }
-
 
 
     @GetMapping("/drivers")
-    public ResponseEntity<?> getDriversByPartOfTheFullName(@RequestParam(value ="fullname") String fullname) {
-        if(authenticationFacade.isAllowed(Constants.ROLE_ADMIN)) {
+    public ResponseEntity<?> getDriversByPartOfTheFullName(@RequestParam(value = "fullname") String fullname) {
+        if (authenticationFacade.isAllowed(Constants.ROLE_ADMIN)) {
             return new ResponseEntity<>(profileService.getDriversFilterByName(fullname), HttpStatus.OK);
         } else {
-            throw new AccessDeniedException("Resource forbidden for this user due to their role");
+            throw new AccessDeniedException(Constants.FORBIDDEN_BY_ROLE);
         }
     }
 
+    @GetMapping("/days-off")
+    public ResponseEntity<?> getDaysOffToConfirm() {
+        if (authenticationFacade.isAllowed(Constants.ROLE_ADMIN)) {
+            return new ResponseEntity<>(profileService.getDaysOff(), HttpStatus.OK);
+        } else {
+            throw new AccessDeniedException(Constants.FORBIDDEN_BY_ROLE);
+        }
+    }
+
+    @PostMapping("/invite-admin")
+    public ResponseEntity<?> registerNewAdmin(@RequestBody SignUpDto user) {
+        if(authenticationFacade.isAllowed(Constants.ROLE_ADMIN)) {
+            UserValidator.validate(user);
+            userService.saveAdmin(user.toUser(Constants.ROLE_ADMIN), authenticationFacade.getUsername());
+            return new ResponseEntity<>(HttpStatus.OK);
+        } else {
+            throw new AccessDeniedException(Constants.FORBIDDEN_BY_ROLE);
+        }
+    }
 
     @GetMapping("/{adminId}/orders/finished")
     public ResponseEntity<?> getOrdersFin(@PathVariable UUID adminId) {
+        if (!authenticationFacade.isAllowed(Constants.ROLE_ADMIN)) {
+            throw new AccessDeniedException(Constants.FORBIDDEN_BY_ROLE);
+        }
         return new ResponseEntity<>(profileService.getOrdersFilterByStatus(adminId.toString(), Constants.Status.FAILED.toString(), Constants.Status.FINISHED.toString()), HttpStatus.OK);
     }
 
     @GetMapping("/{adminId}/orders/confirmed")
     public ResponseEntity<?> getOrdersCon(@PathVariable UUID adminId) {
-        return new ResponseEntity<>(profileService.getOrdersFilterByStatus(adminId.toString(), Constants.Status.CONFIRMED.toString(), Constants.Status.STARTED.toString() ), HttpStatus.OK);
+        if (!authenticationFacade.isAllowed(Constants.ROLE_ADMIN)) {
+            throw new AccessDeniedException(Constants.FORBIDDEN_BY_ROLE);
+        }
+        return new ResponseEntity<>(profileService.getOrdersFilterByStatus(adminId.toString(), Constants.Status.CONFIRMED.toString(), Constants.Status.STARTED.toString()), HttpStatus.OK);
     }
 
 
     @GetMapping("/{adminId}/orders/confirmation-pending")
     public ResponseEntity<?> getOrdersToConfirm(@PathVariable UUID adminId) {
+        if (!authenticationFacade.isAllowed(Constants.ROLE_ADMIN)) {
+            throw new AccessDeniedException(Constants.FORBIDDEN_BY_ROLE);
+        }
         return new ResponseEntity<>(profileService.getOrdersFilterByStatus(adminId.toString(), Constants.Status.PENDING_CONFIRMATION.toString()), HttpStatus.OK);
     }
 
     @GetMapping("/{adminId}/orders/rejected")
     public ResponseEntity<?> getOrdersRejected(@PathVariable UUID adminId) {
-        return new ResponseEntity<>(profileService.getOrdersFilterByStatus(adminId.toString(), Constants.Status.REJECTED.toString() ), HttpStatus.OK);
+        if (!authenticationFacade.isAllowed(Constants.ROLE_ADMIN)) {
+            throw new AccessDeniedException(Constants.FORBIDDEN_BY_ROLE);
+        }
+        return new ResponseEntity<>(profileService.getOrdersFilterByStatus(adminId.toString(), Constants.Status.REJECTED.toString()), HttpStatus.OK);
     }
 
 

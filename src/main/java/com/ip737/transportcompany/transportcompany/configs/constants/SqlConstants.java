@@ -28,6 +28,10 @@ public class SqlConstants {
             "UPDATE users SET fullname = ?, email = ?, password= ?, is_activated = ?, link = ?, recovery_link = ? " +
                     "WHERE user_id = UUID(?) ;";
 
+    public static final String ADMIN_UPDATE_BY_ACTIVATE_LINK =
+            "UPDATE users SET password= ? " +
+                    "WHERE link = ? ;";
+
     public static final String VEHICLE_SAVE_QUERY =
             "INSERT INTO vehicles (plate, capacity, load_capacity, fuel_consumption, user_id) " +
                     "VALUES (?, ?, ?, ?, ?) ;";
@@ -92,6 +96,18 @@ public class SqlConstants {
     public static final String GET_DRIVERS_ORDERS_FOR_THE_DAY =
             "select count(1) from orders where car_id = ? and deadline::date = ? and status = 'CONFIRMED' ;";
 
+    public static final String GET_DRIVERS_LIST =
+            "select user_id, fullname, plate from\n" +
+            "(\n" +
+            "    select users.user_id as user_id, users.fullname as fullname, vehicles.plate as plate, days_off.is_approved, count(order_id)  as number_of_orders_per_vehicle from users\n" +
+            "    inner join vehicles on users.user_id = vehicles.user_id\n" +
+            "    left join days_off on users.user_id = days_off.user_id\n" +
+            "    left join orders on vehicles.plate = orders.car_id\n" +
+            "    where vehicles.load_capacity >= ? and vehicles.capacity >= ? and (not days_off.is_approved or days_off.is_approved is null) and orders.deadline = ?\n" +
+            "    group by users.user_id, users.fullname, vehicles.plate, days_off.is_approved\n" +
+            ") as drivers\n" +
+            "where number_of_orders_per_vehicle <= 6;";
+
     public static final String GET_ORDERS_BY_STATUS_FOR_DRIVER =
             "select order_id, drivers.fullname as driver_name, drivers.user_id as driver, vehicles.plate, admins.fullname as admin_name,  volume, weight, title, description, car_id, admin_id, source[0] as s1, source[1] as s2, destination[0] as d1, destination[1] as d2 , status, deadline from orders\n" +
                     "left  join users as admins\n" +
@@ -148,9 +164,24 @@ public class SqlConstants {
     public static final String INSERT_PATH_FOR_ID_HACK =
             "INSERT INTO paths (order_id, path) VALUES( ? , PATH' ";
 
+<<<<<<< HEAD
     public static final String IS_DATE_BUSY =
             "select orders.deadline, orders.car_id, vehicles.user_id from orders JOIN vehicles on orders.car_id=vehicles.plate WHERE user_id= ? AND DATE(deadline)= ? ;";
 
     public static final String SET_BUSY_DATE =
             "INSERT INTO days_off VALUES( ? , ? , False)";
+=======
+    public static final String GET_DRIVERS_DAYS_OFF_FOR_ADMIN_APPROVES =
+            "SELECT user_id, date FROM days_off WHERE is_approved = False";
+
+    public static final String GET_UNCONFIRMED_ORDER_BY_DEADLINE =
+            "SELECT order_id, drivers.fullname AS driver_name, drivers.user_id AS driver, vehicles.plate, admins.fullname AS admin_name,  " +
+                    "volume, weight, title, description, car_id, admin_id, source[0] AS s1, source[1] AS s2, destination[0] AS d1, destination[1] AS d2, " +
+                    "status, deadline FROM orders " +
+                    "LEFT JOIN users AS admins ON orders.admin_id = admins.user_id " +
+                    "LEFT JOIN vehicles ON orders.car_id = vehicles.plate " +
+                    "LEFT JOIN users as drivers ON drivers.user_id = vehicles.user_id " +
+                    "WHERE to_char(deadline, 'yyyy-MM-dd') = ? AND status = ? ;";
+
+>>>>>>> 0231b54cf1dd7a5bb4ad6a707714d0b46bae92fe
 }

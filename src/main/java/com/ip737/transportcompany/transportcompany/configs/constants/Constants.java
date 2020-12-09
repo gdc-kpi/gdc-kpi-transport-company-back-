@@ -18,6 +18,8 @@ public class Constants {
     public static final String ORDER_NOT_FOUND_WITH_ID = "The order with id %s not found";
     public static final String ORDER_CANNOT_CHANGE_STATUS = "The status of order with id %s cannot be changed to %s as it's status is %s";
     public static final String ORDER_WRONG_DRIVER = "Driver with id %s is not assigned to order with id %s";
+    public static final String FORBIDDEN_BY_ROLE = "Resource forbidden for this user due to their role";
+    public static final String SCHEDULER_INFO = "Orders, that weren't confirmed two days before the deadline, were rejected";
 
     public static final String JWT_CLAIMS_ID = "id";
     public static final String JWT_CLAIMS_FULL_NAME = "fullname";
@@ -32,6 +34,8 @@ public class Constants {
 
     public static final String MAIL_MODEL_LINK = "link";
     public static final String MAIL_MODEL_EMAIL = "email";
+    public static final String MAIL_MODEL_CREATOR = "creator";
+    public static final String MAIL_MODEL_ROLE = "role";
 
     public static final int MAX_DRIVER_ORDERS_FOR_DAY = 4;
     public enum Status

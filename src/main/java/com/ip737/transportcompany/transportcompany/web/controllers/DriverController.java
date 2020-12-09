@@ -38,6 +38,7 @@ public class DriverController {
         return new ResponseEntity<>(driverService.getFreeVehicle(), HttpStatus.OK);
     }
 
+
     @GetMapping("/{driverId}/vehicle")
     public ResponseEntity<?> getCar(@PathVariable UUID driverId) {
         return new ResponseEntity<>(driverService.getVehicle(driverId), HttpStatus.OK);
@@ -56,7 +57,7 @@ public class DriverController {
     }
 
     @GetMapping("/{driverId}/choose-car")
-    public ResponseEntity<?> chooseCar(@PathVariable UUID driverId, String plate) throws ValidationException {
+    public ResponseEntity<?> chooseCar(@PathVariable UUID driverId, @RequestParam String plate) throws ValidationException {
         if(userService.getById(driverId).getRole().equals("admin")) {
             throw new ValidationException(Constants.ADMIN_CHOOSE_CAR);
         } else if(driverService.getVehicle(driverId) != null) {

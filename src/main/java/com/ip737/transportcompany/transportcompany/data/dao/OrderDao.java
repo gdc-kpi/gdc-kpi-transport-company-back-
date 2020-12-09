@@ -1,7 +1,9 @@
 package com.ip737.transportcompany.transportcompany.data.dao;
 
+import com.ip737.transportcompany.transportcompany.configs.constants.Constants;
 import com.ip737.transportcompany.transportcompany.configs.constants.SqlConstants;
 import com.ip737.transportcompany.transportcompany.data.entities.Coordinates;
+import com.ip737.transportcompany.transportcompany.data.entities.Driver;
 import com.ip737.transportcompany.transportcompany.data.entities.FirstLastPoint;
 import com.ip737.transportcompany.transportcompany.data.entities.Order;
 import com.ip737.transportcompany.transportcompany.data.rowmappers.CoordinateListMapper;
@@ -13,10 +15,14 @@ import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.stereotype.Repository;
 
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
+import java.util.Calendar;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.UUID;
 import java.util.stream.Collectors;
+import java.sql.Date;
 
 @Repository
 @Slf4j
@@ -96,4 +102,21 @@ public class OrderDao {
         jdbcTemplate.update(SqlConstants.ORDER_CHANGE_STATUS,
                 order.getStatus(), UUID.fromString(order.getOrderId()));
     }
+
+    public void reassignUnconfirmedOrders() {
+        Calendar cal = Calendar.getInstance();
+        cal.add(Calendar.DATE, 2);
+        DateFormat df = new SimpleDateFormat("yyyy-MM-dd");
+        List<Order> unconfirmedOrdersList = new LinkedList<>();
+        try {
+            unconfirmedOrdersList = (List<Order>) jdbcTemplate.query(SqlConstants.GET_UNCONFIRMED_ORDER_BY_DEADLINE,
+                    new Object[]{df.format(cal.getTime()), Constants.Status.PENDING_CONFIRMATION.toString()},
+                    new OrderMapper());
+        } catch (EmptyResultDataAccessException exception) {}
+        for (Order order: unconfirmedOrdersList) {
+            order.setStatus(Constants.Status.REJECTED.toString());
+            chageStatus(order);
+        }
+    }
+
 }
