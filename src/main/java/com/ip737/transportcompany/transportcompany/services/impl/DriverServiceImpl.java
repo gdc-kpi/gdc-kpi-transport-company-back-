@@ -56,7 +56,7 @@ public class DriverServiceImpl implements DriverService {
     }
 
     @Override
-    public List<Pair<String, Date>> getDaysOff(UUID userId)
+    public List<Pair<Boolean, Date>> getDaysOff(UUID userId)
     {
         return vehicleDao.getDaysOff(userId);
     }

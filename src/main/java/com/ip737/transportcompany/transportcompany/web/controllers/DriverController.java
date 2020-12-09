@@ -1,6 +1,7 @@
 package com.ip737.transportcompany.transportcompany.web.controllers;
 
 import com.ip737.transportcompany.transportcompany.configs.constants.Constants;
+import com.ip737.transportcompany.transportcompany.configs.security.services.AuthenticationFacade;
 import com.ip737.transportcompany.transportcompany.exceptions.ValidationException;
 import com.ip737.transportcompany.transportcompany.services.DriverService;
 import com.ip737.transportcompany.transportcompany.services.UserService;
@@ -10,7 +11,10 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.sql.Date;
+import java.util.List;
 import java.util.UUID;
+
 
 @Slf4j
 @RestController
@@ -20,11 +24,13 @@ public class DriverController {
 
     DriverService driverService;
     UserService userService;
+    private AuthenticationFacade authenticationFacade;
 
     @Autowired
-    public DriverController(DriverService driverService, UserService userService) {
+    public DriverController(DriverService driverService, UserService userService, AuthenticationFacade authenticationFacade) {
         this.driverService = driverService;
         this.userService = userService;
+        this.authenticationFacade = authenticationFacade;
     }
 
     @GetMapping("/free-vehicles")
@@ -40,6 +46,12 @@ public class DriverController {
     @GetMapping("/{driverId}/days-off")
     public ResponseEntity<?> getDaysOff(@PathVariable UUID driverId) {
         return new ResponseEntity<>(driverService.getDaysOff(driverId), HttpStatus.OK);
+    }
+
+    @PostMapping("/set-days-off")
+    public ResponseEntity<?> setDaysOff(@RequestBody List<Date> days) {
+        System.out.println(authenticationFacade.getId());
+        return new ResponseEntity<>(userService.setDaysOff(authenticationFacade.getId(), days), HttpStatus.OK);
     }
 
     @GetMapping("/{driverId}/choose-car")

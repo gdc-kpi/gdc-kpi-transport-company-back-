@@ -10,10 +10,14 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.PropertySource;
+import org.springframework.data.util.Pair;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import javax.mail.MessagingException;
+import java.sql.Date;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Random;
 import java.util.UUID;
 
@@ -87,5 +91,14 @@ public class UserServiceImpl implements UserService {
     @Override
     public void delete(String email, String password) {
         userDao.delete(email, password);
+    }
+
+    @Override
+    public List<Pair<Date, String>> setDaysOff(String userId, List<Date> days) {
+        List<Date> rejected = userDao.getListOfApprovedDays(userId, days);
+        ArrayList<Pair<Date, String>> res = new ArrayList<Pair<Date, String>>();
+        for(var date: rejected)
+            res.add(Pair.of(date, "date is confirmed"));
+        return res;
     }
 }

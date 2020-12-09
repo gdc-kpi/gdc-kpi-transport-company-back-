@@ -147,4 +147,7 @@ public class SqlConstants {
 
     public static final String INSERT_PATH_FOR_ID_HACK =
             "INSERT INTO paths (order_id, path) VALUES( ? , PATH' ";
+
+    public static final String IS_DATE_BUSY =
+            "SELECT is_approved FROM days_off WHERE date = ? AND user_id = ? ;";
 }
