@@ -4,6 +4,12 @@ public class SqlConstants {
     public static final String GET_DAYS_OFF =
             "SELECT date, is_approved from days_off WHERE user_id = ? ;";
 
+    public static final String IS_DATE_BUSY =
+            "select orders.deadline, orders.car_id, vehicles.user_id from orders JOIN vehicles on orders.car_id=vehicles.plate WHERE user_id= ? AND DATE(deadline)= ? ;";
+
+    public static final String SET_BUSY_DATE =
+            "INSERT INTO days_off VALUES( ? , ? , False)";
+
     public static final String USER_SAVE_QUERY =
             "INSERT INTO users (user_id, fullname, email, role_id, password, is_activated, link, recovery_link) " +
                     "VALUES (?, ?, ?, ?, ?, ?, ?, ?) ;";

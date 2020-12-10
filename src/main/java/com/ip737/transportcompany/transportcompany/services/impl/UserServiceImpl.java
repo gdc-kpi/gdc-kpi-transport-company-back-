@@ -63,6 +63,12 @@ public class UserServiceImpl implements UserService {
         }
     }
 
+
+    @Override
+    public void activateAdmin(String activationLink, String password) {
+        userDao.activateAdmin(activationLink, password);
+    }
+
     @Override
     public User getByActivationUrl(String activationUrl) {
         return userDao.getByActivationUrl(activationUrl);
