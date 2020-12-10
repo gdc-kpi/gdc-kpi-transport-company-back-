@@ -51,7 +51,6 @@ public class DriverDao {
         }
     }
 
-
     public List<Driver> getDriversFilterByName(String fullname){
         try {
             return jdbcTemplate.query(SqlConstants.DRIVER_GET_FILTERED, new Object[]{ "%" + fullname + "%"},new DriverMapper());

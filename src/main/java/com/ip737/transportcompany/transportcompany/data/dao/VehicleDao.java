@@ -4,17 +4,17 @@ import com.ip737.transportcompany.transportcompany.configs.constants.SqlConstant
 import com.ip737.transportcompany.transportcompany.data.entities.Order;
 import com.ip737.transportcompany.transportcompany.data.entities.Vehicle;
 import com.ip737.transportcompany.transportcompany.data.rowmappers.OrderMapper;
+import com.ip737.transportcompany.transportcompany.data.rowmappers.StringDatePairMapper;
 import com.ip737.transportcompany.transportcompany.data.rowmappers.VehicleMapper;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.EmptyResultDataAccessException;
+import org.springframework.data.util.Pair;
 import org.springframework.jdbc.core.BeanPropertyRowMapper;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.stereotype.Repository;
 
-import java.util.List;
-import java.util.Map;
-import java.util.UUID;
+import java.util.*;
 
 
 @Repository
@@ -135,11 +135,13 @@ public class VehicleDao {
         }
     }
 
-    public List<Vehicle> getDrivers() {
+    public List<Pair<Boolean, Date>> getDaysOff(UUID driverId) {
         try {
-            return jdbcTemplate.query(SqlConstants.VEHICLE_GET_FREE, new BeanPropertyRowMapper<>(Vehicle.class));
-        } catch (EmptyResultDataAccessException exception) {
-            return null;
+            return jdbcTemplate.query(SqlConstants.GET_DAYS_OFF, new Object[]{driverId}, new StringDatePairMapper());
+        } catch (Exception e) {
+            System.out.println("Fail");
+            throw e;
+//            return null;
         }
     }
 }

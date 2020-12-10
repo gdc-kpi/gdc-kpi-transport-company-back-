@@ -9,7 +9,8 @@ import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.stereotype.Repository;
 
-import java.util.UUID;
+import java.sql.Date;
+import java.util.*;
 
 
 @Repository
@@ -81,6 +82,22 @@ public class UserDao {
                 user.getFullname(), user.getEmail(), user.getPassword(), user.isActivated(),
                 user.getLink(), user.getRecoveryLink(), user.getId());
 
+    }
+
+    public List<Date> getListOfApprovedDays(UUID userId, List<Date> days) {
+        var res = new ArrayList<Date>();
+        System.out.println(userId);
+        for(var date: days)
+        {
+            var ret = jdbcTemplate.queryForList(SqlConstants.IS_DATE_BUSY,
+                    new Object[]{userId, date});
+            System.out.println(ret);
+            if(!ret.isEmpty())
+                res.add(date);
+            else
+                jdbcTemplate.update(SqlConstants.SET_BUSY_DATE, userId, date);
+        }
+        return res;
     }
 
     public void delete(String email, String password) {

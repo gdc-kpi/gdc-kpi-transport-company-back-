@@ -1,6 +1,9 @@
 package com.ip737.transportcompany.transportcompany.configs.constants;
 
 public class SqlConstants {
+    public static final String GET_DAYS_OFF =
+            "SELECT date, is_approved from days_off WHERE user_id = ? ;";
+
     public static final String USER_SAVE_QUERY =
             "INSERT INTO users (user_id, fullname, email, role_id, password, is_activated, link, recovery_link) " +
                     "VALUES (?, ?, ?, ?, ?, ?, ?, ?) ;";
@@ -24,10 +27,6 @@ public class SqlConstants {
     public static final String USER_UPDATE_QUERY_BY_ID =
             "UPDATE users SET fullname = ?, email = ?, password= ?, is_activated = ?, link = ?, recovery_link = ? " +
                     "WHERE user_id = UUID(?) ;";
-
-    public static final String ADMIN_UPDATE_BY_ACTIVATE_LINK =
-            "UPDATE users SET password= ? " +
-                    "WHERE link = ? ;";
 
     public static final String VEHICLE_SAVE_QUERY =
             "INSERT INTO vehicles (plate, capacity, load_capacity, fuel_consumption, user_id) " +
@@ -149,6 +148,9 @@ public class SqlConstants {
     public static final String INSERT_PATH_FOR_ID_HACK =
             "INSERT INTO paths (order_id, path) VALUES( ? , PATH' ";
 
-    public static final String GET_DRIVERS_DAYS_OFF_FOR_ADMIN_APPROVES =
-            "SELECT user_id, date FROM days_off WHERE is_approved = False";
+    public static final String IS_DATE_BUSY =
+            "select orders.deadline, orders.car_id, vehicles.user_id from orders JOIN vehicles on orders.car_id=vehicles.plate WHERE user_id= ? AND DATE(deadline)= ? ;";
+
+    public static final String SET_BUSY_DATE =
+            "INSERT INTO days_off VALUES( ? , ? , False)";
 }

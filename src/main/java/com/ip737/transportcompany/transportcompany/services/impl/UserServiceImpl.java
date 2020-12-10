@@ -2,7 +2,6 @@ package com.ip737.transportcompany.transportcompany.services.impl;
 
 import com.ip737.transportcompany.transportcompany.configs.constants.Constants;
 import com.ip737.transportcompany.transportcompany.data.dao.UserDao;
-import com.ip737.transportcompany.transportcompany.data.entities.Mail;
 import com.ip737.transportcompany.transportcompany.data.entities.User;
 import com.ip737.transportcompany.transportcompany.exceptions.IdentificationException;
 import com.ip737.transportcompany.transportcompany.services.EmailService;
@@ -11,11 +10,14 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.PropertySource;
+import org.springframework.data.util.Pair;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import javax.mail.MessagingException;
-import java.util.Map;
+import java.sql.Date;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Random;
 import java.util.UUID;
 
@@ -29,9 +31,6 @@ public class UserServiceImpl implements UserService {
 
     @Value("${user.reg.template}")
     private String userRegTemplate;
-
-    @Value("${admin.reg.template}")
-    private String adminRegTemplate;
 
     @Autowired
     public UserServiceImpl(EmailService mailService, BCryptPasswordEncoder bCryptPasswordEncoder, UserDao userDao) {
@@ -61,34 +60,6 @@ public class UserServiceImpl implements UserService {
             mailService.sendMailMessage(mailService.createBasicRegMail(user), userRegTemplate);
         } catch (MessagingException e) {
             log.error(String.format(Constants.REG_MAIL_NOT_SENT, user.getEmail()), e);
-        }
-    }
-
-    @Override
-    public void saveAdmin(User newAdmin, String currentAdmin) {
-        if (userDao.getByEmail(newAdmin.getEmail()) != null) {
-            throw new IdentificationException(String.format(Constants.EMAIL_TAKEN, newAdmin.getEmail()));
-        }
-        Random random = new Random();
-        User admin = User.builder()
-                .password(newAdmin.getPassword())
-                .email(newAdmin.getEmail())
-                .role(newAdmin.getRole())
-                .fullname(newAdmin.getFullname())
-                .link(bCryptPasswordEncoder.encode(newAdmin.getFullname() + newAdmin.getEmail() + random.nextLong()))
-                .build();
-
-        userDao.save(admin, Constants.ROLE_ADMIN_ID);
-
-        Mail mail = mailService.createBasicRegMail(admin);
-        Map<String, Object> model = mail.getModel();
-        model.put(Constants.MAIL_MODEL_CREATOR, currentAdmin);
-        model.put(Constants.MAIL_MODEL_ROLE, admin.getRole().toLowerCase());
-
-        try {
-            mailService.sendMailMessage(mail, adminRegTemplate);
-        } catch (MessagingException e) {
-            log.error(String.format(Constants.REG_MAIL_NOT_SENT, admin.getEmail()), e);
         }
     }
 
@@ -123,7 +94,11 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public void activateAdmin(String activationLink, String password) {
-        userDao.activateAdmin(activationLink, password);
+    public List<Pair<Date, String>> setDaysOff(UUID userId, List<Date> days) {
+        List<Date> rejected = userDao.getListOfApprovedDays(userId, days);
+        ArrayList<Pair<Date, String>> res = new ArrayList<Pair<Date, String>>();
+        for(var date: rejected)
+            res.add(Pair.of(date, "date is confirmed"));
+        return res;
     }
 }
