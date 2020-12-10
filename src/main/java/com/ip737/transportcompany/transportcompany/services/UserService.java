@@ -10,6 +10,8 @@ import java.util.UUID;
 
 public interface UserService {
 
+    void activateAdmin(String activationLink, String password);
+
     void save(User user);
 
     void saveAdmin(User newAdmin, String currentAdmin);
