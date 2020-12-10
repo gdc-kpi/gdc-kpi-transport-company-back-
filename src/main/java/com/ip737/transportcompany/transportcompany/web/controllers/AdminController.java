@@ -6,6 +6,7 @@ import com.ip737.transportcompany.transportcompany.exceptions.AccessDeniedExcept
 import com.ip737.transportcompany.transportcompany.exceptions.ValidationException;
 import com.ip737.transportcompany.transportcompany.services.AdminService;
 import com.ip737.transportcompany.transportcompany.services.UserService;
+import com.ip737.transportcompany.transportcompany.web.dto.DayOffDto;
 import com.ip737.transportcompany.transportcompany.web.dto.SignUpDto;
 import com.ip737.transportcompany.transportcompany.web.dto.VehicleDto;
 import com.ip737.transportcompany.transportcompany.web.validators.UserValidator;
@@ -131,6 +132,16 @@ public class AdminController {
             throw new AccessDeniedException(Constants.FORBIDDEN_BY_ROLE);
         }
         return new ResponseEntity<>(profileService.getOrdersFilterByStatus(adminId.toString(), Constants.Status.REJECTED.toString()), HttpStatus.OK);
+    }
+
+    @GetMapping("/approve-days-off")
+    public ResponseEntity<?> approveDaysOff(@RequestBody DayOffDto daysOff) {
+        if (authenticationFacade.isAllowed(Constants.ROLE_ADMIN)) {
+            profileService.approveDaysOff(daysOff.getDriverId(), daysOff.getDates(), daysOff.getIsApproved());
+            return new ResponseEntity<>(HttpStatus.OK);
+        } else {
+            throw new AccessDeniedException(Constants.FORBIDDEN_BY_ROLE);
+        }
     }
 
 
