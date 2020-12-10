@@ -164,13 +164,11 @@ public class SqlConstants {
     public static final String INSERT_PATH_FOR_ID_HACK =
             "INSERT INTO paths (order_id, path) VALUES( ? , PATH' ";
 
-<<<<<<< HEAD
     public static final String IS_DATE_BUSY =
             "select orders.deadline, orders.car_id, vehicles.user_id from orders JOIN vehicles on orders.car_id=vehicles.plate WHERE user_id= ? AND DATE(deadline)= ? ;";
 
     public static final String SET_BUSY_DATE =
             "INSERT INTO days_off VALUES( ? , ? , False)";
-=======
     public static final String GET_DRIVERS_DAYS_OFF_FOR_ADMIN_APPROVES =
             "SELECT user_id, date FROM days_off WHERE is_approved = False";
 
@@ -183,5 +181,4 @@ public class SqlConstants {
                     "LEFT JOIN users as drivers ON drivers.user_id = vehicles.user_id " +
                     "WHERE to_char(deadline, 'yyyy-MM-dd') = ? AND status = ? ;";
 
->>>>>>> 0231b54cf1dd7a5bb4ad6a707714d0b46bae92fe
 }

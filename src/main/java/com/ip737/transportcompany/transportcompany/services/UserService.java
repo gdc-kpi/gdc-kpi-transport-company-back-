@@ -26,9 +26,7 @@ public interface UserService {
 
     void delete(String email, String password);
 
-<<<<<<< HEAD
     List<Pair<Date, String>> setDaysOff(UUID userId, List<Date> days);
-=======
+
     void activateAdmin(String activationLink, String password);
->>>>>>> 0231b54cf1dd7a5bb4ad6a707714d0b46bae92fe
 }

@@ -16,13 +16,10 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import javax.mail.MessagingException;
-<<<<<<< HEAD
 import java.sql.Date;
 import java.util.ArrayList;
 import java.util.List;
-=======
 import java.util.Map;
->>>>>>> 0231b54cf1dd7a5bb4ad6a707714d0b46bae92fe
 import java.util.Random;
 import java.util.UUID;
 
@@ -130,16 +127,16 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-<<<<<<< HEAD
     public List<Pair<Date, String>> setDaysOff(UUID userId, List<Date> days) {
         List<Date> rejected = userDao.getListOfApprovedDays(userId, days);
         ArrayList<Pair<Date, String>> res = new ArrayList<Pair<Date, String>>();
-        for(var date: rejected)
+        for (var date : rejected)
             res.add(Pair.of(date, "date is confirmed"));
         return res;
-=======
+    }
+
+    @Override
     public void activateAdmin(String activationLink, String password) {
         userDao.activateAdmin(activationLink, password);
->>>>>>> 0231b54cf1dd7a5bb4ad6a707714d0b46bae92fe
     }
 }
