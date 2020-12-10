@@ -81,4 +81,15 @@ public class DriverDao {
         }
     }
 
+    public void approveDaysOff(UUID driverId, java.util.Date[] daysOff, String isApproved){
+        for (java.util.Date date : daysOff) {
+            if (isApproved.equals("true")) {
+                jdbcTemplate.update(SqlConstants.APPROVE_DAYS_OFF, driverId, date);
+            } else {
+                jdbcTemplate.query(SqlConstants.DELETE_DAYS_OFF, new Object[]{driverId, date},
+                        new DayOffMapper());
+            }
+        }
+    }
+
 }

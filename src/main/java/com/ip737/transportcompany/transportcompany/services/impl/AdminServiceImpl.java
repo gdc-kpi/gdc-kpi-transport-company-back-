@@ -11,8 +11,10 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.context.annotation.PropertySource;
 import org.springframework.stereotype.Service;
 
+import java.util.Date;
 import java.util.List;
 import java.util.Map;
+import java.util.UUID;
 
 @Slf4j
 @Service
@@ -67,5 +69,10 @@ public class AdminServiceImpl implements AdminService {
     @Override
     public List<DayOff> getDaysOff(){
         return driverDao.getAllDaysOffOfDrivers();
+    }
+
+    @Override
+    public void approveDaysOff(UUID driverId, Date[] daysOff, String isApproved) {
+        driverDao.approveDaysOff(driverId, daysOff, isApproved);
     }
 }

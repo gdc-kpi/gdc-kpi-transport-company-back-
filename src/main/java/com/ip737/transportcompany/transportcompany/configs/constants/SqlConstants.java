@@ -163,4 +163,10 @@ public class SqlConstants {
 
     public static final String GET_DRIVERS_DAYS_OFF_FOR_ADMIN_APPROVES =
             "SELECT user_id, date FROM days_off WHERE is_approved = False";
+
+    public static final String APPROVE_DAYS_OFF =
+            "update days_off set is_approved = true where user_id = ? AND date = ?";
+
+    public static final String DELETE_DAYS_OFF =
+            "delete from days_off where where user_id = ? AND date = ?";
 }

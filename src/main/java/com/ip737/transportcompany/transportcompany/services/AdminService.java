@@ -5,8 +5,10 @@ import com.ip737.transportcompany.transportcompany.data.entities.Driver;
 import com.ip737.transportcompany.transportcompany.data.entities.Order;
 import com.ip737.transportcompany.transportcompany.data.entities.Vehicle;
 
+import java.util.Date;
 import java.util.List;
 import java.util.Map;
+import java.util.UUID;
 
 public interface AdminService {
 
@@ -25,4 +27,5 @@ public interface AdminService {
 
     List<DayOff> getDaysOff();
 
+    void approveDaysOff(UUID driverId, Date[] dates, String isApproved);
 }
