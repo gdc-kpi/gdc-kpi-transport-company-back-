@@ -76,9 +76,9 @@ public class AuthController {
     }
 
     @PatchMapping("/admin-activate")
-    public ResponseEntity<?> activate(@PathParam("key") String key, @RequestBody ActivateAdminDto password) {
-        activationService.verifyUser(key);
-        userService.activateAdmin(key, password.getPassword());
+    public ResponseEntity<?> activate( @RequestBody ActivateAdminDto password) {
+        activationService.verifyUser(password.getKey());
+        userService.activateAdmin(password.getKey(), password.getPassword());
         return new ResponseEntity<>(HttpStatus.OK);
     }
 

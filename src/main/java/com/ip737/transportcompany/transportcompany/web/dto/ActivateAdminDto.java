@@ -6,5 +6,6 @@ import lombok.Setter;
 @Getter
 @Setter
 public class ActivateAdminDto {
+    private String key;
     private String password;
 }
