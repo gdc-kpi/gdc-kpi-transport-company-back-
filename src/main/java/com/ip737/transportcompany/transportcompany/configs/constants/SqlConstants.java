@@ -4,12 +4,6 @@ public class SqlConstants {
     public static final String GET_DAYS_OFF =
             "SELECT date, is_approved from days_off WHERE user_id = ? ;";
 
-    public static final String IS_DATE_BUSY =
-            "select orders.deadline, orders.car_id, vehicles.user_id from orders JOIN vehicles on orders.car_id=vehicles.plate WHERE user_id= ? AND DATE(deadline)= ? ;";
-
-    public static final String SET_BUSY_DATE =
-            "INSERT INTO days_off VALUES( ? , ? , False)";
-
     public static final String USER_SAVE_QUERY =
             "INSERT INTO users (user_id, fullname, email, role_id, password, is_activated, link, recovery_link) " +
                     "VALUES (?, ?, ?, ?, ?, ?, ?, ?) ;";
@@ -112,7 +106,7 @@ public class SqlConstants {
             "    where vehicles.load_capacity >= ? and vehicles.capacity >= ? and (not days_off.is_approved or days_off.is_approved is null) and orders.deadline = ?\n" +
             "    group by users.user_id, users.fullname, vehicles.plate, days_off.is_approved\n" +
             ") as drivers\n" +
-            "where number_of_orders_per_vehicle <= 3;";
+            "where number_of_orders_per_vehicle <= 6;";
 
     public static final String GET_ORDERS_BY_STATUS_FOR_DRIVER =
             "select order_id, drivers.fullname as driver_name, drivers.user_id as driver, vehicles.plate, admins.fullname as admin_name,  volume, weight, title, description, car_id, admin_id, source[0] as s1, source[1] as s2, destination[0] as d1, destination[1] as d2 , status, deadline from orders\n" +
