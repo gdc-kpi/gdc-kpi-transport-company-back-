@@ -14,9 +14,7 @@ import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.stereotype.Repository;
 
 import java.sql.Date;
-import java.time.LocalDateTime;
-import java.time.ZoneId;
-import java.time.ZoneOffset;
+import java.time.*;
 import java.util.List;
 import java.util.UUID;
 
@@ -72,8 +70,11 @@ public class DriverDao {
     }
     public List<Driver> getDrivers(double weight, double volume, LocalDateTime deadline) {
         try {
+            LocalDateTime todayMidnight = LocalDateTime.of(deadline.toLocalDate(), LocalTime.MIDNIGHT);
+            LocalDateTime tomorrowMidnight = todayMidnight.plusDays(1);
+
             return jdbcTemplate.query(SqlConstants.GET_DRIVERS_LIST,
-                    new Object[]{deadline, deadline, weight, volume},
+                    new Object[]{todayMidnight.toLocalDate(), tomorrowMidnight.toLocalDate(), todayMidnight, tomorrowMidnight, weight, volume},
                     new DriverMapper());
         } catch (EmptyResultDataAccessException exception) {
             return null;
