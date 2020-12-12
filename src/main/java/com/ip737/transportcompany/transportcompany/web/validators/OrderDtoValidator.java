@@ -10,7 +10,7 @@ import java.time.format.DateTimeFormatter;
 public class OrderDtoValidator {
 
     private static final String EMPTY_PROPERTY_EXCEPTION_MESSAGE = "Field parameter '%s' must be provided";
-    private static final String FLOAT_PROPERTY_EXCEPTION_MESSAGE = "Field parameter '%s' msut be greater than zero";
+    private static final String FLOAT_PROPERTY_EXCEPTION_MESSAGE = "Field parameter '%s' must be within -180 and 180";
     private static final String DATE_PROPERTY_EXCEPTION_MESSAGE = "Date parameter '%s' must refer to time in 24 hours at least ";
 
     public static void validate(OrderDto orderDto) throws ValidationException {
@@ -46,7 +46,7 @@ public class OrderDtoValidator {
     }
 
     private static void validateFloat(Double value, String propertyName) {
-        if (value <= 0) {
+        if (value < -180 || value > 180) {
             throw new ValidationException(String.format(FLOAT_PROPERTY_EXCEPTION_MESSAGE, propertyName));
         }
     }
