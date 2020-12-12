@@ -10,6 +10,8 @@ import java.util.UUID;
 
 public interface UserService {
 
+    void activateAdmin(String activationLink, String password);
+
     void save(User user);
 
     void saveAdmin(User newAdmin, String currentAdmin);
@@ -27,6 +29,4 @@ public interface UserService {
     void delete(String email, String password);
 
     List<Pair<Date, String>> setDaysOff(UUID userId, List<Date> days);
-
-    void activateAdmin(String activationLink, String password);
 }

@@ -68,6 +68,12 @@ public class UserServiceImpl implements UserService {
         }
     }
 
+
+    @Override
+    public void activateAdmin(String activationLink, String password) {
+        userDao.activateAdmin(activationLink, password);
+    }
+
     @Override
     public void saveAdmin(User newAdmin, String currentAdmin) {
         if (userDao.getByEmail(newAdmin.getEmail()) != null) {
@@ -133,10 +139,5 @@ public class UserServiceImpl implements UserService {
         for (var date : rejected)
             res.add(Pair.of(date, "date is confirmed"));
         return res;
-    }
-
-    @Override
-    public void activateAdmin(String activationLink, String password) {
-        userDao.activateAdmin(activationLink, password);
     }
 }

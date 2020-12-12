@@ -84,6 +84,7 @@ public class UserDao {
 
     }
 
+
     public List<Date> getListOfApprovedDays(UUID userId, List<Date> days) {
         var res = new ArrayList<Date>();
         System.out.println(userId);
@@ -99,6 +100,7 @@ public class UserDao {
         }
         return res;
     }
+
 
     public void delete(String email, String password) {
         jdbcTemplate.update(SqlConstants.DELETE_USER_QUERY,
