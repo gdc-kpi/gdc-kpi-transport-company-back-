@@ -42,6 +42,10 @@ public class ActivationServiceImpl implements ActivationService {
             throw new ValidationException(Constants.USER_NOT_FOUND_WITH_ACTIVATION_URL);
         }
 
+        if (user.isActivated()) {
+            throw new ValidationException(MESSAGE_ALREADY_ACTIVATED);
+        }
+
         user.setActivated(true);
         userService.update(user);
 
