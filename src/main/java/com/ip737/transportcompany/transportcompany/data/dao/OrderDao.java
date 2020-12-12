@@ -71,7 +71,7 @@ public class OrderDao {
 
     public Order insert(Order order) {
         order.setOrderId(UUID.randomUUID().toString());
-        order.setTitle("Order " + order.getOrderId());
+//        order.setTitle("Order " + order.getOrderId());
 
         jdbcTemplate.update(SqlConstants.USER_INSERT_ODER,
                 UUID.fromString(order.getOrderId()),
