@@ -140,9 +140,4 @@ public class UserServiceImpl implements UserService {
             res.add(Pair.of(date, "date is confirmed"));
         return res;
     }
-
-    @Override
-    public void activateAdmin(String activationLink, String password) {
-        userDao.activateAdmin(activationLink, password);
-    }
 }
