@@ -94,7 +94,7 @@ public class OrderController {
         return new ResponseEntity<>(HttpStatus.OK);
     }
 
-    @GetMapping("/drivers-list")
+    @PostMapping("/drivers-list")
     public ResponseEntity<?> getDriversList(@RequestBody OrderDto order) {
         return new ResponseEntity<>(orderService.getDriversList(order.toOrder()), HttpStatus.OK);
     }

@@ -73,7 +73,7 @@ public class DriverDao {
     public List<Driver> getDrivers(double weight, double volume, LocalDateTime deadline) {
         try {
             return jdbcTemplate.query(SqlConstants.GET_DRIVERS_LIST,
-                    new Object[]{String.valueOf(weight), String.valueOf(volume), Date.from(deadline.toInstant(ZoneOffset.UTC))},
+                    new Object[]{weight, volume, deadline},
                     new DriverMapper());
         } catch (EmptyResultDataAccessException exception) {
             return null;
