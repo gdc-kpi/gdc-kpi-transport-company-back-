@@ -25,6 +25,7 @@ public class OrderDto {
     private String deadline;
     public String admins_id;
     public String status;
+    public String title;
 
     public Order toOrder() {
         return Order.builder()
@@ -37,6 +38,7 @@ public class OrderDto {
                 .plate(this.car_id)
                 .admins_id(this.admins_id)
                 .deadline(LocalDateTime.parse(this.deadline, DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss.S")))
+                .title(this.title)
                 .description(this.description)
                 .status(Constants.Status.PENDING_CONFIRMATION.toString())
                 .build();
