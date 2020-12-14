@@ -134,7 +134,7 @@ public class AdminController {
         return new ResponseEntity<>(profileService.getOrdersFilterByStatus(adminId.toString(), Constants.Status.REJECTED.toString()), HttpStatus.OK);
     }
 
-    @GetMapping("/approve-days-off")
+    @PostMapping("/approve-days-off")
     public ResponseEntity<?> approveDaysOff(@RequestBody DayOffDto daysOff) {
         if (authenticationFacade.isAllowed(Constants.ROLE_ADMIN)) {
             profileService.approveDaysOff(daysOff.getDriverId(), daysOff.getDates(), daysOff.getIsApproved());

@@ -10,7 +10,7 @@ import java.util.UUID;
 @Setter
 
 public class DayOffDto {
-    private UUID driverId;;
+    private UUID driverId;
     private Date[] dates;
     private String isApproved;
 }
