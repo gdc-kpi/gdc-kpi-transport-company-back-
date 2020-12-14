@@ -103,7 +103,7 @@ public class SqlConstants {
             "    inner join vehicles on users.user_id = vehicles.user_id\n" +
             "    left join days_off on users.user_id = days_off.user_id and days_off.date >= ? and days_off.date < ?\n" +
             "    left join orders on vehicles.plate = orders.car_id and orders.deadline >= ? and orders.deadline < ?\n" +
-            "    where vehicles.load_capacity >= ? and vehicles.capacity >= ? and (not days_off.is_approved or days_off.is_approved is null)\n" +
+            "    where vehicles.load_capacity >= ? and vehicles.capacity >= ? and (days_off.is_approved <> 'true' or days_off.is_approved is null)\n" +
             "    group by users.user_id, users.fullname, vehicles.plate, days_off.is_approved\n" +
             ") as drivers\n" +
             "where number_of_orders_per_vehicle <= 3;";
