@@ -168,10 +168,10 @@ public class SqlConstants {
             "select orders.deadline, orders.car_id, vehicles.user_id from orders JOIN vehicles on orders.car_id=vehicles.plate WHERE user_id= ? AND DATE(deadline)= ? ;";
 
     public static final String SET_BUSY_DATE =
-            "INSERT INTO days_off VALUES( ? , ? , False)";
+            "INSERT INTO days_off VALUES( ? , ? , 'null')";
 
     public static final String GET_DRIVERS_DAYS_OFF_FOR_ADMIN_APPROVES =
-            "SELECT users.fullname, days_off.user_id, date FROM days_off LEFT JOIN users ON days_off.user_id = users.user_id WHERE days_off.is_approved=null";
+            "SELECT users.fullname, days_off.user_id, date FROM days_off LEFT JOIN users ON days_off.user_id = users.user_id WHERE days_off.is_approved='null'";
 
     public static final String GET_UNCONFIRMED_ORDER_BY_DEADLINE =
             "SELECT order_id, drivers.fullname AS driver_name, drivers.user_id AS driver, vehicles.plate, admins.fullname AS admin_name,  " +
