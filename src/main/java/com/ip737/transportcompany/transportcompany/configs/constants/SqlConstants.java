@@ -90,7 +90,7 @@ public class SqlConstants {
             "DELETE FROM users WHERE email = ? AND password = ?;";
 
     public static final String GET_DRIVERS_DAY_OFF_FOR_THE_DATE =
-    "select count(1) from days_off where user_id = ? and date = ? and is_approved = true;";
+    "select count(1) from days_off where user_id = ? and date = ? and is_approved = 'true';";
 
 
     public static final String GET_DRIVERS_ORDERS_FOR_THE_DAY =
