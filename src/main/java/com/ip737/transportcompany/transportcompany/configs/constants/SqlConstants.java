@@ -186,6 +186,6 @@ public class SqlConstants {
     public static final String APPROVE_DAYS_OFF =
             "update days_off set is_approved = true where user_id = ? AND date = ?";
 
-    public static final String DELETE_DAYS_OFF =
-            "delete from days_off where user_id = ? AND date = ?";
+    public static final String REJECT_DAYS_OFF =
+            "update days_off set is_approved = false where user_id = ? AND date = ?";
 }

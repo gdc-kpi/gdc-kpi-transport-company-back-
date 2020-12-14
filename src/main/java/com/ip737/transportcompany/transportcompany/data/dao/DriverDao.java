@@ -87,7 +87,7 @@ public class DriverDao {
             if (isApproved.equals("true")) {
                 jdbcTemplate.update(SqlConstants.APPROVE_DAYS_OFF, driverId, date);
             } else {
-                jdbcTemplate.update(SqlConstants.DELETE_DAYS_OFF, driverId, date);
+                jdbcTemplate.update(SqlConstants.REJECT_DAYS_OFF, driverId, date);
             }
         }
     }
