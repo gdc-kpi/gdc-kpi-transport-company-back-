@@ -16,6 +16,7 @@ import org.springframework.stereotype.Repository;
 import java.sql.Date;
 import java.time.*;
 import java.util.List;
+import java.util.Map;
 import java.util.UUID;
 
 @Repository
@@ -60,10 +61,10 @@ public class DriverDao {
         }
     }
 
-    public List<DayOff> getAllDaysOffOfDrivers() {
+    public List<Map<String, Object>> getAllDaysOffOfDrivers() {
         try {
-            return jdbcTemplate.query(SqlConstants.GET_DRIVERS_DAYS_OFF_FOR_ADMIN_APPROVES,
-                    new Object[]{}, new DayOffMapper());
+            return jdbcTemplate.queryForList(SqlConstants.GET_DRIVERS_DAYS_OFF_FOR_ADMIN_APPROVES,
+                    new Object[]{});
         } catch (EmptyResultDataAccessException | NullPointerException e ) {
             return null;
         }

@@ -78,9 +78,9 @@ public class VehicleDao {
         }
     }
 
-    public List<Vehicle> getVehicleFilterByPartOfPlate(String plate) {
+    public List<Map<String, Object>> getVehicleFilterByPartOfPlate(String plate) {
         try {
-            return jdbcTemplate.query(SqlConstants.VEHICLE_GET_FILTERED, new Object[]{ "%" + plate + "%"}, new VehicleMapper());
+            return jdbcTemplate.queryForList(SqlConstants.VEHICLE_GET_FILTERED, "%" + plate + "%");
         } catch (EmptyResultDataAccessException exception) {
             return null;
         }
