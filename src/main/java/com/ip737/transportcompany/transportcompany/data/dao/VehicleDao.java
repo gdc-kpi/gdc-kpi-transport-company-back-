@@ -146,7 +146,7 @@ public class VehicleDao {
         }
     }
 
-    public List<Pair<Boolean, Date>> getDaysOff(UUID driverId) {
+    public List<Pair<String, Date>> getDaysOff(UUID driverId) {
         try {
             return jdbcTemplate.query(SqlConstants.GET_DAYS_OFF, new Object[]{driverId}, new StringDatePairMapper());
         } catch (Exception e) {

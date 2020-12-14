@@ -24,5 +24,5 @@ public interface DriverService {
     List<Order> getOrdersFilterByDriver(String driverId, String status);
     List<Order> getOrdersFilterByDriver(String driverId, String status, String status2);
 
-    List<Pair<Boolean, Date>> getDaysOff(UUID userId);
+    List<Pair<String, Date>> getDaysOff(UUID userId);
 }
