@@ -171,7 +171,7 @@ public class SqlConstants {
             "INSERT INTO days_off VALUES( ? , ? , False)";
 
     public static final String GET_DRIVERS_DAYS_OFF_FOR_ADMIN_APPROVES =
-            "SELECT users.fullname, user_id, date FROM days_off LEFT JOIN users ON days_off.user_id = users.user_id WHERE is_approved = False";
+            "SELECT users.fullname, days_off.user_id, date FROM days_off LEFT JOIN users ON days_off.user_id = users.user_id WHERE days_off.is_approved=null";
 
     public static final String GET_UNCONFIRMED_ORDER_BY_DEADLINE =
             "SELECT order_id, drivers.fullname AS driver_name, drivers.user_id AS driver, vehicles.plate, admins.fullname AS admin_name,  " +
