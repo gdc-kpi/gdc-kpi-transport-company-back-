@@ -47,7 +47,7 @@ public class AdminServiceImpl implements AdminService {
     }
 
     @Override
-    public List<Vehicle> getVehicleFilterByPartOfPlate(String plate) {
+    public List<Map<String, Object>> getVehicleFilterByPartOfPlate(String plate) {
         return vehicleDao.getVehicleFilterByPartOfPlate(plate);
     }
 
@@ -67,7 +67,7 @@ public class AdminServiceImpl implements AdminService {
     }
 
     @Override
-    public List<DayOff> getDaysOff(){
+    public List<Map<String, Object>> getDaysOff(){
         return driverDao.getAllDaysOffOfDrivers();
     }
 
