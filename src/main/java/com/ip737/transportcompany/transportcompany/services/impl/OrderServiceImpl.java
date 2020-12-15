@@ -138,7 +138,7 @@ public class OrderServiceImpl implements OrderService {
 
             }
             orderDao.assignDriver(orderId, vehicle.getPlate());
-            changeStatus(orderId, "PENDING_CONFIRMATION", driverId);
+            setNewStatus(order, "PENDING_CONFIRMATION");
         }
     }
     @Override
