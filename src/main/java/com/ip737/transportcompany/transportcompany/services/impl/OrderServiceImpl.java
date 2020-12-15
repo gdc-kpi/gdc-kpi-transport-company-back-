@@ -129,7 +129,7 @@ public class OrderServiceImpl implements OrderService {
         Order order = orderDao.getOrder(orderId);
         if(order == null ) {
             throw new ValidationException(String.format(Constants.CAR_NOT_FOUND_WITH_PLATE, orderId));
-        } else if(! order.getStatus().equals(Constants.Status.PENDING_CONFIRMATION.toString())){
+        } else if(! order.getStatus().equals(Constants.Status.REJECTED.toString())){
             throw new ValidationException("The order with id " + orderId + " cannot be changed as status is " + order.getStatus());
         } else {
            Vehicle vehicle = vehicleDao.getByOwnerId(UUID.fromString(driverId));
